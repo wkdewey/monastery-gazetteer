@@ -17,6 +17,6 @@ function renderMonastery(json) {
   console.log(json);
 }
 document.addEventListener("DOMContentLoaded", function () {
-  fetchMonasteries();
-  fetchMonastery(1);
+  button = document.querySelector("#monasteries_index");
+  button.addEventListener("click", fetchMonasteries);
 });
