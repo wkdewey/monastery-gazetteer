@@ -50,17 +50,21 @@ function renderMonasteries(data) {
   }
 }
 function renderMonastery(data) {
+  monastery = new Monastery(
+    data["attributes"]["name"],
+    data["attributes"]["location"],
+    data["attributes"]["religious_tradition"]
+  );
   const contentContainer = document.querySelector("#content-container");
   contentContainer.textContent = "";
   const h2 = document.createElement("h2");
-  h2.textContent = data["attributes"]["name"];
+  h2.textContent = monastery.name;
   contentContainer.appendChild(h2);
   const location = document.createElement("p");
-  location.textContent = "Location: " + data["attributes"]["location"];
+  location.textContent = "Location: " + monastery.location;
   contentContainer.appendChild(location);
   const tradition = document.createElement("p");
-  tradition.textContent =
-    "Tradition: " + data["attributes"]["religious_tradition"];
+  tradition.textContent = "Tradition: " + monastery.religious_tradition;
   contentContainer.appendChild(tradition);
 }
 document.addEventListener("DOMContentLoaded", function () {
