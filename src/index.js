@@ -21,9 +21,13 @@ function renderMonasteries(data) {
     const h2 = document.createElement("h2");
     h2.textContent = data[key]["attributes"]["name"];
     div.appendChild(h2);
-    const p = document.createElement("p");
-    p.textContent = "Location: " + data[key]["attributes"]["location"];
-    div.appendChild(p);
+    const location = document.createElement("p");
+    location.textContent = "Location: " + data[key]["attributes"]["location"];
+    div.appendChild(location);
+    const tradition = document.createElement("p");
+    tradition.textContent =
+      "Tradition: " + data[key]["attributes"]["religious_tradition"];
+    div.appendChild(tradition);
   }
 }
 function renderMonastery(json) {
