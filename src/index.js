@@ -13,7 +13,12 @@ function fetchMonastery(id) {
 }
 
 function renderMonasteries(data) {
-  console.log(data);
+  const contentContainer = document.querySelector("#content-container");
+  for (const key in data) {
+    const div = document.createElement("div");
+    div.classList.add("monastery-card");
+    contentContainer.appendChild(div);
+  }
 }
 function renderMonastery(json) {
   console.log(json);
