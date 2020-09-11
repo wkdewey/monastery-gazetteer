@@ -23,24 +23,29 @@ function fetchMonastery(id) {
 function renderMonasteries(data) {
   const contentContainer = document.querySelector("#content-container");
   for (const key in data) {
+    monastery = new Monastery(
+      data[key]["attributes"]["name"],
+      data[key]["attributes"]["location"],
+      data[key]["attributes"]["religious_tradition"]
+    );
     const div = document.createElement("div");
     div.classList.add("monastery-card");
     contentContainer.appendChild(div);
     const h2 = document.createElement("h2");
     const link = document.createElement("a");
     link.href = "#";
-    link.textContent = data[key]["attributes"]["name"];
+    link.textContent = monastery.name;
     link.addEventListener("click", function () {
       fetchMonastery(parseInt(key) + 1);
     });
     h2.appendChild(link);
     div.appendChild(h2);
     const location = document.createElement("p");
-    location.textContent = "Location: " + data[key]["attributes"]["location"];
+    location.textContent = "Location: " + monastery.location;
     div.appendChild(location);
     const tradition = document.createElement("p");
     tradition.textContent =
-      "Tradition: " + data[key]["attributes"]["religious_tradition"];
+      "Religious tradition: " + monastery.religious_tradition;
     div.appendChild(tradition);
   }
 }
