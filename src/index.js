@@ -18,6 +18,12 @@ function renderMonasteries(data) {
     const div = document.createElement("div");
     div.classList.add("monastery-card");
     contentContainer.appendChild(div);
+    const h2 = document.createElement("h2");
+    h2.textContent = data[key]["attributes"]["name"];
+    div.appendChild(h2);
+    const p = document.createElement("p");
+    p.textContent = "Location: " + data[key]["attributes"]["location"];
+    div.appendChild(p);
   }
 }
 function renderMonastery(json) {
