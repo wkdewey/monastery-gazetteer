@@ -37,7 +37,18 @@ function renderMonasteries(data) {
   }
 }
 function renderMonastery(data) {
-  console.log(data);
+  const contentContainer = document.querySelector("#content-container");
+  contentContainer.textContent = "";
+  const h2 = document.createElement("h2");
+  h2.textContent = data["attributes"]["name"];
+  contentContainer.appendChild(h2);
+  const location = document.createElement("p");
+  location.textContent = "Location: " + data["attributes"]["location"];
+  contentContainer.appendChild(location);
+  const tradition = document.createElement("p");
+  tradition.textContent =
+    "Tradition: " + data["attributes"]["religious_tradition"];
+  contentContainer.appendChild(tradition);
 }
 document.addEventListener("DOMContentLoaded", function () {
   button = document.querySelector("#monasteries_index");
