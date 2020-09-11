@@ -19,7 +19,13 @@ function renderMonasteries(data) {
     div.classList.add("monastery-card");
     contentContainer.appendChild(div);
     const h2 = document.createElement("h2");
-    h2.textContent = data[key]["attributes"]["name"];
+    const link = document.createElement("a");
+    link.href = "#";
+    link.textContent = data[key]["attributes"]["name"];
+    link.addEventListener("click", function () {
+      fetchMonastery(parseInt(key) + 1);
+    });
+    h2.appendChild(link);
     div.appendChild(h2);
     const location = document.createElement("p");
     location.textContent = "Location: " + data[key]["attributes"]["location"];
@@ -30,8 +36,8 @@ function renderMonasteries(data) {
     div.appendChild(tradition);
   }
 }
-function renderMonastery(json) {
-  console.log(json);
+function renderMonastery(data) {
+  console.log(data);
 }
 document.addEventListener("DOMContentLoaded", function () {
   button = document.querySelector("#monasteries_index");
