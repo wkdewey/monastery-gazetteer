@@ -1,10 +1,18 @@
 const BACKEND_URL = "http://localhost:3000";
+class Monastery {
+  constructor(name, location, religious_tradition) {
+    this.name = name;
+    this.location = location;
+    this.religious_tradition = religious_tradition;
+  }
+}
 function fetchMonasteries() {
   return fetch(`${BACKEND_URL}/api/v1/monasteries`)
     .then((response) => response.json())
     .then((json) => json["data"])
     .then((data) => renderMonasteries(data));
 }
+//The below function may be redundant, consider refactoring after other parts of
 function fetchMonastery(id) {
   return fetch(`${BACKEND_URL}/api/v1/monasteries/${id}`)
     .then((response) => response.json())
