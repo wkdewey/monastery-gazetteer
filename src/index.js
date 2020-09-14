@@ -22,6 +22,17 @@ class Figure {
     this.name = name;
     this.lifespan = lifespan;
     this.religious_tradition = religious_tradition;
+    this.monasteries = [];
+    if (monasteries) {
+      for (const monastery of monasteries) {
+        const monasteryObject = new Monastery(
+          monastery["name"],
+          monastery["lifespan"],
+          monastery["religious_tradition"]
+        );
+        this.monasteries.push(monasteryObject);
+      }
+    }
   }
 }
 function fetchMonasteries() {
@@ -120,7 +131,8 @@ function renderFigure(data) {
   figure = new Figure(
     data["attributes"]["name"],
     data["attributes"]["lifespan"],
-    data["attributes"]["religious_tradition"]
+    data["attributes"]["religious_tradition"],
+    data["attributes"]["monasteries"]
   );
   const contentContainer = document.querySelector("#content-container");
   contentContainer.textContent = "";
