@@ -1,16 +1,38 @@
 const BACKEND_URL = "http://localhost:3000";
 class Monastery {
-  constructor(name, location, religious_tradition) {
+  constructor(name, location, religious_tradition, figures) {
     this.name = name;
     this.location = location;
     this.religious_tradition = religious_tradition;
+    this.figures = [];
+    if (figures) {
+      for (const figure of figures) {
+        const figureObject = new Figure(
+          figure["name"],
+          figure["lifespan"],
+          figure["religious_tradition"]
+        );
+        this.figures.push(figureObject);
+      }
+    }
   }
 }
 class Figure {
-  constructor(name, lifespan, religious_tradition) {
+  constructor(name, lifespan, religious_tradition, monasteries) {
     this.name = name;
     this.lifespan = lifespan;
     this.religious_tradition = religious_tradition;
+    this.monasteries = [];
+    if (monasteries) {
+      for (const monastery of monasteries) {
+        const monasteryObject = new Monastery(
+          monastery["name"],
+          monastery["location"],
+          monastery["religious_tradition"]
+        );
+        this.monasteries.push(monasteryObject);
+      }
+    }
   }
 }
 function fetchMonasteries() {
@@ -75,38 +97,69 @@ function renderMonastery(data) {
   monastery = new Monastery(
     data["attributes"]["name"],
     data["attributes"]["location"],
-    data["attributes"]["religious_tradition"]
+    data["attributes"]["religious_tradition"],
+    data["attributes"]["figures"]
   );
   const contentContainer = document.querySelector("#content-container");
   contentContainer.textContent = "";
-  const h2 = document.createElement("h2");
-  h2.textContent = monastery.name;
-  contentContainer.appendChild(h2);
-  const location = document.createElement("p");
+  let name = document.createElement("h2");
+  name.textContent = monastery.name;
+  contentContainer.appendChild(name);
+  let location = document.createElement("p");
   location.textContent = "Location: " + monastery.location;
   contentContainer.appendChild(location);
-  const tradition = document.createElement("p");
+  let tradition = document.createElement("p");
   tradition.textContent = "Tradition: " + monastery.religious_tradition;
   contentContainer.appendChild(tradition);
+  let figures = document.createElement("h3");
+  figures.textContent = "Associated Figures";
+  contentContainer.appendChild(figures);
+  for (const figure of monastery.figures) {
+    let figureName = document.createElement("h4");
+    figureName.textContent = figure.name;
+    contentContainer.appendChild(figureName);
+    let figureLocation = document.createElement("p");
+    figureLocation.textContent = "Lifespan: " + figure.lifespan;
+    contentContainer.appendChild(figureLocation);
+    let figureTradition = document.createElement("p");
+    figureTradition.textContent = "Tradition: " + figure.religious_tradition;
+    contentContainer.appendChild(figureTradition);
+  }
 }
 
 function renderFigure(data) {
   figure = new Figure(
     data["attributes"]["name"],
     data["attributes"]["lifespan"],
-    data["attributes"]["religious_tradition"]
+    data["attributes"]["religious_tradition"],
+    data["attributes"]["monasteries"]
   );
   const contentContainer = document.querySelector("#content-container");
   contentContainer.textContent = "";
-  const h2 = document.createElement("h2");
-  h2.textContent = figure.name;
-  contentContainer.appendChild(h2);
-  const location = document.createElement("p");
+  let name = document.createElement("h2");
+  name.textContent = figure.name;
+  contentContainer.appendChild(name);
+  let location = document.createElement("p");
   location.textContent = "Lifespan: " + figure.lifespan;
   contentContainer.appendChild(location);
-  const tradition = document.createElement("p");
+  let tradition = document.createElement("p");
   tradition.textContent = "Tradition: " + figure.religious_tradition;
   contentContainer.appendChild(tradition);
+  let monasteries = document.createElement("h3");
+  monasteries.textContent = "Associated Monasteries";
+  contentContainer.appendChild(monasteries);
+  for (const monastery of figure.monasteries) {
+    let monasteryName = document.createElement("h4");
+    monasteryName.textContent = monastery.name;
+    contentContainer.appendChild(monasteryName);
+    let monasteryLocation = document.createElement("p");
+    monasteryLocation.textContent = "Location: " + monastery.location;
+    contentContainer.appendChild(monasteryLocation);
+    let monasteryTradition = document.createElement("p");
+    monasteryTradition.textContent =
+      "Tradition: " + monastery.religious_tradition;
+    contentContainer.appendChild(monasteryTradition);
+  }
 }
 function renderFigures(data) {
   const contentContainer = document.querySelector("#content-container");
@@ -136,7 +189,6 @@ function renderFigures(data) {
     tradition.textContent =
       "Religious tradition: " + figure.religious_tradition;
     div.appendChild(tradition);
-    debugger;
   }
 }
 document.addEventListener("DOMContentLoaded", function () {
