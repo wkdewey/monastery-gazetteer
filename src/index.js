@@ -151,7 +151,7 @@ function renderFigures(data) {
     link.href = "#";
     link.textContent = figure.name;
     link.addEventListener("click", function () {
-      fetchMonastery(parseInt(key) + 1);
+      fetchFigure(parseInt(key) + 1);
     });
     h2.appendChild(link);
     div.appendChild(h2);
