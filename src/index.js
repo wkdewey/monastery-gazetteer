@@ -43,6 +43,7 @@ function fetchFigure(id) {
 
 function renderMonasteries(data) {
   const contentContainer = document.querySelector("#content-container");
+  contentContainer.textContent = "";
   for (const key in data) {
     monastery = new Monastery(
       data[key]["attributes"]["name"],
@@ -88,35 +89,7 @@ function renderMonastery(data) {
   tradition.textContent = "Tradition: " + monastery.religious_tradition;
   contentContainer.appendChild(tradition);
 }
-function renderMonasteries(data) {
-  const contentContainer = document.querySelector("#content-container");
-  for (const key in data) {
-    monastery = new Monastery(
-      data[key]["attributes"]["name"],
-      data[key]["attributes"]["location"],
-      data[key]["attributes"]["religious_tradition"]
-    );
-    const div = document.createElement("div");
-    div.classList.add("monastery-card");
-    contentContainer.appendChild(div);
-    const h2 = document.createElement("h2");
-    const link = document.createElement("a");
-    link.href = "#";
-    link.textContent = monastery.name;
-    link.addEventListener("click", function () {
-      fetchMonastery(parseInt(key) + 1);
-    });
-    h2.appendChild(link);
-    div.appendChild(h2);
-    const location = document.createElement("p");
-    location.textContent = "Location: " + monastery.location;
-    div.appendChild(location);
-    const tradition = document.createElement("p");
-    tradition.textContent =
-      "Religious tradition: " + monastery.religious_tradition;
-    div.appendChild(tradition);
-  }
-}
+
 function renderFigure(data) {
   figure = new Figure(
     data["attributes"]["name"],
@@ -137,6 +110,7 @@ function renderFigure(data) {
 }
 function renderFigures(data) {
   const contentContainer = document.querySelector("#content-container");
+  contentContainer.textContent = "";
   for (const key in data) {
     figure = new Figure(
       data[key]["attributes"]["name"],
@@ -162,6 +136,7 @@ function renderFigures(data) {
     tradition.textContent =
       "Religious tradition: " + figure.religious_tradition;
     div.appendChild(tradition);
+    debugger;
   }
 }
 document.addEventListener("DOMContentLoaded", function () {
