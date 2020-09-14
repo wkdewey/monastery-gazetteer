@@ -91,15 +91,29 @@ function renderMonastery(data) {
   );
   const contentContainer = document.querySelector("#content-container");
   contentContainer.textContent = "";
-  const h2 = document.createElement("h2");
-  h2.textContent = monastery.name;
+  let name = document.createElement("h2");
+  name.textContent = monastery.name;
   contentContainer.appendChild(h2);
-  const location = document.createElement("p");
+  let location = document.createElement("p");
   location.textContent = "Location: " + monastery.location;
   contentContainer.appendChild(location);
-  const tradition = document.createElement("p");
+  let tradition = document.createElement("p");
   tradition.textContent = "Tradition: " + monastery.religious_tradition;
   contentContainer.appendChild(tradition);
+  let figures = document.createElement("h3");
+  figures.textContent = "Associated Figures";
+  contentContainer.appendChild(figures);
+  for (const figure of monastery.figures) {
+    let figureName = document.createElement("h4");
+    figureName.textContent = figure.name;
+    contentContainer.appendChild(figureName);
+    let figureLocation = document.createElement("p");
+    figureLocation.textContent = "Lifespan: " + figure.lifespan;
+    contentContainer.appendChild(figureLocation);
+    let figureTradition = document.createElement("p");
+    figureTradition.textContent = "Tradition: " + figure.religious_tradition;
+    contentContainer.appendChild(figureTradition);
+  }
 }
 
 function renderFigure(data) {
