@@ -1,9 +1,20 @@
 const BACKEND_URL = "http://localhost:3000";
 class Monastery {
-  constructor(name, location, religious_tradition) {
+  constructor(name, location, religious_tradition, figures) {
     this.name = name;
     this.location = location;
     this.religious_tradition = religious_tradition;
+    this.figures = [];
+    if (figures) {
+      for (const figure of figures) {
+        const figureObject = new Figure(
+          figure["name"],
+          figure["lifespan"],
+          figure["religious_tradition"]
+        );
+        this.figures.push(figureObject);
+      }
+    }
   }
 }
 class Figure {
@@ -75,7 +86,8 @@ function renderMonastery(data) {
   monastery = new Monastery(
     data["attributes"]["name"],
     data["attributes"]["location"],
-    data["attributes"]["religious_tradition"]
+    data["attributes"]["religious_tradition"],
+    data["attributes"]["figures"]
   );
   const contentContainer = document.querySelector("#content-container");
   contentContainer.textContent = "";
