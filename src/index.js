@@ -77,6 +77,8 @@ function fetchFigure(id) {
     .then((data) => renderFigure(data));
 }
 
+function
+
 function renderMonasteries(data) {
   const contentContainer = document.querySelector("#content-container");
   contentContainer.textContent = "";
@@ -217,7 +219,7 @@ async function showMonasteryForm() {
   contentContainer.appendChild(form);
   form.id = "create-monastery-form";
   const inputName = document.createElement("input");
-  inputName.id = "input-title";
+  inputName.id = "input-name";
   inputName.type = "text";
   inputName.name = "name";
   inputName.value = "";
@@ -264,7 +266,25 @@ async function showMonasteryForm() {
   submit.name = "submit";
   submit.value = "Create New Monastery";
   form.appendChild(submit);
+  form.addEventListener("submit", (e) => createMonasteryFormHandler(e));
 }
+function createMonasteryFormHandler(e) {
+  e.preventDefault();
+  const nameInput = document.querySelector("#input-name").value;
+  const locationInput = document.querySelector("#input-location").value;
+  const religiousTraditionInput = document.querySelector(
+    "#input-religious-tradition"
+  ).value;
+  const figureIds = [];
+  debugger;
+  postMonasteries(nameInput, locationInput, religiousTraditionInput, figureIds);
+}
+function postMonasteries(
+  nameInput,
+  locationInput,
+  religiousTraditionInput,
+  figureIds
+) {}
 document.addEventListener("DOMContentLoaded", function () {
   let monasteryButton = document.querySelector("#monasteries_index");
   monasteryButton.addEventListener("click", fetchMonasteries);
@@ -272,8 +292,4 @@ document.addEventListener("DOMContentLoaded", function () {
   figureButton.addEventListener("click", fetchFigures);
   let monasteryCreateButton = document.querySelector("#monasteries_create");
   monasteryCreateButton.addEventListener("click", showMonasteryForm);
-  let createMonasteryForm = document.querySelector("#create-monastery-form");
-  createMonasteryForm.addEventListener("submit", (e) =>
-    createMonasteryFormHandler(e)
-  );
 });
