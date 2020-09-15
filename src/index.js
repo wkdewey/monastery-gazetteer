@@ -193,7 +193,17 @@ function renderFigures(data) {
 }
 
 function showMonasteryForm() {
-  console.log("clicked");
+  const form = document.createElement("form");
+  const contentContainer = document.querySelector("#content-container");
+  contentContainer.textContent = "";
+  contentContainer.appendChild(form);
+  const inputName = document.createElement("input");
+  inputName.id = "input-title";
+  inputName.type = "text";
+  inputName.name = "name";
+  inputName.value = "";
+  inputName.placeholder = "Enter name of the monastery";
+  form.appendChild(inputName);
 }
 document.addEventListener("DOMContentLoaded", function () {
   monastery_button = document.querySelector("#monasteries_index");
