@@ -191,9 +191,15 @@ function renderFigures(data) {
     div.appendChild(tradition);
   }
 }
+
+function showMonasteryForm() {
+  console.log("clicked");
+}
 document.addEventListener("DOMContentLoaded", function () {
   monastery_button = document.querySelector("#monasteries_index");
   monastery_button.addEventListener("click", fetchMonasteries);
   figure_button = document.querySelector("#figures_index");
   figure_button.addEventListener("click", fetchFigures);
+  monastery_create_button = document.querySelector("#monasteries_create");
+  monastery_create_button.addEventListener("click", showMonasteryForm);
 });
