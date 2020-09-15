@@ -199,6 +199,7 @@ function showMonasteryForm() {
   const br = document.createElement("br");
   const contentContainer = document.querySelector("#content-container");
   contentContainer.textContent = "";
+  contentContainer.appendChild(h2);
   contentContainer.appendChild(form);
   const inputName = document.createElement("input");
   inputName.id = "input-title";
