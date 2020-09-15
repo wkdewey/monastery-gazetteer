@@ -41,12 +41,26 @@ function fetchMonasteries() {
     .then((json) => json["data"])
     .then((data) => renderMonasteries(data));
 }
+function getAllMonasteries() {
+  return fetch(`${BACKEND_URL}/api/v1/monasteries`)
+    .then((response) => response.json())
+    .then((json) => {
+      return json["data"];
+    });
+}
 //The below function may be redundant, consider refactoring after other parts of
 function fetchMonastery(id) {
   return fetch(`${BACKEND_URL}/api/v1/monasteries/${id}`)
     .then((response) => response.json())
     .then((json) => json["data"])
     .then((data) => renderMonastery(data));
+}
+function getAllFigures() {
+  return fetch(`${BACKEND_URL}/api/v1/figures`)
+    .then((response) => response.json())
+    .then((json) => {
+      return json["data"];
+    });
 }
 
 function fetchFigures() {
@@ -192,7 +206,7 @@ function renderFigures(data) {
   }
 }
 
-function showMonasteryForm() {
+async function showMonasteryForm() {
   const h2 = document.createElement("h2");
   h2.textContent = "New Monastery";
   const form = document.createElement("form");
@@ -225,6 +239,30 @@ function showMonasteryForm() {
   inputTradition.placeholder = "Enter religious tradition";
   form.appendChild(inputTradition);
   form.appendChild(br.cloneNode());
+  //get all figures, iterate through them, put their name and id
+  //means I need a function that just returns all the figures
+  const h3 = document.createElement("h3");
+  h3.textContent = "Choose Associated Figures";
+  const figures = await getAllFigures();
+  for (const figure of figures) {
+    const option = document.createElement("input");
+    option.type = "checkbox";
+    option.id = "input-figure-" + figure.id;
+    option.name = "figure-" + figure.id;
+    option.value = figure.id;
+    const label = document.createElement("label");
+    label.for = option.id;
+    label.textContent = figure.attributes.name;
+    form.appendChild(option);
+    form.appendChild(label);
+    form.appendChild(br.cloneNode());
+  }
+  const submit = document.createElement("input");
+  submit.id = "create-button";
+  submit.type = "submit";
+  submit.name = "submit";
+  submit.value = "Create New Monastery";
+  form.appendChild(submit);
 }
 document.addEventListener("DOMContentLoaded", function () {
   monastery_button = document.querySelector("#monasteries_index");
