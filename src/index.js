@@ -212,10 +212,18 @@ function showMonasteryForm() {
   const inputLocation = document.createElement("input");
   inputLocation.id = "input-location";
   inputLocation.type = "text";
-  inputLocation.name = "name";
+  inputLocation.name = "location";
   inputLocation.value = "";
   inputLocation.placeholder = "Enter location";
   form.appendChild(inputLocation);
+  form.appendChild(br.cloneNode());
+  const inputTradition = document.createElement("input");
+  inputTradition.id = "input-religious-tradition";
+  inputTradition.type = "text";
+  inputTradition.name = "religious-tradition";
+  inputTradition.value = "";
+  inputTradition.placeholder = "Enter religious tradition";
+  form.appendChild(inputTradition);
   form.appendChild(br.cloneNode());
 }
 document.addEventListener("DOMContentLoaded", function () {
