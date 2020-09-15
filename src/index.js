@@ -215,6 +215,7 @@ async function showMonasteryForm() {
   contentContainer.textContent = "";
   contentContainer.appendChild(h2);
   contentContainer.appendChild(form);
+  form.id = "create-monastery-form";
   const inputName = document.createElement("input");
   inputName.id = "input-title";
   inputName.type = "text";
@@ -265,10 +266,14 @@ async function showMonasteryForm() {
   form.appendChild(submit);
 }
 document.addEventListener("DOMContentLoaded", function () {
-  monastery_button = document.querySelector("#monasteries_index");
-  monastery_button.addEventListener("click", fetchMonasteries);
-  figure_button = document.querySelector("#figures_index");
-  figure_button.addEventListener("click", fetchFigures);
-  monastery_create_button = document.querySelector("#monasteries_create");
-  monastery_create_button.addEventListener("click", showMonasteryForm);
+  let monasteryButton = document.querySelector("#monasteries_index");
+  monasteryButton.addEventListener("click", fetchMonasteries);
+  let figureButton = document.querySelector("#figures_index");
+  figureButton.addEventListener("click", fetchFigures);
+  let monasteryCreateButton = document.querySelector("#monasteries_create");
+  monasteryCreateButton.addEventListener("click", showMonasteryForm);
+  let createMonasteryForm = document.querySelector("#create-monastery-form");
+  createMonasteryForm.addEventListener("submit", (e) =>
+    createMonasteryFormHandler(e)
+  );
 });
