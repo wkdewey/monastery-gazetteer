@@ -193,7 +193,10 @@ function renderFigures(data) {
 }
 
 function showMonasteryForm() {
+  const h2 = document.createElement("h2");
+  h2.textContent = "New Monastery";
   const form = document.createElement("form");
+  const br = document.createElement("br");
   const contentContainer = document.querySelector("#content-container");
   contentContainer.textContent = "";
   contentContainer.appendChild(form);
@@ -202,8 +205,17 @@ function showMonasteryForm() {
   inputName.type = "text";
   inputName.name = "name";
   inputName.value = "";
-  inputName.placeholder = "Enter name of the monastery";
+  inputName.placeholder = "Enter monastery name";
   form.appendChild(inputName);
+  form.appendChild(br);
+  const inputLocation = document.createElement("input");
+  inputLocation.id = "input-location";
+  inputLocation.type = "text";
+  inputLocation.name = "name";
+  inputLocation.value = "";
+  inputLocation.placeholder = "Enter location";
+  form.appendChild(inputLocation);
+  form.appendChild(br.cloneNode());
 }
 document.addEventListener("DOMContentLoaded", function () {
   monastery_button = document.querySelector("#monasteries_index");
