@@ -77,8 +77,6 @@ function fetchFigure(id) {
     .then((data) => renderFigure(data));
 }
 
-function
-
 function renderMonasteries(data) {
   const contentContainer = document.querySelector("#content-container");
   contentContainer.textContent = "";
@@ -251,7 +249,7 @@ async function showMonasteryForm() {
     const option = document.createElement("input");
     option.type = "checkbox";
     option.id = "input-figure-" + figure.id;
-    option.name = "figure-" + figure.id;
+    option.name = "figure";
     option.value = figure.id;
     const label = document.createElement("label");
     label.for = option.id;
@@ -275,7 +273,11 @@ function createMonasteryFormHandler(e) {
   const religiousTraditionInput = document.querySelector(
     "#input-religious-tradition"
   ).value;
-  const figureIds = [];
+  const checkboxes = document.getElementsByName("figure");
+  const figureIds = Array.prototype.slice
+    .call(checkboxes)
+    .filter((ch) => ch.checked == true)
+    .map((ch) => ch.value);
   debugger;
   postMonasteries(nameInput, locationInput, religiousTraditionInput, figureIds);
 }
