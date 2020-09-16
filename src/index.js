@@ -325,11 +325,11 @@ async function showFigureForm() {
   form.appendChild(br);
   const inputLifespan = document.createElement("input");
   inputLifespan.id = "input-lifespan";
-  inputLocation.type = "text";
-  inputLocation.name = "lifespan";
-  inputLocation.value = "";
-  inputLocation.placeholder = "Enter lifespan";
-  form.appendChild(inputLocation);
+  inputLifespan.type = "text";
+  inputLifespan.name = "lifespan";
+  inputLifespan.value = "";
+  inputLifespan.placeholder = "Enter lifespan";
+  form.appendChild(inputLifespan);
   form.appendChild(br.cloneNode());
   const inputTradition = document.createElement("input");
   inputTradition.id = "input-religious-tradition";
@@ -345,7 +345,7 @@ async function showFigureForm() {
   for (const monastery of monasteries) {
     const option = document.createElement("input");
     option.type = "checkbox";
-    option.id = "input-monastery-" + figure.id;
+    option.id = "input-monastery-" + monastery.id;
     option.name = "figure";
     option.value = monastery.id;
     const label = document.createElement("label");
