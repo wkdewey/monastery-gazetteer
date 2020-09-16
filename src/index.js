@@ -312,4 +312,6 @@ document.addEventListener("DOMContentLoaded", function () {
   figureButton.addEventListener("click", fetchFigures);
   let monasteryCreateButton = document.querySelector("#monasteries_create");
   monasteryCreateButton.addEventListener("click", showMonasteryForm);
+  let figureCreateButton = document.querySelector("#figures_create");
+  figureCreateButton.addEventListener("click", showFigureForm);
 });
