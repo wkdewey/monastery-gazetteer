@@ -246,6 +246,7 @@ async function showMonasteryForm() {
   //means I need a function that just returns all the figures
   const h3 = document.createElement("h3");
   h3.textContent = "Choose Associated Figures";
+  form.appendChild(h3);
   const figures = await getAllFigures();
   for (const figure of figures) {
     const option = document.createElement("input");
@@ -341,6 +342,7 @@ async function showFigureForm() {
   form.appendChild(br.cloneNode());
   const h3 = document.createElement("h3");
   h3.textContent = "Choose Associated Monasteries";
+  form.appendChild(h3);
   const monasteries = await getAllMonasteries();
   for (const monastery of monasteries) {
     const option = document.createElement("input");
