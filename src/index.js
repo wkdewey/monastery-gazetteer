@@ -288,7 +288,6 @@ function postMonasteries(
   religiousTraditionInput,
   figureIds
 ) {
-  console.log(nameInput, locationInput, religiousTraditionInput, figureIds);
   let bodyData = {
     name: nameInput,
     location: locationInput,
@@ -303,6 +302,7 @@ function postMonasteries(
     .then((response) => response.json())
     .then((monastery) => {
       console.log(monastery);
+      renderMonastery(monastery.data);
     });
 }
 document.addEventListener("DOMContentLoaded", function () {
