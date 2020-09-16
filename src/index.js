@@ -1,6 +1,6 @@
 const BACKEND_URL = "http://localhost:3000";
 const MONASTERIES_URL = `${BACKEND_URL}/api/v1/monasteries`;
-const FIGURES_URL = `${BACKEND_URL}/api/v1/monasteries`;
+const FIGURES_URL = `${BACKEND_URL}/api/v1/figures`;
 class Monastery {
   constructor(name, location, religious_tradition, figures) {
     this.name = name;
@@ -378,6 +378,29 @@ function createFigureFormHandler(e) {
     .filter((ch) => ch.checked == true)
     .map((ch) => parseInt(ch.value));
   postFigures(nameInput, lifespanInput, religiousTraditionInput, monasteryIds);
+}
+function postFigures(
+  nameInput,
+  lifespanInput,
+  religiousTraditionInput,
+  monasteryIds
+) {
+  let bodyData = {
+    name: nameInput,
+    lifespan: lifespanInput,
+    religious_tradition: religiousTraditionInput,
+    monastery_ids: monasteryIds,
+  };
+  fetch(FIGURES_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(bodyData),
+  })
+    .then((response) => response.json())
+    .then((figure) => {
+      console.log(figure);
+      renderFigure(figure.data);
+    });
 }
 document.addEventListener("DOMContentLoaded", function () {
   let monasteryButton = document.querySelector("#monasteries_index");
