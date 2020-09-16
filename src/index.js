@@ -1,4 +1,6 @@
 const BACKEND_URL = "http://localhost:3000";
+const MONASTERIES_URL = `${BACKEND_URL}/api/v1/monasteries`;
+const FIGURES_URL = `${BACKEND_URL}/api/v1/monasteries`;
 class Monastery {
   constructor(name, location, religious_tradition, figures) {
     this.name = name;
@@ -277,8 +279,7 @@ function createMonasteryFormHandler(e) {
   const figureIds = Array.prototype.slice
     .call(checkboxes)
     .filter((ch) => ch.checked == true)
-    .map((ch) => ch.value);
-  debugger;
+    .map((ch) => parseInt(ch.value));
   postMonasteries(nameInput, locationInput, religiousTraditionInput, figureIds);
 }
 function postMonasteries(
@@ -286,7 +287,24 @@ function postMonasteries(
   locationInput,
   religiousTraditionInput,
   figureIds
-) {}
+) {
+  console.log(nameInput, locationInput, religiousTraditionInput, figureIds);
+  let bodyData = {
+    nameInput,
+    locationInput,
+    religiousTraditionInput,
+    figureIds,
+  };
+  fetch(MONASTERIES_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(bodyData),
+  })
+    .then((response) => response.json())
+    .then((monastery) => {
+      console.log(monastery);
+    });
+}
 document.addEventListener("DOMContentLoaded", function () {
   let monasteryButton = document.querySelector("#monasteries_index");
   monasteryButton.addEventListener("click", fetchMonasteries);
