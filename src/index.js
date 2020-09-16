@@ -365,7 +365,20 @@ async function showFigureForm() {
   form.appendChild(submit);
   form.addEventListener("submit", (e) => createFigureFormHandler(e));
 }
-
+function createFigureFormHandler(e) {
+  e.preventDefault();
+  const nameInput = document.querySelector("#input-name").value;
+  const lifespanInput = document.querySelector("#input-lifespan").value;
+  const religiousTraditionInput = document.querySelector(
+    "#input-religious-tradition"
+  ).value;
+  const checkboxes = document.getElementsByName("monastery");
+  const monasteryIds = Array.prototype.slice
+    .call(checkboxes)
+    .filter((ch) => ch.checked == true)
+    .map((ch) => parseInt(ch.value));
+  postFigures(nameInput, lifespanInput, religiousTraditionInput, monasteryIds);
+}
 document.addEventListener("DOMContentLoaded", function () {
   let monasteryButton = document.querySelector("#monasteries_index");
   monasteryButton.addEventListener("click", fetchMonasteries);
