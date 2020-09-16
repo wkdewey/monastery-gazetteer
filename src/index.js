@@ -290,10 +290,10 @@ function postMonasteries(
 ) {
   console.log(nameInput, locationInput, religiousTraditionInput, figureIds);
   let bodyData = {
-    nameInput,
-    locationInput,
-    religiousTraditionInput,
-    figureIds,
+    name: nameInput,
+    location: locationInput,
+    religious_tradition: religiousTraditionInput,
+    figure_ids: figureIds,
   };
   fetch(MONASTERIES_URL, {
     method: "POST",
