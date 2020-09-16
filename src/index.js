@@ -305,6 +305,65 @@ function postMonasteries(
       renderMonastery(monastery.data);
     });
 }
+async function showFigureForm() {
+  const h2 = document.createElement("h2");
+  h2.textContent = "New Buddhist Figure";
+  const form = document.createElement("form");
+  const br = document.createElement("br");
+  const contentContainer = document.querySelector("#content-container");
+  contentContainer.textContent = "";
+  contentContainer.appendChild(h2);
+  contentContainer.appendChild(form);
+  form.id = "create-figure-form";
+  const inputName = document.createElement("input");
+  inputName.id = "input-name";
+  inputName.type = "text";
+  inputName.name = "name";
+  inputName.value = "";
+  inputName.placeholder = "Enter figure name";
+  form.appendChild(inputName);
+  form.appendChild(br);
+  const inputLifespan = document.createElement("input");
+  inputLifespan.id = "input-lifespan";
+  inputLocation.type = "text";
+  inputLocation.name = "lifespan";
+  inputLocation.value = "";
+  inputLocation.placeholder = "Enter lifespan";
+  form.appendChild(inputLocation);
+  form.appendChild(br.cloneNode());
+  const inputTradition = document.createElement("input");
+  inputTradition.id = "input-religious-tradition";
+  inputTradition.type = "text";
+  inputTradition.name = "religious-tradition";
+  inputTradition.value = "";
+  inputTradition.placeholder = "Enter religious tradition";
+  form.appendChild(inputTradition);
+  form.appendChild(br.cloneNode());
+  const h3 = document.createElement("h3");
+  h3.textContent = "Choose Associated Monasteries";
+  const monasteries = await getAllMonasteries();
+  for (const monastery of monasteries) {
+    const option = document.createElement("input");
+    option.type = "checkbox";
+    option.id = "input-monastery-" + figure.id;
+    option.name = "figure";
+    option.value = monastery.id;
+    const label = document.createElement("label");
+    label.for = option.id;
+    label.textContent = monastery.attributes.name;
+    form.appendChild(option);
+    form.appendChild(label);
+    form.appendChild(br.cloneNode());
+  }
+  const submit = document.createElement("input");
+  submit.id = "create-button";
+  submit.type = "submit";
+  submit.name = "submit";
+  submit.value = "Create New Figure";
+  form.appendChild(submit);
+  form.addEventListener("submit", (e) => createFigureFormHandler(e));
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   let monasteryButton = document.querySelector("#monasteries_index");
   monasteryButton.addEventListener("click", fetchMonasteries);
