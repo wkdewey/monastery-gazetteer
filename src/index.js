@@ -348,7 +348,7 @@ async function showFigureForm() {
     const option = document.createElement("input");
     option.type = "checkbox";
     option.id = "input-monastery-" + monastery.id;
-    option.name = "figure";
+    option.name = "monastery";
     option.value = monastery.id;
     const label = document.createElement("label");
     label.for = option.id;
@@ -377,6 +377,7 @@ function createFigureFormHandler(e) {
     .call(checkboxes)
     .filter((ch) => ch.checked == true)
     .map((ch) => parseInt(ch.value));
+  console.log(nameInput, lifespanInput, religiousTraditionInput, monasteryIds);
   postFigures(nameInput, lifespanInput, religiousTraditionInput, monasteryIds);
 }
 function postFigures(
