@@ -28,7 +28,7 @@ class Monastery {
     const link = document.createElement("a");
     link.href = "#";
     link.textContent = this.name;
-    link.addEventListener("click", this.showAssociatedFigures);
+    link.addEventListener("click", this.showAssociatedFigures.bind(this));
     h2.appendChild(link);
     div.appendChild(h2);
     const location = document.createElement("p");
@@ -40,9 +40,12 @@ class Monastery {
     div.appendChild(tradition);
   }
   showAssociatedFigures() {
+    const contentContainer = document.querySelector("#content-container");
+    contentContainer.textContent = "";
+    console.log(this);
+    this.render();
     let figures = document.createElement("h3");
     figures.textContent = "Associated Figures";
-    const contentContainer = document.querySelector("#content-container");
     contentContainer.appendChild(figures);
     for (const figure of monastery.figures) {
       figure.render();
