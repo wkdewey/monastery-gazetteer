@@ -42,7 +42,6 @@ class Monastery {
   showAssociatedFigures() {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
-    console.log(this);
     this.render();
     let figures = document.createElement("h3");
     figures.textContent = "Associated Figures";
@@ -78,9 +77,7 @@ class Figure {
     const link = document.createElement("a");
     link.href = "#";
     link.textContent = this.name;
-    link.addEventListener("click", function () {
-      fetchFigure(parseInt(key) + 1);
-    });
+    link.addEventListener("click", this.showAssociatedMonasteries.bind(this));
     h2.appendChild(link);
     div.appendChild(h2);
     const location = document.createElement("p");
@@ -89,6 +86,16 @@ class Figure {
     const tradition = document.createElement("p");
     tradition.textContent = "Religious tradition: " + this.religious_tradition;
     div.appendChild(tradition);
+  }
+  showAssociatedMonasteries() {
+    const contentContainer = document.querySelector("#content-container");
+    contentContainer.textContent = "";
+    let monasteries = document.createElement("h3");
+    monasteries.textContent = "Associated Monasteries";
+    contentContainer.appendChild(monasteries);
+    for (const monastery of figure.monasteries) {
+      monastery.render();
+    }
   }
 }
 function fetchMonasteries() {
