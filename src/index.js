@@ -2,8 +2,6 @@ const BACKEND_URL = "http://localhost:3000";
 const MONASTERIES_URL = `${BACKEND_URL}/api/v1/monasteries`;
 const FIGURES_URL = `${BACKEND_URL}/api/v1/figures`;
 
-Monastery.allInstances = [];
-
 function fetchMonasteries() {
   return fetch(`${BACKEND_URL}/api/v1/monasteries`)
     .then((response) => response.json())
@@ -31,7 +29,6 @@ function fetchFigures() {
     .then((json) => json["data"])
     .then((data) => renderFigures(data));
 }
-//The below function may be redundant, consider refactoring after other parts of
 
 function renderMonasteries(data) {
   const contentContainer = document.querySelector("#content-container");
@@ -45,24 +42,6 @@ function renderMonasteries(data) {
     );
     monastery.render();
   }
-}
-function renderMonastery(data) {
-  monastery = new Monastery(
-    data["attributes"]["name"],
-    data["attributes"]["location"],
-    data["attributes"]["religious_tradition"]
-  );
-
-  contentContainer.textContent = "";
-  let name = document.createElement("h2");
-  name.textContent = monastery.name;
-  contentContainer.appendChild(name);
-  let location = document.createElement("p");
-  location.textContent = "Location: " + monastery.location;
-  contentContainer.appendChild(location);
-  let tradition = document.createElement("p");
-  tradition.textContent = "Tradition: " + monastery.religious_tradition;
-  contentContainer.appendChild(tradition);
 }
 
 function renderFigure(data) {
@@ -207,8 +186,8 @@ function postMonasteries(
   })
     .then((response) => response.json())
     .then((monastery) => {
-      console.log(monastery);
-      renderMonastery(monastery.data);
+      monasteryObject = Monastery.createFromJson(monastery.data);
+      monasteryObject.render();
     });
 }
 async function showFigureForm() {
