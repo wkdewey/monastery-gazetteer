@@ -10,14 +10,11 @@ class Monastery {
     if (figures) {
       this.figures = [];
       for (const figure of figures) {
-        const figureObject = new Figure(
-          figure["name"],
-          figure["lifespan"],
-          figure["religious_tradition"]
-        );
-        this.figures.push(figureObject);
+        const figureName = figure["name"];
+        this.figures.push(figureName);
       }
     }
+    debugger;
   }
   render() {
     const contentContainer = document.querySelector("#content-container");
@@ -32,11 +29,10 @@ class Monastery {
     h2.appendChild(link);
     div.appendChild(h2);
     const location = document.createElement("p");
-    location.textContent = "Location: " + monastery.location;
+    location.textContent = "Location: " + this.location;
     div.appendChild(location);
     const tradition = document.createElement("p");
-    tradition.textContent =
-      "Religious tradition: " + monastery.religious_tradition;
+    tradition.textContent = "Religious tradition: " + this.religious_tradition;
     div.appendChild(tradition);
   }
   showAssociatedFigures() {
@@ -46,7 +42,8 @@ class Monastery {
     let figures = document.createElement("h3");
     figures.textContent = "Associated Figures";
     contentContainer.appendChild(figures);
-    for (const figure of monastery.figures) {
+    debugger;
+    for (const figure of this.figures) {
       figure.render();
     }
   }
@@ -59,12 +56,8 @@ class Figure {
     this.monasteries = [];
     if (monasteries) {
       for (const monastery of monasteries) {
-        const monasteryObject = new Monastery(
-          monastery["name"],
-          monastery["location"],
-          monastery["religious_tradition"]
-        );
-        this.monasteries.push(monasteryObject);
+        const monasteryName = monastery["name"];
+        this.monasteries.push(monasteryName);
       }
     }
   }
@@ -90,10 +83,11 @@ class Figure {
   showAssociatedMonasteries() {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
+    this.render();
     let monasteries = document.createElement("h3");
     monasteries.textContent = "Associated Monasteries";
     contentContainer.appendChild(monasteries);
-    for (const monastery of figure.monasteries) {
+    for (const monastery of this.monasteries) {
       monastery.render();
     }
   }
