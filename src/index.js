@@ -28,7 +28,7 @@ class Monastery {
     const link = document.createElement("a");
     link.href = "#";
     link.textContent = this.name;
-    link.addEventListener("click", this.showAssociatedFigures(div));
+    link.addEventListener("click", this.showAssociatedFigures());
     h2.appendChild(link);
     div.appendChild(h2);
     const location = document.createElement("p");
@@ -39,17 +39,13 @@ class Monastery {
       "Religious tradition: " + monastery.religious_tradition;
     div.appendChild(tradition);
   }
-  showAssociatedFigures(div) {
+  showAssociatedFigures() {
+    let figures = document.createElement("h3");
+    figures.textContent = "Associated Figures";
+    const contentContainer = document.querySelector("#content-container");
+    contentContainer.appendChild(figures);
     for (const figure of monastery.figures) {
-      let figureName = document.createElement("h4");
-      figureName.textContent = figure.name;
-      div.appendChild(figureName);
-      let figureLocation = document.createElement("p");
-      figureLocation.textContent = "Lifespan: " + figure.lifespan;
-      div.appendChild(figureLocation);
-      let figureTradition = document.createElement("p");
-      figureTradition.textContent = "Tradition: " + figure.religious_tradition;
-      div.appendChild(figureTradition);
+      figure.render();
     }
   }
 }
@@ -69,6 +65,27 @@ class Figure {
         this.monasteries.push(monasteryObject);
       }
     }
+  }
+  render() {
+    const div = document.createElement("div");
+    div.classList.add("figure-card");
+    const contentContainer = document.querySelector("#content-container");
+    contentContainer.appendChild(div);
+    const h2 = document.createElement("h2");
+    const link = document.createElement("a");
+    link.href = "#";
+    link.textContent = this.name;
+    link.addEventListener("click", function () {
+      fetchFigure(parseInt(key) + 1);
+    });
+    h2.appendChild(link);
+    div.appendChild(h2);
+    const location = document.createElement("p");
+    location.textContent = "Lifespan: " + this.lifespan;
+    div.appendChild(location);
+    const tradition = document.createElement("p");
+    tradition.textContent = "Religious tradition: " + this.religious_tradition;
+    div.appendChild(tradition);
   }
 }
 function fetchMonasteries() {
@@ -143,9 +160,6 @@ function renderMonastery(data) {
   let tradition = document.createElement("p");
   tradition.textContent = "Tradition: " + monastery.religious_tradition;
   contentContainer.appendChild(tradition);
-  let figures = document.createElement("h3");
-  figures.textContent = "Associated Figures";
-  contentContainer.appendChild(figures);
 }
 
 function renderFigure(data) {
@@ -191,25 +205,6 @@ function renderFigures(data) {
       data[key]["attributes"]["lifespan"],
       data[key]["attributes"]["religious_tradition"]
     );
-    const div = document.createElement("div");
-    div.classList.add("monastery-card");
-    contentContainer.appendChild(div);
-    const h2 = document.createElement("h2");
-    const link = document.createElement("a");
-    link.href = "#";
-    link.textContent = figure.name;
-    link.addEventListener("click", function () {
-      fetchFigure(parseInt(key) + 1);
-    });
-    h2.appendChild(link);
-    div.appendChild(h2);
-    const location = document.createElement("p");
-    location.textContent = "Lifespan: " + figure.lifespan;
-    div.appendChild(location);
-    const tradition = document.createElement("p");
-    tradition.textContent =
-      "Religious tradition: " + figure.religious_tradition;
-    div.appendChild(tradition);
   }
 }
 
