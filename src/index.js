@@ -14,7 +14,7 @@ class Monastery {
         this.figures.push(figureName);
       }
     }
-    debugger;
+    Monastery.allInstances.push(this);
   }
   render() {
     const contentContainer = document.querySelector("#content-container");
@@ -44,10 +44,12 @@ class Monastery {
     contentContainer.appendChild(figures);
     debugger;
     for (const figure of this.figures) {
-      figure.render();
+      figureObject = Figure.find(figure);
+      figureObject.render();
     }
   }
 }
+Monastery.allInstances = [];
 class Figure {
   constructor(name, lifespan, religious_tradition, monasteries) {
     this.name = name;
@@ -60,7 +62,9 @@ class Figure {
         this.monasteries.push(monasteryName);
       }
     }
+    Figure.allInstances.push(this);
   }
+
   render() {
     const div = document.createElement("div");
     div.classList.add("figure-card");
@@ -92,6 +96,7 @@ class Figure {
     }
   }
 }
+Figure.allInstances = [];
 function fetchMonasteries() {
   return fetch(`${BACKEND_URL}/api/v1/monasteries`)
     .then((response) => response.json())
