@@ -47,6 +47,13 @@ class Monastery {
       figureObject.render();
     }
   }
+
+  static find(name) {
+    const found = Monastery.allInstances.find(
+      (monastery) => monastery.name === name
+    );
+    return found;
+  }
 }
 Monastery.allInstances = [];
 class Figure {
@@ -91,7 +98,8 @@ class Figure {
     monasteries.textContent = "Associated Monasteries";
     contentContainer.appendChild(monasteries);
     for (const monastery of this.monasteries) {
-      monastery.render();
+      const monasteryObject = Monastery.find(monastery);
+      monasteryObject.render();
     }
   }
   static find(name) {
