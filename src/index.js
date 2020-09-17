@@ -42,9 +42,8 @@ class Monastery {
     let figures = document.createElement("h3");
     figures.textContent = "Associated Figures";
     contentContainer.appendChild(figures);
-    debugger;
     for (const figure of this.figures) {
-      figureObject = Figure.find(figure);
+      const figureObject = Figure.find(figure);
       figureObject.render();
     }
   }
@@ -94,6 +93,10 @@ class Figure {
     for (const monastery of this.monasteries) {
       monastery.render();
     }
+  }
+  static find(name) {
+    const found = Figure.allInstances.find((figure) => figure.name === name);
+    return found;
   }
 }
 Figure.allInstances = [];
