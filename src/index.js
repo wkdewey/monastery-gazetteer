@@ -28,7 +28,7 @@ class Monastery {
     const link = document.createElement("a");
     link.href = "#";
     link.textContent = this.name;
-    link.addEventListener("click", this.showAssociatedFigures());
+    link.addEventListener("click", this.showAssociatedFigures);
     h2.appendChild(link);
     div.appendChild(h2);
     const location = document.createElement("p");
@@ -169,6 +169,7 @@ function renderFigure(data) {
     data["attributes"]["religious_tradition"],
     data["attributes"]["monasteries"]
   );
+  figure.render();
   const contentContainer = document.querySelector("#content-container");
   contentContainer.textContent = "";
   let name = document.createElement("h2");
@@ -181,20 +182,19 @@ function renderFigure(data) {
   tradition.textContent = "Tradition: " + figure.religious_tradition;
   contentContainer.appendChild(tradition);
   let monasteries = document.createElement("h3");
-  monasteries.textContent = "Associated Monasteries";
-  contentContainer.appendChild(monasteries);
-  for (const monastery of figure.monasteries) {
-    let monasteryName = document.createElement("h4");
-    monasteryName.textContent = monastery.name;
-    contentContainer.appendChild(monasteryName);
-    let monasteryLocation = document.createElement("p");
-    monasteryLocation.textContent = "Location: " + monastery.location;
-    contentContainer.appendChild(monasteryLocation);
-    let monasteryTradition = document.createElement("p");
-    monasteryTradition.textContent =
-      "Tradition: " + monastery.religious_tradition;
-    contentContainer.appendChild(monasteryTradition);
-  }
+  // monasteries.textContent = "Associated Monasteries";
+  // contentContainer.appendChild(monasteries);
+  // for (const monastery of figure.monasteries) {
+  //   let monasteryName = document.createElement("h4");
+  //   monasteryName.textContent = monastery.name;
+  //   contentContainer.appendChild(monasteryName);
+  //   let monasteryLocation = document.createElement("p");
+  //   monasteryLocation.textContent = "Location: " + monastery.location;
+  //   contentContainer.appendChild(monasteryLocation);
+  //   let monasteryTradition = document.createElement("p");
+  //   monasteryTradition.textContent =
+  //     "Tradition: " + monastery.religious_tradition;
+  //   contentContainer.appendChild(monasteryTradition);
 }
 function renderFigures(data) {
   const contentContainer = document.querySelector("#content-container");
@@ -203,8 +203,10 @@ function renderFigures(data) {
     figure = new Figure(
       data[key]["attributes"]["name"],
       data[key]["attributes"]["lifespan"],
-      data[key]["attributes"]["religious_tradition"]
+      data[key]["attributes"]["religious_tradition"],
+      data[key]["attributes"]["monasteries"]
     );
+    figure.render();
   }
 }
 
