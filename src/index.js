@@ -111,13 +111,6 @@ function getAllMonasteries() {
       return json["data"];
     });
 }
-//The below function may be redundant, consider refactoring after other parts of
-function fetchMonastery(id) {
-  return fetch(`${BACKEND_URL}/api/v1/monasteries/${id}`)
-    .then((response) => response.json())
-    .then((json) => json["data"])
-    .then((data) => renderMonastery(data));
-}
 function getAllFigures() {
   return fetch(`${BACKEND_URL}/api/v1/figures`)
     .then((response) => response.json())
@@ -133,12 +126,6 @@ function fetchFigures() {
     .then((data) => renderFigures(data));
 }
 //The below function may be redundant, consider refactoring after other parts of
-function fetchFigure(id) {
-  return fetch(`${BACKEND_URL}/api/v1/figures/${id}`)
-    .then((response) => response.json())
-    .then((json) => json["data"])
-    .then((data) => renderFigure(data));
-}
 
 function renderMonasteries(data) {
   const contentContainer = document.querySelector("#content-container");
