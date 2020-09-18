@@ -49,6 +49,12 @@ class Figure {
     const found = Figure.allInstances.find((figure) => figure.name === name);
     return found;
   }
+  static fetchFigures() {
+    return fetch(`${BACKEND_URL}/api/v1/figures`)
+      .then((response) => response.json())
+      .then((json) => json["data"])
+      .then((data) => Figure.initialize(data));
+  }
 
   static createFromJson(data) {
     const figure = new Figure(
@@ -59,6 +65,26 @@ class Figure {
       data.attributes.figures
     );
     return figure;
+  }
+  static initialize(data) {
+    const contentContainer = document.querySelector("#content-container");
+    contentContainer.textContent = "";
+    for (const key in data) {
+      new Figure(
+        data[key]["id"],
+        data[key]["attributes"]["name"],
+        data[key]["attributes"]["lifespan"],
+        data[key]["attributes"]["religious_tradition"],
+        data[key]["attributes"]["monasteries"]
+      );
+    }
+  }
+  static showFigures() {
+    const contentContainer = document.querySelector("#content-container");
+    contentContainer.textContent = "";
+    for (const figure of Figure.allInstances) {
+      figure.render();
+    }
   }
   static showFigureForm() {
     const h2 = document.createElement("h2");
@@ -117,26 +143,50 @@ class Figure {
     submit.name = "submit";
     submit.value = "Create New Figure";
     form.appendChild(submit);
-    form.addEventListener("submit", (e) => createFigureFormHandler(e));
+    form.addEventListener("submit", (e) => Figure.createFigureFormHandler(e));
   }
-  static initialize(data) {
-    const contentContainer = document.querySelector("#content-container");
-    contentContainer.textContent = "";
-    for (const key in data) {
-      new Figure(
-        data[key]["id"],
-        data[key]["attributes"]["name"],
-        data[key]["attributes"]["lifespan"],
-        data[key]["attributes"]["religious_tradition"],
-        data[key]["attributes"]["monasteries"]
-      );
-    }
+
+  static createFigureFormHandler(e) {
+    e.preventDefault();
+    const nameInput = document.querySelector("#input-name").value;
+    const lifespanInput = document.querySelector("#input-lifespan").value;
+    const religiousTraditionInput = document.querySelector(
+      "#input-religious-tradition"
+    ).value;
+    const checkboxes = document.getElementsByName("monastery");
+    const monasteryIds = Array.prototype.slice
+      .call(checkboxes)
+      .filter((ch) => ch.checked == true)
+      .map((ch) => parseInt(ch.value));
+    Figure.postFigures(
+      nameInput,
+      lifespanInput,
+      religiousTraditionInput,
+      monasteryIds
+    );
   }
-  static showFigures() {
-    const contentContainer = document.querySelector("#content-container");
-    contentContainer.textContent = "";
-    for (const figure of Figure.allInstances) {
-      figure.render();
-    }
+  static postFigures(
+    nameInput,
+    lifespanInput,
+    religiousTraditionInput,
+    monasteryIds
+  ) {
+    let bodyData = {
+      name: nameInput,
+      lifespan: lifespanInput,
+      religious_tradition: religiousTraditionInput,
+      monastery_ids: monasteryIds,
+    };
+    fetch(FIGURES_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(bodyData),
+    })
+      .then((response) => response.json())
+      .then((figure) => {
+        console.log(figure);
+        figureObject = Figure.createFromJson(figure.data);
+        figureObject.render();
+      });
   }
 }
