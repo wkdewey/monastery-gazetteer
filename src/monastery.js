@@ -65,7 +65,24 @@ class Monastery {
     );
     return monastery;
   }
-
+  static initialize(data) {
+    for (const key in data) {
+      new Monastery(
+        data[key]["id"],
+        data[key]["attributes"]["name"],
+        data[key]["attributes"]["location"],
+        data[key]["attributes"]["religious_tradition"],
+        data[key]["attributes"]["figures"]
+      );
+    }
+  }
+  static showMonasteries() {
+    const contentContainer = document.querySelector("#content-container");
+    contentContainer.textContent = "";
+    for (const monastery of Monastery.allInstances) {
+      monastery.render();
+    }
+  }
   static showMonasteryForm() {
     const h2 = document.createElement("h2");
     h2.textContent = "New Monastery";
@@ -125,28 +142,51 @@ class Monastery {
     submit.name = "submit";
     submit.value = "Create New Monastery";
     form.appendChild(submit);
-    form.addEventListener("submit", (e) => createMonasteryFormHandler(e));
-  }
-  static initialize(data) {
-    for (const key in data) {
-      new Monastery(
-        data[key]["id"],
-        data[key]["attributes"]["name"],
-        data[key]["attributes"]["location"],
-        data[key]["attributes"]["religious_tradition"],
-        data[key]["attributes"]["figures"]
-      );
-    }
-  }
-  static showMonasteries() {
-    const contentContainer = document.querySelector("#content-container");
-    contentContainer.textContent = "";
-    console.log(
-      `in showMonasteries Monastery.allInstances is ${Monastery.allInstances}`
+    form.addEventListener("submit", (e) =>
+      Monastery.createMonasteryFormHandler(e)
     );
-    for (const monastery of Monastery.allInstances) {
-      console.log(`Monastery.allInstances is ${Monastery.allInstances}`);
-      monastery.render();
-    }
+  }
+
+  static createMonasteryFormHandler(e) {
+    e.preventDefault();
+    const nameInput = document.querySelector("#input-name").value;
+    const locationInput = document.querySelector("#input-location").value;
+    const religiousTraditionInput = document.querySelector(
+      "#input-religious-tradition"
+    ).value;
+    const checkboxes = document.getElementsByName("figure");
+    const figureIds = Array.prototype.slice
+      .call(checkboxes)
+      .filter((ch) => ch.checked == true)
+      .map((ch) => parseInt(ch.value));
+    Monastery.postMonasteries(
+      nameInput,
+      locationInput,
+      religiousTraditionInput,
+      figureIds
+    );
+  }
+  static postMonasteries(
+    nameInput,
+    locationInput,
+    religiousTraditionInput,
+    figureIds
+  ) {
+    let bodyData = {
+      name: nameInput,
+      location: locationInput,
+      religious_tradition: religiousTraditionInput,
+      figure_ids: figureIds,
+    };
+    fetch(MONASTERIES_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(bodyData),
+    })
+      .then((response) => response.json())
+      .then((monastery) => {
+        monasteryObject = Monastery.createFromJson(monastery.data);
+        monasteryObject.render();
+      });
   }
 }

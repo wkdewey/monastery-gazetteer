@@ -16,44 +16,6 @@ function fetchFigures() {
     .then((data) => Figure.initialize(data));
 }
 
-function createMonasteryFormHandler(e) {
-  e.preventDefault();
-  const nameInput = document.querySelector("#input-name").value;
-  const locationInput = document.querySelector("#input-location").value;
-  const religiousTraditionInput = document.querySelector(
-    "#input-religious-tradition"
-  ).value;
-  const checkboxes = document.getElementsByName("figure");
-  const figureIds = Array.prototype.slice
-    .call(checkboxes)
-    .filter((ch) => ch.checked == true)
-    .map((ch) => parseInt(ch.value));
-  postMonasteries(nameInput, locationInput, religiousTraditionInput, figureIds);
-}
-function postMonasteries(
-  nameInput,
-  locationInput,
-  religiousTraditionInput,
-  figureIds
-) {
-  let bodyData = {
-    name: nameInput,
-    location: locationInput,
-    religious_tradition: religiousTraditionInput,
-    figure_ids: figureIds,
-  };
-  fetch(MONASTERIES_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(bodyData),
-  })
-    .then((response) => response.json())
-    .then((monastery) => {
-      monasteryObject = Monastery.createFromJson(monastery.data);
-      monasteryObject.render();
-    });
-}
-
 function createFigureFormHandler(e) {
   e.preventDefault();
   const nameInput = document.querySelector("#input-name").value;
