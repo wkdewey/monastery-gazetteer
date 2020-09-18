@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   Monastery.allInstances = [];
   Monastery.fetchMonasteries();
   Figure.allInstances = [];
-  fetchFigures();
+  Figure.fetchFigures();
   let monasteryButton = document.querySelector("#monasteries_index");
   monasteryButton.addEventListener("click", Monastery.showMonasteries);
   let figureButton = document.querySelector("#figures_index");
