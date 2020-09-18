@@ -2,13 +2,6 @@ const BACKEND_URL = "http://localhost:3000";
 const MONASTERIES_URL = `${BACKEND_URL}/api/v1/monasteries`;
 const FIGURES_URL = `${BACKEND_URL}/api/v1/figures`;
 
-function fetchMonasteries() {
-  return fetch(`${BACKEND_URL}/api/v1/monasteries`)
-    .then((response) => response.json())
-    .then((json) => json["data"])
-    .then((data) => Monastery.initialize(data));
-}
-
 function fetchFigures() {
   return fetch(`${BACKEND_URL}/api/v1/figures`)
     .then((response) => response.json())
@@ -57,7 +50,7 @@ function postFigures(
 }
 document.addEventListener("DOMContentLoaded", function () {
   Monastery.allInstances = [];
-  fetchMonasteries();
+  Monastery.fetchMonasteries();
   Figure.allInstances = [];
   fetchFigures();
   let monasteryButton = document.querySelector("#monasteries_index");

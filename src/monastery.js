@@ -166,6 +166,12 @@ class Monastery {
       figureIds
     );
   }
+  static fetchMonasteries() {
+    return fetch(`${BACKEND_URL}/api/v1/monasteries`)
+      .then((response) => response.json())
+      .then((json) => json["data"])
+      .then((data) => Monastery.initialize(data));
+  }
   static postMonasteries(
     nameInput,
     locationInput,
