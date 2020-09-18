@@ -106,7 +106,7 @@ class Figure {
       option.value = monastery.id;
       const label = document.createElement("label");
       label.for = option.id;
-      label.textContent = monastery.attributes.name;
+      label.textContent = monastery.name;
       form.appendChild(option);
       form.appendChild(label);
       form.appendChild(br.cloneNode());
