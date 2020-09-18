@@ -54,7 +54,7 @@ class Figure {
     const figure = new Figure(
       data.id,
       data.attributes.name,
-      data.attributes.location,
+      data.attributes.lifespan,
       data.attributes.religious_tradition,
       data.attributes.figures
     );
