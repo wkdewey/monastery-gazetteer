@@ -90,28 +90,31 @@ class Monastery {
     contentContainer.appendChild(h2);
     contentContainer.appendChild(form);
     form.id = "create-monastery-form";
-    const inputName = document.createElement("input");
-    inputName.id = "input-name";
-    inputName.type = "text";
-    inputName.name = "name";
-    inputName.value = "";
-    inputName.placeholder = "Enter monastery name";
+    const inputName = Helpers.createInputElement(
+      "input-name",
+      "text",
+      "name",
+      "",
+      "Enter monastery name"
+    );
     form.appendChild(inputName);
     form.appendChild(br);
-    const inputLocation = document.createElement("input");
-    inputLocation.id = "input-location";
-    inputLocation.type = "text";
-    inputLocation.name = "location";
-    inputLocation.value = "";
-    inputLocation.placeholder = "Enter location";
+    const inputLocation = Helpers.createInputElement(
+      "input-location",
+      "text",
+      "location",
+      "",
+      "Enter location"
+    );
     form.appendChild(inputLocation);
     form.appendChild(br.cloneNode());
-    const inputTradition = document.createElement("input");
-    inputTradition.id = "input-religious-tradition";
-    inputTradition.type = "text";
-    inputTradition.name = "religious-tradition";
-    inputTradition.value = "";
-    inputTradition.placeholder = "Enter religious tradition";
+    const inputTradition = Helpers.createInputElement(
+      "input-religious-tradition",
+      "text",
+      "religious-tradition",
+      "",
+      "Enter religious tradition"
+    );
     form.appendChild(inputTradition);
     form.appendChild(br.cloneNode());
     //get all figures, iterate through them, put their name and id
@@ -121,11 +124,12 @@ class Monastery {
     form.appendChild(h3);
     const figures = Figure.allInstances;
     for (const figure of figures) {
-      const option = document.createElement("input");
-      option.type = "checkbox";
-      option.id = "input-figure-" + figure.id;
-      option.name = "figure";
-      option.value = figure.id;
+      const option = Helpers.createInputElement(
+        "input-figure-" + figure.id,
+        "checkbox",
+        "figure",
+        figure.id
+      );
       const label = document.createElement("label");
       label.for = option.id;
       label.textContent = figure.name;
@@ -133,11 +137,12 @@ class Monastery {
       form.appendChild(label);
       form.appendChild(br.cloneNode());
     }
-    const submit = document.createElement("input");
-    submit.id = "create-button";
-    submit.type = "submit";
-    submit.name = "submit";
-    submit.value = "Create New Monastery";
+    const submit = Helpers.createInputElement(
+      "create-button",
+      "submit",
+      "submit",
+      "Create New Monastery"
+    );
     form.appendChild(submit);
     form.addEventListener("submit", (e) =>
       Monastery.createMonasteryFormHandler(e)

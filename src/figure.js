@@ -96,7 +96,7 @@ class Figure {
     contentContainer.appendChild(h2);
     contentContainer.appendChild(form);
     form.id = "create-figure-form";
-    const inputName = document.createInputElement(
+    const inputName = Helpers.createInputElement(
       "input-name",
       "text",
       "name",
@@ -105,7 +105,7 @@ class Figure {
     );
     form.appendChild(inputName);
     form.appendChild(br);
-    const inputLifespan = document.createInputElement(
+    const inputLifespan = Helpers.createInputElement(
       "input-lifespan",
       "text",
       "lifespan",
@@ -114,7 +114,7 @@ class Figure {
     );
     form.appendChild(inputLifespan);
     form.appendChild(br.cloneNode());
-    const inputTradition = document.createInputElement(
+    const inputTradition = Helpers.createInputElement(
       "input-religious-tradition",
       "text",
       "religious-tradition",
@@ -128,9 +128,9 @@ class Figure {
     form.appendChild(h3);
     const monasteries = Monastery.allInstances;
     for (const monastery of monasteries) {
-      const option = document.createInputElement(
-        "checkbox",
+      const option = Helpers.createInputElement(
         "input-monastery-" + monastery.id,
+        "checkbox",
         "monastery",
         monastery.id
       );
@@ -141,7 +141,7 @@ class Figure {
       form.appendChild(label);
       form.appendChild(br.cloneNode());
     }
-    const submit = document.createInputElement(
+    const submit = Helpers.createInputElement(
       "create-button",
       "submit",
       "submit",
