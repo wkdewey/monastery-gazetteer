@@ -84,7 +84,7 @@ function renderFigures(data) {
   contentContainer.textContent = "";
   for (const key in data) {
     figure = new Figure(
-      data[key]["id"]
+      data[key]["id"],
       data[key]["attributes"]["name"],
       data[key]["attributes"]["lifespan"],
       data[key]["attributes"]["religious_tradition"],
@@ -94,67 +94,6 @@ function renderFigures(data) {
   }
 }
 
-async function showMonasteryForm() {
-  const h2 = document.createElement("h2");
-  h2.textContent = "New Monastery";
-  const form = document.createElement("form");
-  const br = document.createElement("br");
-  const contentContainer = document.querySelector("#content-container");
-  contentContainer.textContent = "";
-  contentContainer.appendChild(h2);
-  contentContainer.appendChild(form);
-  form.id = "create-monastery-form";
-  const inputName = document.createElement("input");
-  inputName.id = "input-name";
-  inputName.type = "text";
-  inputName.name = "name";
-  inputName.value = "";
-  inputName.placeholder = "Enter monastery name";
-  form.appendChild(inputName);
-  form.appendChild(br);
-  const inputLocation = document.createElement("input");
-  inputLocation.id = "input-location";
-  inputLocation.type = "text";
-  inputLocation.name = "location";
-  inputLocation.value = "";
-  inputLocation.placeholder = "Enter location";
-  form.appendChild(inputLocation);
-  form.appendChild(br.cloneNode());
-  const inputTradition = document.createElement("input");
-  inputTradition.id = "input-religious-tradition";
-  inputTradition.type = "text";
-  inputTradition.name = "religious-tradition";
-  inputTradition.value = "";
-  inputTradition.placeholder = "Enter religious tradition";
-  form.appendChild(inputTradition);
-  form.appendChild(br.cloneNode());
-  //get all figures, iterate through them, put their name and id
-  //means I need a function that just returns all the figures
-  const h3 = document.createElement("h3");
-  h3.textContent = "Choose Associated Figures";
-  form.appendChild(h3);
-  const figures = await getAllFigures();
-  for (const figure of figures) {
-    const option = document.createElement("input");
-    option.type = "checkbox";
-    option.id = "input-figure-" + figure.id;
-    option.name = "figure";
-    option.value = figure.id;
-    const label = document.createElement("label");
-    label.for = option.id;
-    label.textContent = figure.attributes.name;
-    form.appendChild(option);
-    form.appendChild(label);
-    form.appendChild(br.cloneNode());
-  }
-  const submit = document.createElement("input");
-  submit.id = "create-button";
-  submit.type = "submit";
-  submit.name = "submit";
-  submit.value = "Create New Monastery";
-  form.appendChild(submit);
-  form.addEventListener("submit", (e) => createMonasteryFormHandler(e));
-}
 function createMonasteryFormHandler(e) {
   e.preventDefault();
   const nameInput = document.querySelector("#input-name").value;
@@ -192,65 +131,7 @@ function postMonasteries(
       monasteryObject.render();
     });
 }
-async function showFigureForm() {
-  const h2 = document.createElement("h2");
-  h2.textContent = "New Buddhist Figure";
-  const form = document.createElement("form");
-  const br = document.createElement("br");
-  const contentContainer = document.querySelector("#content-container");
-  contentContainer.textContent = "";
-  contentContainer.appendChild(h2);
-  contentContainer.appendChild(form);
-  form.id = "create-figure-form";
-  const inputName = document.createElement("input");
-  inputName.id = "input-name";
-  inputName.type = "text";
-  inputName.name = "name";
-  inputName.value = "";
-  inputName.placeholder = "Enter figure name";
-  form.appendChild(inputName);
-  form.appendChild(br);
-  const inputLifespan = document.createElement("input");
-  inputLifespan.id = "input-lifespan";
-  inputLifespan.type = "text";
-  inputLifespan.name = "lifespan";
-  inputLifespan.value = "";
-  inputLifespan.placeholder = "Enter lifespan";
-  form.appendChild(inputLifespan);
-  form.appendChild(br.cloneNode());
-  const inputTradition = document.createElement("input");
-  inputTradition.id = "input-religious-tradition";
-  inputTradition.type = "text";
-  inputTradition.name = "religious-tradition";
-  inputTradition.value = "";
-  inputTradition.placeholder = "Enter religious tradition";
-  form.appendChild(inputTradition);
-  form.appendChild(br.cloneNode());
-  const h3 = document.createElement("h3");
-  h3.textContent = "Choose Associated Monasteries";
-  form.appendChild(h3);
-  const monasteries = await getAllMonasteries();
-  for (const monastery of monasteries) {
-    const option = document.createElement("input");
-    option.type = "checkbox";
-    option.id = "input-monastery-" + monastery.id;
-    option.name = "monastery";
-    option.value = monastery.id;
-    const label = document.createElement("label");
-    label.for = option.id;
-    label.textContent = monastery.attributes.name;
-    form.appendChild(option);
-    form.appendChild(label);
-    form.appendChild(br.cloneNode());
-  }
-  const submit = document.createElement("input");
-  submit.id = "create-button";
-  submit.type = "submit";
-  submit.name = "submit";
-  submit.value = "Create New Figure";
-  form.appendChild(submit);
-  form.addEventListener("submit", (e) => createFigureFormHandler(e));
-}
+
 function createFigureFormHandler(e) {
   e.preventDefault();
   const nameInput = document.querySelector("#input-name").value;
@@ -290,12 +171,14 @@ function postFigures(
     });
 }
 document.addEventListener("DOMContentLoaded", function () {
+  fetchMonasteries();
+  fetchFigures();
   let monasteryButton = document.querySelector("#monasteries_index");
-  monasteryButton.addEventListener("click", fetchMonasteries);
+  monasteryButton.addEventListener("click", Monastery.showMonasteries());
   let figureButton = document.querySelector("#figures_index");
-  figureButton.addEventListener("click", fetchFigures);
+  figureButton.addEventListener("click", Figure.showFigures());
   let monasteryCreateButton = document.querySelector("#monasteries_create");
-  monasteryCreateButton.addEventListener("click", showMonasteryForm);
+  monasteryCreateButton.addEventListener("click", Monastery.showMonasteryForm);
   let figureCreateButton = document.querySelector("#figures_create");
-  figureCreateButton.addEventListener("click", showFigureForm);
+  figureCreateButton.addEventListener("click", Figure.showFigureForm);
 });
