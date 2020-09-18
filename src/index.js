@@ -35,6 +35,7 @@ function renderMonasteries(data) {
   contentContainer.textContent = "";
   for (const key in data) {
     monastery = new Monastery(
+      data[key]["id"],
       data[key]["attributes"]["name"],
       data[key]["attributes"]["location"],
       data[key]["attributes"]["religious_tradition"],
@@ -186,7 +187,7 @@ function postMonasteries(
   })
     .then((response) => response.json())
     .then((monastery) => {
-      monasteryObject = Monastery.createFromJson(monastery.data.attributes);
+      monasteryObject = Monastery.createFromJson(monastery.data);
       monasteryObject.render();
     });
 }

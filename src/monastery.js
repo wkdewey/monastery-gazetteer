@@ -1,5 +1,6 @@
 class Monastery {
-  constructor(name, location, religious_tradition, figures) {
+  constructor(id, name, location, religious_tradition, figures) {
+    this.id = id;
     this.name = name;
     this.location = location;
     this.religious_tradition = religious_tradition;
@@ -53,10 +54,11 @@ class Monastery {
 
   static createFromJson(data) {
     const monastery = new Monastery(
-      data.name,
-      data.location,
-      data.religious_tradition,
-      data.figures
+      data.id,
+      data.attributes.name,
+      data.attributes.location,
+      data.attributes.religious_tradition,
+      data.attributes.figures
     );
     return monastery;
   }
