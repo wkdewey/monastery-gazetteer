@@ -30,20 +30,7 @@ function fetchFigures() {
     .then((data) => Figure.initialize(data));
 }
 
-function renderMonasteries(data) {
-  const contentContainer = document.querySelector("#content-container");
-  contentContainer.textContent = "";
-  for (const key in data) {
-    monastery = new Monastery(
-      data[key]["id"],
-      data[key]["attributes"]["name"],
-      data[key]["attributes"]["location"],
-      data[key]["attributes"]["religious_tradition"],
-      data[key]["attributes"]["figures"]
-    );
-    monastery.render();
-  }
-}
+function renderMonasteries(data) {}
 
 function renderFigure(data) {
   figure = new Figure(

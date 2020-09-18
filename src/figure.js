@@ -119,5 +119,18 @@ class Figure {
     form.appendChild(submit);
     form.addEventListener("submit", (e) => createFigureFormHandler(e));
   }
+  static initialize(data) {
+    const contentContainer = document.querySelector("#content-container");
+    contentContainer.textContent = "";
+    for (const key in data) {
+      figure = new Figure(
+        data[key]["id"],
+        data[key]["attributes"]["name"],
+        data[key]["attributes"]["lifespan"],
+        data[key]["attributes"]["religious_tradition"],
+        data[key]["attributes"]["monasteries"]
+      );
+    }
+  }
 }
 Figure.allInstances = [];

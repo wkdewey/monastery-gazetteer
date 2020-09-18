@@ -124,5 +124,18 @@ class Monastery {
     form.appendChild(submit);
     form.addEventListener("submit", (e) => createMonasteryFormHandler(e));
   }
+  static initialize(data) {
+    const contentContainer = document.querySelector("#content-container");
+    contentContainer.textContent = "";
+    for (const key in data) {
+      monastery = new Monastery(
+        data[key]["id"],
+        data[key]["attributes"]["name"],
+        data[key]["attributes"]["location"],
+        data[key]["attributes"]["religious_tradition"],
+        data[key]["attributes"]["figures"]
+      );
+    }
+  }
 }
 Monastery.allInstances = [];
