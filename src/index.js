@@ -186,7 +186,7 @@ function postMonasteries(
   })
     .then((response) => response.json())
     .then((monastery) => {
-      monasteryObject = Monastery.createFromJson(monastery.data);
+      monasteryObject = Monastery.createFromJson(monastery.data.attributes);
       monasteryObject.render();
     });
 }
