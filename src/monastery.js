@@ -16,7 +16,13 @@ class Monastery {
   render() {
     const contentContainer = document.querySelector("#content-container");
     const div = document.createElement("div");
-    div.classList.add("monastery-card");
+    div.classList.add(
+      "monastery-card",
+      "album",
+      "py-5",
+      "bg-light",
+      "container"
+    );
     contentContainer.appendChild(div);
     const h2 = document.createElement("h2");
     const link = document.createElement("a");
