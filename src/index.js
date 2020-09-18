@@ -6,7 +6,7 @@ function fetchMonasteries() {
   return fetch(`${BACKEND_URL}/api/v1/monasteries`)
     .then((response) => response.json())
     .then((json) => json["data"])
-    .then((data) => renderMonasteries(data));
+    .then((data) => Monastery.initialize(data));
 }
 function getAllMonasteries() {
   return fetch(`${BACKEND_URL}/api/v1/monasteries`)
@@ -27,7 +27,7 @@ function fetchFigures() {
   return fetch(`${BACKEND_URL}/api/v1/figures`)
     .then((response) => response.json())
     .then((json) => json["data"])
-    .then((data) => renderFigures(data));
+    .then((data) => Figure.initialize(data));
 }
 
 function renderMonasteries(data) {
