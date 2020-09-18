@@ -84,6 +84,7 @@ function renderFigures(data) {
   contentContainer.textContent = "";
   for (const key in data) {
     figure = new Figure(
+      data[key]["id"]
       data[key]["attributes"]["name"],
       data[key]["attributes"]["lifespan"],
       data[key]["attributes"]["religious_tradition"],
@@ -284,8 +285,8 @@ function postFigures(
   })
     .then((response) => response.json())
     .then((figure) => {
-      console.log(figure);
-      renderFigure(figure.data);
+      figureObject = Figure.createFromJson(figure.data);
+      figureObject.render();
     });
 }
 document.addEventListener("DOMContentLoaded", function () {

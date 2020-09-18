@@ -102,7 +102,7 @@ class Monastery {
     const h3 = document.createElement("h3");
     h3.textContent = "Choose Associated Figures";
     form.appendChild(h3);
-    const figures = Figure.allInstances();
+    const figures = Figure.allInstances;
     for (const figure of figures) {
       const option = document.createElement("input");
       option.type = "checkbox";
