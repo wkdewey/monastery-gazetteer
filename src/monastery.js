@@ -11,9 +11,6 @@ class Monastery {
         this.figures.push(figureName);
       }
     }
-    console.log(
-      `in constructor Monastery.allInstances is ${Monastery.allInstances}`
-    );
     Monastery.allInstances.push(this);
   }
   render() {
@@ -191,7 +188,7 @@ class Monastery {
     })
       .then((response) => response.json())
       .then((monastery) => {
-        monasteryObject = Monastery.createFromJson(monastery.data);
+        const monasteryObject = Monastery.createFromJson(monastery.data);
         monasteryObject.render();
       });
   }

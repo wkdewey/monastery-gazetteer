@@ -184,8 +184,7 @@ class Figure {
     })
       .then((response) => response.json())
       .then((figure) => {
-        console.log(figure);
-        figureObject = Figure.createFromJson(figure.data);
+        const figureObject = Figure.createFromJson(figure.data);
         figureObject.render();
       });
   }
