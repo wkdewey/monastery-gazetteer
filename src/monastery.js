@@ -11,6 +11,9 @@ class Monastery {
         this.figures.push(figureName);
       }
     }
+    console.log(
+      `in constructor Monastery.allInstances is ${Monastery.allInstances}`
+    );
     Monastery.allInstances.push(this);
   }
   render() {
@@ -125,10 +128,8 @@ class Monastery {
     form.addEventListener("submit", (e) => createMonasteryFormHandler(e));
   }
   static initialize(data) {
-    const contentContainer = document.querySelector("#content-container");
-    contentContainer.textContent = "";
     for (const key in data) {
-      monastery = new Monastery(
+      new Monastery(
         data[key]["id"],
         data[key]["attributes"]["name"],
         data[key]["attributes"]["location"],
@@ -137,5 +138,15 @@ class Monastery {
       );
     }
   }
+  static showMonasteries() {
+    const contentContainer = document.querySelector("#content-container");
+    contentContainer.textContent = "";
+    console.log(
+      `in showMonasteries Monastery.allInstances is ${Monastery.allInstances}`
+    );
+    for (const monastery of Monastery.allInstances) {
+      console.log(`Monastery.allInstances is ${Monastery.allInstances}`);
+      monastery.render();
+    }
+  }
 }
-Monastery.allInstances = [];

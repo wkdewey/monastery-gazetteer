@@ -123,7 +123,7 @@ class Figure {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
     for (const key in data) {
-      figure = new Figure(
+      new Figure(
         data[key]["id"],
         data[key]["attributes"]["name"],
         data[key]["attributes"]["lifespan"],
@@ -132,5 +132,11 @@ class Figure {
       );
     }
   }
+  static showFigures() {
+    const contentContainer = document.querySelector("#content-container");
+    contentContainer.textContent = "";
+    for (const figure of Figure.allInstances) {
+      figure.render();
+    }
+  }
 }
-Figure.allInstances = [];
