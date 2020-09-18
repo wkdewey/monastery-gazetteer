@@ -96,28 +96,31 @@ class Figure {
     contentContainer.appendChild(h2);
     contentContainer.appendChild(form);
     form.id = "create-figure-form";
-    const inputName = document.createElement("input");
-    inputName.id = "input-name";
-    inputName.type = "text";
-    inputName.name = "name";
-    inputName.value = "";
-    inputName.placeholder = "Enter figure name";
+    const inputName = document.createInputElement(
+      "input-name",
+      "text",
+      "name",
+      "",
+      "Enter figure name"
+    );
     form.appendChild(inputName);
     form.appendChild(br);
-    const inputLifespan = document.createElement("input");
-    inputLifespan.id = "input-lifespan";
-    inputLifespan.type = "text";
-    inputLifespan.name = "lifespan";
-    inputLifespan.value = "";
-    inputLifespan.placeholder = "Enter lifespan";
+    const inputLifespan = document.createInputElement(
+      "input-lifespan",
+      "text",
+      "lifespan",
+      "",
+      "Enter lifespan"
+    );
     form.appendChild(inputLifespan);
     form.appendChild(br.cloneNode());
-    const inputTradition = document.createElement("input");
-    inputTradition.id = "input-religious-tradition";
-    inputTradition.type = "text";
-    inputTradition.name = "religious-tradition";
-    inputTradition.value = "";
-    inputTradition.placeholder = "Enter religious tradition";
+    const inputTradition = document.createInputElement(
+      "input-religious-tradition",
+      "text",
+      "religious-tradition",
+      "",
+      "Enter religious tradition"
+    );
     form.appendChild(inputTradition);
     form.appendChild(br.cloneNode());
     const h3 = document.createElement("h3");
@@ -125,11 +128,12 @@ class Figure {
     form.appendChild(h3);
     const monasteries = Monastery.allInstances;
     for (const monastery of monasteries) {
-      const option = document.createElement("input");
-      option.type = "checkbox";
-      option.id = "input-monastery-" + monastery.id;
-      option.name = "monastery";
-      option.value = monastery.id;
+      const option = document.createInputElement(
+        "checkbox",
+        "input-monastery-" + monastery.id,
+        "monastery",
+        monastery.id
+      );
       const label = document.createElement("label");
       label.for = option.id;
       label.textContent = monastery.name;
@@ -137,11 +141,12 @@ class Figure {
       form.appendChild(label);
       form.appendChild(br.cloneNode());
     }
-    const submit = document.createElement("input");
-    submit.id = "create-button";
-    submit.type = "submit";
-    submit.name = "submit";
-    submit.value = "Create New Figure";
+    const submit = document.createInputElement(
+      "create-button",
+      "submit",
+      "submit",
+      "Create New Figure"
+    );
     form.appendChild(submit);
     form.addEventListener("submit", (e) => Figure.createFigureFormHandler(e));
   }
