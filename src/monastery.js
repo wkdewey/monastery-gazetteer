@@ -21,7 +21,13 @@ class Monastery {
       "album",
       "py-5",
       "bg-light",
-      "container"
+      "container",
+      "row",
+      "col-md-4",
+      "card",
+      "mb-4",
+      "shadow-sm",
+      "card-body"
     );
     contentContainer.appendChild(div);
     const h2 = document.createElement("h2");
@@ -33,9 +39,11 @@ class Monastery {
     div.appendChild(h2);
     const location = document.createElement("p");
     location.textContent = "Location: " + this.location;
+    location.classList.add("card-text");
     div.appendChild(location);
     const tradition = document.createElement("p");
     tradition.textContent = "Religious tradition: " + this.religious_tradition;
+    tradition.classList.add("card-text");
     div.appendChild(tradition);
   }
   showAssociatedFigures() {
