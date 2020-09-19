@@ -16,7 +16,17 @@ class Figure {
 
   render() {
     const div = document.createElement("div");
-    div.classList.add("figure-card");
+    div.classList.add(
+      "figure-card",
+      "album",
+      "py-5",
+      "bg-light",
+      "col-md-4",
+      "card",
+      "mb-4",
+      "shadow-sm",
+      "card-body"
+    );
     const contentContainer = document.querySelector("#content-container");
     contentContainer.appendChild(div);
     const h2 = document.createElement("h2");
@@ -96,6 +106,7 @@ class Figure {
     contentContainer.appendChild(h2);
     contentContainer.appendChild(form);
     form.id = "create-figure-form";
+    form.classList.add("d-flex", "flex-column", "align-items-center");
     const inputName = Helpers.createInputElement(
       "input-name",
       "text",
@@ -147,6 +158,7 @@ class Figure {
       "submit",
       "Create New Figure"
     );
+    submit.classList.add("btn", "btn-sm", "btn-outline-secondary");
     form.appendChild(submit);
     form.addEventListener("submit", (e) => Figure.createFigureFormHandler(e));
   }

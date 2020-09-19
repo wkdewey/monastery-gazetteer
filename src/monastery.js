@@ -99,14 +99,10 @@ class Monastery {
     const br = document.createElement("br");
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
-    contentContainer.appendChild(h2);
     contentContainer.appendChild(form);
+    form.appendChild(h2);
     form.id = "create-monastery-form";
-    contentContainer.classList.add(
-      "d-flex",
-      "flex-column",
-      "align-items-center"
-    );
+    form.classList.add("d-flex", "flex-column", "align-items-center");
     const inputName = Helpers.createInputElement(
       "input-name",
       "text",
