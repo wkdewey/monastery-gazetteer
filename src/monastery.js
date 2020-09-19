@@ -21,8 +21,6 @@ class Monastery {
       "album",
       "py-5",
       "bg-light",
-      "container",
-      "row",
       "col-md-4",
       "card",
       "mb-4",
@@ -104,6 +102,11 @@ class Monastery {
     contentContainer.appendChild(h2);
     contentContainer.appendChild(form);
     form.id = "create-monastery-form";
+    contentContainer.classList.add(
+      "d-flex",
+      "flex-column",
+      "align-items-center"
+    );
     const inputName = Helpers.createInputElement(
       "input-name",
       "text",
@@ -157,6 +160,7 @@ class Monastery {
       "submit",
       "Create New Monastery"
     );
+    submit.classList.add("btn", "btn-sm", "btn-outline-secondary");
     form.appendChild(submit);
     form.addEventListener("submit", (e) =>
       Monastery.createMonasteryFormHandler(e)
