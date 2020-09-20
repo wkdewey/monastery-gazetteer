@@ -72,7 +72,7 @@ class Figure {
       data.attributes.name,
       data.attributes.lifespan,
       data.attributes.religious_tradition,
-      data.attributes.figures
+      data.attributes.monasteries
     );
     return figure;
   }
