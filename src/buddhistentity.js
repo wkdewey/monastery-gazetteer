@@ -101,4 +101,14 @@ class BuddhistEntity {
     element.placeholder = placeholder;
     return element;
   }
+  static createCheckboxOption(option, instance, form) {
+    const label = document.createElement("label");
+    label.for = option.id;
+    label.textContent = instance.name;
+    const submit = form.querySelector("#create-button");
+    form.insertBefore(option, submit);
+    form.insertBefore(label, submit);
+    const br = document.createElement("br");
+    form.insertBefore(br, submit);
+  }
 }

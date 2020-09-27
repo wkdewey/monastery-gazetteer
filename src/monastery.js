@@ -22,9 +22,10 @@ class Monastery extends BuddhistEntity {
     lifespan.textContent = "Location: " + this.location;
   }
   showAssociatedFigures() {
-    clearAndRender();
+    super.clearAndRender();
     let figures = document.createElement("h3");
     figures.textContent = "Associated Figures";
+    const contentContainer = document.querySelector("#content-container");
     contentContainer.appendChild(figures);
     for (const figure of this.figures) {
       const figureObject = Figure.find(figure);
@@ -78,14 +79,7 @@ class Monastery extends BuddhistEntity {
         "figure",
         figure.id
       );
-      const label = document.createElement("label");
-      label.for = option.id;
-      label.textContent = figure.name;
-      const submit = document.querySelector("#create-button");
-      form.insertBefore(option, submit);
-      form.insertBefore(label, submit);
-      const br = document.createElement("br");
-      form.insertBefore(br, submit);
+      super.createCheckboxOption(option, figure, form);
     }
     form.addEventListener("submit", (e) =>
       Monastery.createMonasteryFormHandler(e)
