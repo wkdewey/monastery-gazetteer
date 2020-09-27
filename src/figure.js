@@ -60,12 +60,6 @@ class Figure extends BuddhistEntity {
       );
     }
   }
-  static fetchFigures() {
-    return fetch(`${BACKEND_URL}/api/v1/figures`)
-      .then((response) => response.json())
-      .then((json) => json["data"])
-      .then((data) => Figure.initialize(data));
-  }
   static showFigures() {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
@@ -107,6 +101,12 @@ class Figure extends BuddhistEntity {
       religiousTraditionInput,
       monasteryIds
     );
+  }
+  static fetchFigures() {
+    return fetch(`${BACKEND_URL}/api/v1/figures`)
+      .then((response) => response.json())
+      .then((json) => json["data"])
+      .then((data) => Figure.initialize(data));
   }
   static postFigures(
     nameInput,
