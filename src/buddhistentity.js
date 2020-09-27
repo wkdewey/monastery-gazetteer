@@ -30,13 +30,7 @@ class BuddhistEntity {
     tradition.classList.add("card-text");
     div.appendChild(tradition);
   }
-  clearAndRender() {
-    const contentContainer = document.querySelector("#content-container");
-    contentContainer.textContent = "";
-  }
-  static showForm(model) {
-    const form = document.createElement("form");
-    const contentContainer = document.querySelector("#content-container");
+  static showForm(model, form, contentContainer) {
     contentContainer.textContent = "";
     contentContainer.appendChild(form);
     const h2 = document.createElement("h2");

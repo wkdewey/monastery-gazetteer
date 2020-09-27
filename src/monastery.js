@@ -69,8 +69,9 @@ class Monastery extends BuddhistEntity {
     }
   }
   static showMonasteryForm() {
-    super.showForm("monastery");
-    const form = document.querySelector("form");
+    const contentContainer = document.querySelector("#content-container");
+    const form = document.createElement("form");
+    super.showForm("monastery", form, contentContainer);
     const figures = Figure.allInstances;
     for (const figure of figures) {
       const option = super.createInputElement(
@@ -131,7 +132,9 @@ class Monastery extends BuddhistEntity {
       .then((response) => response.json())
       .then((monastery) => {
         const monasteryObject = Monastery.createFromJson(monastery.data);
-        monasteryObject.render();
+        const contentContainer = document.querySelector("#content-container");
+        contentContainer.textContent = "";
+        monasteryObject.render(contentContainer);
       });
   }
 }

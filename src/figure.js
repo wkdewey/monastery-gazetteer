@@ -68,8 +68,9 @@ class Figure extends BuddhistEntity {
     }
   }
   static showFigureForm() {
-    super.showForm("figure");
-    const form = document.querySelector("form");
+    const contentContainer = document.querySelector("#content-container");
+    const form = document.createElement("form");
+    super.showForm("figure", form, contentContainer);
     const monasteries = Monastery.allInstances;
     for (const monastery of monasteries) {
       const option = super.createInputElement(
@@ -128,7 +129,9 @@ class Figure extends BuddhistEntity {
       .then((response) => response.json())
       .then((figure) => {
         const figureObject = Figure.createFromJson(figure.data);
-        figureObject.render();
+        const contentContainer = document.querySelector("#content-container");
+        contentContainer.textContent = "";
+        figureObject.render(contentContainer);
       });
   }
 }
