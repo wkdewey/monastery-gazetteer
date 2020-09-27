@@ -23,9 +23,7 @@ class Figure extends BuddhistEntity {
     lifespan.textContent = "Lifespan: " + this.lifespan;
   }
   showAssociatedMonasteries() {
-    const contentContainer = document.querySelector("#content-container");
-    contentContainer.textContent = "";
-    this.render();
+    super.clearAndRender();
     let monasteries = document.createElement("h3");
     monasteries.textContent = "Associated Monasteries";
     contentContainer.appendChild(monasteries);

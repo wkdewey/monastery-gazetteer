@@ -22,9 +22,7 @@ class Monastery extends BuddhistEntity {
     lifespan.textContent = "Location: " + this.location;
   }
   showAssociatedFigures() {
-    const contentContainer = document.querySelector("#content-container");
-    contentContainer.textContent = "";
-    this.render();
+    clearAndRender();
     let figures = document.createElement("h3");
     figures.textContent = "Associated Figures";
     contentContainer.appendChild(figures);
