@@ -26,6 +26,7 @@ class Figure extends BuddhistEntity {
     super.clearAndRender();
     let monasteries = document.createElement("h3");
     monasteries.textContent = "Associated Monasteries";
+    const contentContainer = document.querySelector("#content-container");
     contentContainer.appendChild(monasteries);
     for (const monastery of this.monasteries) {
       const monasteryObject = Monastery.find(monastery);
