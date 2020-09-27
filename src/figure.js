@@ -37,13 +37,6 @@ class Figure extends BuddhistEntity {
     const found = Figure.allInstances.find((figure) => figure.name === name);
     return found;
   }
-  static fetchFigures() {
-    return fetch(`${BACKEND_URL}/api/v1/figures`)
-      .then((response) => response.json())
-      .then((json) => json["data"])
-      .then((data) => Figure.initialize(data));
-  }
-
   static createFromJson(data) {
     const figure = new Figure(
       data.id,
@@ -67,6 +60,12 @@ class Figure extends BuddhistEntity {
       );
     }
   }
+  static fetchFigures() {
+    return fetch(`${BACKEND_URL}/api/v1/figures`)
+      .then((response) => response.json())
+      .then((json) => json["data"])
+      .then((data) => Figure.initialize(data));
+  }
   static showFigures() {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
@@ -75,69 +74,18 @@ class Figure extends BuddhistEntity {
     }
   }
   static showFigureForm() {
-    const h2 = document.createElement("h2");
-    h2.textContent = "New Buddhist Figure";
-    const form = document.createElement("form");
-    const br = document.createElement("br");
-    const contentContainer = document.querySelector("#content-container");
-    contentContainer.textContent = "";
-    contentContainer.appendChild(h2);
-    contentContainer.appendChild(form);
-    form.id = "create-figure-form";
-    form.classList.add("d-flex", "flex-column", "align-items-center");
-    const inputName = Helpers.createInputElement(
-      "input-name",
-      "text",
-      "name",
-      "",
-      "Enter figure name"
-    );
-    form.appendChild(inputName);
-    form.appendChild(br);
-    const inputLifespan = Helpers.createInputElement(
-      "input-lifespan",
-      "text",
-      "lifespan",
-      "",
-      "Enter lifespan"
-    );
-    form.appendChild(inputLifespan);
-    form.appendChild(br.cloneNode());
-    const inputTradition = Helpers.createInputElement(
-      "input-religious-tradition",
-      "text",
-      "religious-tradition",
-      "",
-      "Enter religious tradition"
-    );
-    form.appendChild(inputTradition);
-    form.appendChild(br.cloneNode());
-    const h3 = document.createElement("h3");
-    h3.textContent = "Choose Associated Monasteries";
-    form.appendChild(h3);
+    super.showForm("figure");
+    const form = document.querySelector("form");
     const monasteries = Monastery.allInstances;
     for (const monastery of monasteries) {
-      const option = Helpers.createInputElement(
+      const option = super.createInputElement(
         "input-monastery-" + monastery.id,
         "checkbox",
         "monastery",
         monastery.id
       );
-      const label = document.createElement("label");
-      label.for = option.id;
-      label.textContent = monastery.name;
-      form.appendChild(option);
-      form.appendChild(label);
-      form.appendChild(br.cloneNode());
+      super.createCheckboxOption(option, monastery, form);
     }
-    const submit = Helpers.createInputElement(
-      "create-button",
-      "submit",
-      "submit",
-      "Create New Figure"
-    );
-    submit.classList.add("btn", "btn-sm", "btn-outline-secondary");
-    form.appendChild(submit);
     form.addEventListener("submit", (e) => Figure.createFigureFormHandler(e));
   }
 
