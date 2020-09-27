@@ -13,33 +13,13 @@ class Figure extends BuddhistEntity {
   }
 
   render() {
-    const div = document.createElement("div");
-    div.classList.add(
-      "figure-card",
-      "album",
-      "py-5",
-      "bg-light",
-      "col-md-4",
-      "card",
-      "mb-4",
-      "shadow-sm",
-      "card-body"
-    );
-    const contentContainer = document.querySelector("#content-container");
-    contentContainer.appendChild(div);
-    const h2 = document.createElement("h2");
-    const link = document.createElement("a");
-    link.href = "#";
-    link.textContent = this.name;
+    super.render();
+    const div = document.querySelector("#content-container").lastChild;
+    console.log(div);
+    const link = div.querySelector("a");
     link.addEventListener("click", this.showAssociatedMonasteries.bind(this));
-    h2.appendChild(link);
-    div.appendChild(h2);
-    const location = document.createElement("p");
-    location.textContent = "Lifespan: " + this.lifespan;
-    div.appendChild(location);
-    const tradition = document.createElement("p");
-    tradition.textContent = "Religious tradition: " + this.religious_tradition;
-    div.appendChild(tradition);
+    const lifespan = div.querySelector("p");
+    lifespan.textContent = "Lifespan: " + this.lifespan;
   }
   showAssociatedMonasteries() {
     const contentContainer = document.querySelector("#content-container");
