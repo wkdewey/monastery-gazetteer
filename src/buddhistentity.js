@@ -91,6 +91,17 @@ class BuddhistEntity {
     element.placeholder = placeholder;
     return element;
   }
+  static createCheckboxes(collection, model, form) {
+    for (const element of collection) {
+      const option = BuddhistEntity.createInputElement(
+        `input-${model}-` + element.id,
+        "checkbox",
+        model,
+        element.id
+      );
+      BuddhistEntity.createCheckboxOption(option, element, form);
+    }
+  }
   static createCheckboxOption(option, instance, form) {
     const label = document.createElement("label");
     label.for = option.id;

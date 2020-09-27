@@ -73,15 +73,7 @@ class Monastery extends BuddhistEntity {
     const form = document.createElement("form");
     super.showForm("monastery", form, contentContainer);
     const figures = Figure.allInstances;
-    for (const figure of figures) {
-      const option = super.createInputElement(
-        "input-figure-" + figure.id,
-        "checkbox",
-        "figure",
-        figure.id
-      );
-      super.createCheckboxOption(option, figure, form);
-    }
+    super.createCheckboxes(figures, "figure", form);
     form.addEventListener("submit", (e) =>
       Monastery.createMonasteryFormHandler(e)
     );

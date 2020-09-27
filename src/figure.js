@@ -2,8 +2,8 @@ class Figure extends BuddhistEntity {
   constructor(id, name, lifespan, religious_tradition, monasteries) {
     super(id, name, religious_tradition);
     this.lifespan = lifespan;
-    this.monasteries = [];
     if (monasteries) {
+      this.monasteries = [];
       for (const monastery of monasteries) {
         const monasteryName = monastery["name"];
         this.monasteries.push(monasteryName);
@@ -72,15 +72,7 @@ class Figure extends BuddhistEntity {
     const form = document.createElement("form");
     super.showForm("figure", form, contentContainer);
     const monasteries = Monastery.allInstances;
-    for (const monastery of monasteries) {
-      const option = super.createInputElement(
-        "input-monastery-" + monastery.id,
-        "checkbox",
-        "monastery",
-        monastery.id
-      );
-      super.createCheckboxOption(option, monastery, form);
-    }
+    super.createCheckboxes(monasteries, "monastery", form);
     form.addEventListener("submit", (e) => Figure.createFigureFormHandler(e));
   }
 
