@@ -12,35 +12,12 @@ class Monastery extends BuddhistEntity {
     Monastery.allInstances.push(this);
   }
   render() {
-    const contentContainer = document.querySelector("#content-container");
-    const div = document.createElement("div");
-    div.classList.add(
-      "monastery-card",
-      "album",
-      "py-5",
-      "bg-light",
-      "col-md-4",
-      "card",
-      "mb-4",
-      "shadow-sm",
-      "card-body"
-    );
-    contentContainer.appendChild(div);
-    const h2 = document.createElement("h2");
-    const link = document.createElement("a");
-    link.href = "#";
-    link.textContent = this.name;
+    super.render();
+    const div = document.querySelector("#content-container").lastChild;
+    const link = div.querySelector("a");
     link.addEventListener("click", this.showAssociatedFigures.bind(this));
-    h2.appendChild(link);
-    div.appendChild(h2);
-    const location = document.createElement("p");
-    location.textContent = "Location: " + this.location;
-    location.classList.add("card-text");
-    div.appendChild(location);
-    const tradition = document.createElement("p");
-    tradition.textContent = "Religious tradition: " + this.religious_tradition;
-    tradition.classList.add("card-text");
-    div.appendChild(tradition);
+    const lifespan = div.querySelector("p");
+    lifespan.textContent = "Location: " + this.location;
   }
   showAssociatedFigures() {
     const contentContainer = document.querySelector("#content-container");

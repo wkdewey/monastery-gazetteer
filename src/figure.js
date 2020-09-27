@@ -15,7 +15,6 @@ class Figure extends BuddhistEntity {
   render() {
     super.render();
     const div = document.querySelector("#content-container").lastChild;
-    console.log(div);
     const link = div.querySelector("a");
     link.addEventListener("click", this.showAssociatedMonasteries.bind(this));
     const lifespan = div.querySelector("p");
