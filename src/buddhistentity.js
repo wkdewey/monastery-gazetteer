@@ -39,15 +39,15 @@ class BuddhistEntity {
     this.render();
   }
   static showForm(model) {
-    const h2 = document.createElement("h2");
     const form = document.createElement("form");
-    const br = document.createElement("br");
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
     contentContainer.appendChild(form);
+    const h2 = document.createElement("h2");
+    h2.textContent = `New ${model}`;
     form.appendChild(h2);
     form.classList.add("d-flex", "flex-column", "align-items-center");
-    const inputName = this.createInputElement(
+    const inputName = BuddhistEntity.createInputElement(
       "input-name",
       "text",
       "name",
@@ -55,8 +55,19 @@ class BuddhistEntity {
       `Enter ${model} name`
     );
     form.appendChild(inputName);
+    const br = document.createElement("br");
     form.appendChild(br);
-    const inputTradition = this.createInputElement(
+    const info = model === "monastery" ? "location" : "lifespan";
+    const inputInfo = BuddhistEntity.createInputElement(
+      `input-${info}`,
+      "text",
+      info,
+      "",
+      `Enter ${info}`
+    );
+    form.appendChild(inputInfo);
+    form.appendChild(br.cloneNode());
+    const inputTradition = BuddhistEntity.createInputElement(
       "input-religious-tradition",
       "text",
       "religious-tradition",
@@ -72,7 +83,7 @@ class BuddhistEntity {
       model === "figure" ? "Monasteries" : "Figures"
     }`;
     form.appendChild(h3);
-    const submit = Helpers.createInputElement(
+    const submit = BuddhistEntity.createInputElement(
       "create-button",
       "submit",
       "submit",

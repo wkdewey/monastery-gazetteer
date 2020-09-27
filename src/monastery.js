@@ -68,51 +68,11 @@ class Monastery extends BuddhistEntity {
     }
   }
   static showMonasteryForm() {
-    const h2 = document.createElement("h2");
-    h2.textContent = "New Monastery";
-    const form = document.createElement("form");
-    const br = document.createElement("br");
-    const contentContainer = document.querySelector("#content-container");
-    contentContainer.textContent = "";
-    contentContainer.appendChild(form);
-    form.appendChild(h2);
-    form.id = "create-monastery-form";
-    form.classList.add("d-flex", "flex-column", "align-items-center");
-    const inputName = Helpers.createInputElement(
-      "input-name",
-      "text",
-      "name",
-      "",
-      "Enter monastery name"
-    );
-    form.appendChild(inputName);
-    form.appendChild(br);
-    const inputLocation = Helpers.createInputElement(
-      "input-location",
-      "text",
-      "location",
-      "",
-      "Enter location"
-    );
-    form.appendChild(inputLocation);
-    form.appendChild(br.cloneNode());
-    const inputTradition = Helpers.createInputElement(
-      "input-religious-tradition",
-      "text",
-      "religious-tradition",
-      "",
-      "Enter religious tradition"
-    );
-    form.appendChild(inputTradition);
-    form.appendChild(br.cloneNode());
-    //get all figures, iterate through them, put their name and id
-    //means I need a function that just returns all the figures
-    const h3 = document.createElement("h3");
-    h3.textContent = "Choose Associated Figures";
-    form.appendChild(h3);
+    super.showForm("monastery");
+    const form = document.querySelector("form");
     const figures = Figure.allInstances;
     for (const figure of figures) {
-      const option = Helpers.createInputElement(
+      const option = super.createInputElement(
         "input-figure-" + figure.id,
         "checkbox",
         "figure",
@@ -121,18 +81,12 @@ class Monastery extends BuddhistEntity {
       const label = document.createElement("label");
       label.for = option.id;
       label.textContent = figure.name;
-      form.appendChild(option);
-      form.appendChild(label);
-      form.appendChild(br.cloneNode());
+      const submit = document.querySelector("#create-button");
+      form.insertBefore(option, submit);
+      form.insertBefore(label, submit);
+      const br = document.createElement("br");
+      form.insertBefore(br, submit);
     }
-    const submit = Helpers.createInputElement(
-      "create-button",
-      "submit",
-      "submit",
-      "Create New Monastery"
-    );
-    submit.classList.add("btn", "btn-sm", "btn-outline-secondary");
-    form.appendChild(submit);
     form.addEventListener("submit", (e) =>
       Monastery.createMonasteryFormHandler(e)
     );
