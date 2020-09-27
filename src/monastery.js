@@ -15,7 +15,9 @@ class Monastery extends BuddhistEntity {
     super.render();
     const div = document.querySelector("#content-container").lastChild;
     const link = div.querySelector("a");
-    link.addEventListener("click", this.showAssociatedFigures.bind(this));
+    link.addEventListener("click", () => {
+      this.showAssociatedFigures();
+    });
     const lifespan = div.querySelector("p");
     lifespan.textContent = "Location: " + this.location;
   }
