@@ -1,9 +1,7 @@
-class Figure {
+class Figure extends BuddhistEntity {
   constructor(id, name, lifespan, religious_tradition, monasteries) {
-    this.id = id;
-    this.name = name;
+    super(id, name, religious_tradition);
     this.lifespan = lifespan;
-    this.religious_tradition = religious_tradition;
     this.monasteries = [];
     if (monasteries) {
       for (const monastery of monasteries) {
