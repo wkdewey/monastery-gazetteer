@@ -5,9 +5,7 @@ class BuddhistEntity {
     this.religious_tradition = religious_tradition;
   }
 
-  render() {
-    const contentContainer = document.querySelector("#content-container");
-    const div = document.createElement("div");
+  render(contentContainer, div, link) {
     div.classList.add(
       "album",
       "py-5",
@@ -20,7 +18,6 @@ class BuddhistEntity {
     );
     contentContainer.appendChild(div);
     const h2 = document.createElement("h2");
-    const link = document.createElement("a");
     link.href = "#";
     link.textContent = this.name;
     h2.appendChild(link);
@@ -36,7 +33,6 @@ class BuddhistEntity {
   clearAndRender() {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
-    this.render();
   }
   static showForm(model) {
     const form = document.createElement("form");
