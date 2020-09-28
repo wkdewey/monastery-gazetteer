@@ -18,8 +18,8 @@ class Monastery extends BuddhistEntity {
     link.addEventListener("click", () => {
       this.showAssociatedFigures(contentContainer);
     });
-    const lifespan = div.querySelector("p");
-    lifespan.textContent = "Location: " + this.location;
+    const location = div.querySelector("p");
+    location.textContent = "Location: " + this.location;
   }
   showAssociatedFigures(contentContainer) {
     contentContainer.textContent = "";
@@ -40,16 +40,6 @@ class Monastery extends BuddhistEntity {
     return found;
   }
 
-  static createFromJson(data) {
-    const monastery = new Monastery(
-      data.id,
-      data.attributes.name,
-      data.attributes.location,
-      data.attributes.religious_tradition,
-      data.attributes.figures
-    );
-    return monastery;
-  }
   static initialize(data) {
     for (const key in data) {
       new Monastery(
@@ -87,7 +77,7 @@ class Monastery extends BuddhistEntity {
       "#input-religious-tradition"
     ).value;
     const checkboxes = document.getElementsByName("figure");
-    const figureIds = getIds(checkboxes);
+    const figureIds = super.getIds(checkboxes);
     Monastery.postMonasteries(
       nameInput,
       locationInput,
@@ -124,5 +114,15 @@ class Monastery extends BuddhistEntity {
         contentContainer.textContent = "";
         monasteryObject.render(contentContainer);
       });
+  }
+  static createFromJson(data) {
+    const monastery = new Monastery(
+      data.id,
+      data.attributes.name,
+      data.attributes.location,
+      data.attributes.religious_tradition,
+      data.attributes.figures
+    );
+    return monastery;
   }
 }

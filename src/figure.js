@@ -37,16 +37,6 @@ class Figure extends BuddhistEntity {
     const found = Figure.allInstances.find((figure) => figure.name === name);
     return found;
   }
-  static createFromJson(data) {
-    const figure = new Figure(
-      data.id,
-      data.attributes.name,
-      data.attributes.lifespan,
-      data.attributes.religious_tradition,
-      data.attributes.monasteries
-    );
-    return figure;
-  }
   static initialize(data) {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
@@ -84,7 +74,7 @@ class Figure extends BuddhistEntity {
       "#input-religious-tradition"
     ).value;
     const checkboxes = document.getElementsByName("monastery");
-    const monasteryIds = getIds(checkboxes);
+    const monasteryIds = super.getIds(checkboxes);
     Figure.postFigures(
       nameInput,
       lifespanInput,
@@ -121,5 +111,16 @@ class Figure extends BuddhistEntity {
         contentContainer.textContent = "";
         figureObject.render(contentContainer);
       });
+  }
+
+  static createFromJson(data) {
+    const figure = new Figure(
+      data.id,
+      data.attributes.name,
+      data.attributes.lifespan,
+      data.attributes.religious_tradition,
+      data.attributes.monasteries
+    );
+    return figure;
   }
 }
