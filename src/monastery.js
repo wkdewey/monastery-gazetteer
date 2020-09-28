@@ -1,9 +1,7 @@
-class Monastery {
+class Monastery extends BuddhistEntity {
   constructor(id, name, location, religious_tradition, figures) {
-    this.id = id;
-    this.name = name;
+    super(id, name, religious_tradition);
     this.location = location;
-    this.religious_tradition = religious_tradition;
     if (figures) {
       this.figures = [];
       for (const figure of figures) {
@@ -13,47 +11,25 @@ class Monastery {
     }
     Monastery.allInstances.push(this);
   }
-  render() {
-    const contentContainer = document.querySelector("#content-container");
+  render(contentContainer) {
     const div = document.createElement("div");
-    div.classList.add(
-      "monastery-card",
-      "album",
-      "py-5",
-      "bg-light",
-      "col-md-4",
-      "card",
-      "mb-4",
-      "shadow-sm",
-      "card-body"
-    );
-    contentContainer.appendChild(div);
-    const h2 = document.createElement("h2");
     const link = document.createElement("a");
-    link.href = "#";
-    link.textContent = this.name;
-    link.addEventListener("click", this.showAssociatedFigures.bind(this));
-    h2.appendChild(link);
-    div.appendChild(h2);
-    const location = document.createElement("p");
-    location.textContent = "Location: " + this.location;
-    location.classList.add("card-text");
-    div.appendChild(location);
-    const tradition = document.createElement("p");
-    tradition.textContent = "Religious tradition: " + this.religious_tradition;
-    tradition.classList.add("card-text");
-    div.appendChild(tradition);
+    super.render(contentContainer, div, link);
+    link.addEventListener("click", () => {
+      this.showAssociatedFigures(contentContainer);
+    });
+    const lifespan = div.querySelector("p");
+    lifespan.textContent = "Location: " + this.location;
   }
-  showAssociatedFigures() {
-    const contentContainer = document.querySelector("#content-container");
+  showAssociatedFigures(contentContainer) {
     contentContainer.textContent = "";
-    this.render();
+    this.render(contentContainer);
     let figures = document.createElement("h3");
     figures.textContent = "Associated Figures";
     contentContainer.appendChild(figures);
     for (const figure of this.figures) {
       const figureObject = Figure.find(figure);
-      figureObject.render();
+      figureObject.render(contentContainer);
     }
   }
 
@@ -89,75 +65,15 @@ class Monastery {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
     for (const monastery of Monastery.allInstances) {
-      monastery.render();
+      monastery.render(contentContainer);
     }
   }
   static showMonasteryForm() {
-    const h2 = document.createElement("h2");
-    h2.textContent = "New Monastery";
-    const form = document.createElement("form");
-    const br = document.createElement("br");
     const contentContainer = document.querySelector("#content-container");
-    contentContainer.textContent = "";
-    contentContainer.appendChild(form);
-    form.appendChild(h2);
-    form.id = "create-monastery-form";
-    form.classList.add("d-flex", "flex-column", "align-items-center");
-    const inputName = Helpers.createInputElement(
-      "input-name",
-      "text",
-      "name",
-      "",
-      "Enter monastery name"
-    );
-    form.appendChild(inputName);
-    form.appendChild(br);
-    const inputLocation = Helpers.createInputElement(
-      "input-location",
-      "text",
-      "location",
-      "",
-      "Enter location"
-    );
-    form.appendChild(inputLocation);
-    form.appendChild(br.cloneNode());
-    const inputTradition = Helpers.createInputElement(
-      "input-religious-tradition",
-      "text",
-      "religious-tradition",
-      "",
-      "Enter religious tradition"
-    );
-    form.appendChild(inputTradition);
-    form.appendChild(br.cloneNode());
-    //get all figures, iterate through them, put their name and id
-    //means I need a function that just returns all the figures
-    const h3 = document.createElement("h3");
-    h3.textContent = "Choose Associated Figures";
-    form.appendChild(h3);
+    const form = document.createElement("form");
+    super.showForm("monastery", form, contentContainer);
     const figures = Figure.allInstances;
-    for (const figure of figures) {
-      const option = Helpers.createInputElement(
-        "input-figure-" + figure.id,
-        "checkbox",
-        "figure",
-        figure.id
-      );
-      const label = document.createElement("label");
-      label.for = option.id;
-      label.textContent = figure.name;
-      form.appendChild(option);
-      form.appendChild(label);
-      form.appendChild(br.cloneNode());
-    }
-    const submit = Helpers.createInputElement(
-      "create-button",
-      "submit",
-      "submit",
-      "Create New Monastery"
-    );
-    submit.classList.add("btn", "btn-sm", "btn-outline-secondary");
-    form.appendChild(submit);
+    super.createCheckboxes(figures, "figure", form);
     form.addEventListener("submit", (e) =>
       Monastery.createMonasteryFormHandler(e)
     );
@@ -171,10 +87,7 @@ class Monastery {
       "#input-religious-tradition"
     ).value;
     const checkboxes = document.getElementsByName("figure");
-    const figureIds = Array.prototype.slice
-      .call(checkboxes)
-      .filter((ch) => ch.checked == true)
-      .map((ch) => parseInt(ch.value));
+    const figureIds = getIds(checkboxes);
     Monastery.postMonasteries(
       nameInput,
       locationInput,
@@ -183,9 +96,8 @@ class Monastery {
     );
   }
   static fetchMonasteries() {
-    return fetch(`${BACKEND_URL}/api/v1/monasteries`)
-      .then((response) => response.json())
-      .then((json) => json["data"])
+    return super
+      .fetchEntries(MONASTERIES_URL)
       .then((data) => Monastery.initialize(data));
   }
   static postMonasteries(
@@ -208,7 +120,9 @@ class Monastery {
       .then((response) => response.json())
       .then((monastery) => {
         const monasteryObject = Monastery.createFromJson(monastery.data);
-        monasteryObject.render();
+        const contentContainer = document.querySelector("#content-container");
+        contentContainer.textContent = "";
+        monasteryObject.render(contentContainer);
       });
   }
 }

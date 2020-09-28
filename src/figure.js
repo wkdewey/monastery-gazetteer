@@ -1,11 +1,9 @@
-class Figure {
+class Figure extends BuddhistEntity {
   constructor(id, name, lifespan, religious_tradition, monasteries) {
-    this.id = id;
-    this.name = name;
+    super(id, name, religious_tradition);
     this.lifespan = lifespan;
-    this.religious_tradition = religious_tradition;
-    this.monasteries = [];
     if (monasteries) {
+      this.monasteries = [];
       for (const monastery of monasteries) {
         const monasteryName = monastery["name"];
         this.monasteries.push(monasteryName);
@@ -14,58 +12,31 @@ class Figure {
     Figure.allInstances.push(this);
   }
 
-  render() {
+  render(contentContainer) {
     const div = document.createElement("div");
-    div.classList.add(
-      "figure-card",
-      "album",
-      "py-5",
-      "bg-light",
-      "col-md-4",
-      "card",
-      "mb-4",
-      "shadow-sm",
-      "card-body"
-    );
-    const contentContainer = document.querySelector("#content-container");
-    contentContainer.appendChild(div);
-    const h2 = document.createElement("h2");
     const link = document.createElement("a");
-    link.href = "#";
-    link.textContent = this.name;
-    link.addEventListener("click", this.showAssociatedMonasteries.bind(this));
-    h2.appendChild(link);
-    div.appendChild(h2);
-    const location = document.createElement("p");
-    location.textContent = "Lifespan: " + this.lifespan;
-    div.appendChild(location);
-    const tradition = document.createElement("p");
-    tradition.textContent = "Religious tradition: " + this.religious_tradition;
-    div.appendChild(tradition);
+    super.render(contentContainer, div, link);
+    link.addEventListener("click", () => {
+      this.showAssociatedMonasteries(contentContainer);
+    });
+    const lifespan = div.querySelector("p");
+    lifespan.textContent = "Lifespan: " + this.lifespan;
   }
-  showAssociatedMonasteries() {
-    const contentContainer = document.querySelector("#content-container");
+  showAssociatedMonasteries(contentContainer) {
     contentContainer.textContent = "";
-    this.render();
+    this.render(contentContainer);
     let monasteries = document.createElement("h3");
     monasteries.textContent = "Associated Monasteries";
     contentContainer.appendChild(monasteries);
     for (const monastery of this.monasteries) {
       const monasteryObject = Monastery.find(monastery);
-      monasteryObject.render();
+      monasteryObject.render(contentContainer);
     }
   }
   static find(name) {
     const found = Figure.allInstances.find((figure) => figure.name === name);
     return found;
   }
-  static fetchFigures() {
-    return fetch(`${BACKEND_URL}/api/v1/figures`)
-      .then((response) => response.json())
-      .then((json) => json["data"])
-      .then((data) => Figure.initialize(data));
-  }
-
   static createFromJson(data) {
     const figure = new Figure(
       data.id,
@@ -93,73 +64,15 @@ class Figure {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
     for (const figure of Figure.allInstances) {
-      figure.render();
+      figure.render(contentContainer);
     }
   }
   static showFigureForm() {
-    const h2 = document.createElement("h2");
-    h2.textContent = "New Buddhist Figure";
-    const form = document.createElement("form");
-    const br = document.createElement("br");
     const contentContainer = document.querySelector("#content-container");
-    contentContainer.textContent = "";
-    contentContainer.appendChild(h2);
-    contentContainer.appendChild(form);
-    form.id = "create-figure-form";
-    form.classList.add("d-flex", "flex-column", "align-items-center");
-    const inputName = Helpers.createInputElement(
-      "input-name",
-      "text",
-      "name",
-      "",
-      "Enter figure name"
-    );
-    form.appendChild(inputName);
-    form.appendChild(br);
-    const inputLifespan = Helpers.createInputElement(
-      "input-lifespan",
-      "text",
-      "lifespan",
-      "",
-      "Enter lifespan"
-    );
-    form.appendChild(inputLifespan);
-    form.appendChild(br.cloneNode());
-    const inputTradition = Helpers.createInputElement(
-      "input-religious-tradition",
-      "text",
-      "religious-tradition",
-      "",
-      "Enter religious tradition"
-    );
-    form.appendChild(inputTradition);
-    form.appendChild(br.cloneNode());
-    const h3 = document.createElement("h3");
-    h3.textContent = "Choose Associated Monasteries";
-    form.appendChild(h3);
+    const form = document.createElement("form");
+    super.showForm("figure", form, contentContainer);
     const monasteries = Monastery.allInstances;
-    for (const monastery of monasteries) {
-      const option = Helpers.createInputElement(
-        "input-monastery-" + monastery.id,
-        "checkbox",
-        "monastery",
-        monastery.id
-      );
-      const label = document.createElement("label");
-      label.for = option.id;
-      label.textContent = monastery.name;
-      form.appendChild(option);
-      form.appendChild(label);
-      form.appendChild(br.cloneNode());
-    }
-    const submit = Helpers.createInputElement(
-      "create-button",
-      "submit",
-      "submit",
-      "Create New Figure"
-    );
-    submit.classList.add("btn", "btn-sm", "btn-outline-secondary");
-    form.appendChild(submit);
+    super.createCheckboxes(monasteries, "monastery", form);
     form.addEventListener("submit", (e) => Figure.createFigureFormHandler(e));
   }
 
@@ -171,16 +84,18 @@ class Figure {
       "#input-religious-tradition"
     ).value;
     const checkboxes = document.getElementsByName("monastery");
-    const monasteryIds = Array.prototype.slice
-      .call(checkboxes)
-      .filter((ch) => ch.checked == true)
-      .map((ch) => parseInt(ch.value));
+    const monasteryIds = getIds(checkboxes);
     Figure.postFigures(
       nameInput,
       lifespanInput,
       religiousTraditionInput,
       monasteryIds
     );
+  }
+  static fetchFigures() {
+    return super
+      .fetchEntries(FIGURES_URL)
+      .then((data) => Figure.initialize(data));
   }
   static postFigures(
     nameInput,
@@ -202,7 +117,9 @@ class Figure {
       .then((response) => response.json())
       .then((figure) => {
         const figureObject = Figure.createFromJson(figure.data);
-        figureObject.render();
+        const contentContainer = document.querySelector("#content-container");
+        contentContainer.textContent = "";
+        figureObject.render(contentContainer);
       });
   }
 }
