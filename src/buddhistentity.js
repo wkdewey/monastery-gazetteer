@@ -119,4 +119,9 @@ class BuddhistEntity {
       .filter((ch) => ch.checked == true)
       .map((ch) => parseInt(ch.value));
   }
+  static fetchEntries(url) {
+    return fetch(url)
+      .then((response) => response.json())
+      .then((json) => json["data"]);
+  }
 }

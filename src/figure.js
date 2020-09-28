@@ -93,9 +93,8 @@ class Figure extends BuddhistEntity {
     );
   }
   static fetchFigures() {
-    return fetch(`${BACKEND_URL}/api/v1/figures`)
-      .then((response) => response.json())
-      .then((json) => json["data"])
+    return super
+      .fetchEntries(FIGURES_URL)
       .then((data) => Figure.initialize(data));
   }
   static postFigures(

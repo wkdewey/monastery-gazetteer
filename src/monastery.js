@@ -96,9 +96,8 @@ class Monastery extends BuddhistEntity {
     );
   }
   static fetchMonasteries() {
-    return fetch(`${BACKEND_URL}/api/v1/monasteries`)
-      .then((response) => response.json())
-      .then((json) => json["data"])
+    return super
+      .fetchEntries(MONASTERIES_URL)
       .then((data) => Monastery.initialize(data));
   }
   static postMonasteries(
