@@ -112,4 +112,11 @@ class BuddhistEntity {
     const br = document.createElement("br");
     form.insertBefore(br, submit);
   }
+
+  static getIds(checkboxes) {
+    return Array.prototype.slice
+      .call(checkboxes)
+      .filter((ch) => ch.checked == true)
+      .map((ch) => parseInt(ch.value));
+  }
 }

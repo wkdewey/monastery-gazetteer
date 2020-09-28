@@ -87,10 +87,7 @@ class Monastery extends BuddhistEntity {
       "#input-religious-tradition"
     ).value;
     const checkboxes = document.getElementsByName("figure");
-    const figureIds = Array.prototype.slice
-      .call(checkboxes)
-      .filter((ch) => ch.checked == true)
-      .map((ch) => parseInt(ch.value));
+    const figureIds = getIds(checkboxes);
     Monastery.postMonasteries(
       nameInput,
       locationInput,

@@ -84,10 +84,7 @@ class Figure extends BuddhistEntity {
       "#input-religious-tradition"
     ).value;
     const checkboxes = document.getElementsByName("monastery");
-    const monasteryIds = Array.prototype.slice
-      .call(checkboxes)
-      .filter((ch) => ch.checked == true)
-      .map((ch) => parseInt(ch.value));
+    const monasteryIds = getIds(checkboxes);
     Figure.postFigures(
       nameInput,
       lifespanInput,
