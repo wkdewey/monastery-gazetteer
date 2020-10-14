@@ -29,4 +29,4 @@ const mapDispatchToProps = (dispatch) => {
     fetchPlaces: () => dispatch(fetchPlaces()),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
