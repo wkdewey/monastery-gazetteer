@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import { connect } from "react-redux";
 import { fetchPlaces } from "./actions/placeActions";
 import "./App.css";
@@ -14,6 +13,7 @@ class App extends Component {
         <header className="App-header">
           <p>Welcome to American Ancestries.</p>
         </header>
+
       </div>
     );
   }
