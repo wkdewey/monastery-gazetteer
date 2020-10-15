@@ -8,7 +8,6 @@ class App extends Component {
     this.props.fetchPlaces();
   }
   render() {
-    console.log(`props are ${this.props.places}`)
     return (
       <div className="App">
         <header className="App-header">
