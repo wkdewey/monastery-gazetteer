@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchPlaces } from "./actions/placeActions";
 import "./App.css";
+import PlacesContainer from "./containers/PlacesContainer"
 
 class App extends Component {
   componentDidMount() {
@@ -13,7 +14,7 @@ class App extends Component {
         <header className="App-header">
           <p>Welcome to American Ancestries.</p>
         </header>
-
+        <PlacesContainer />
       </div>
     );
   }
