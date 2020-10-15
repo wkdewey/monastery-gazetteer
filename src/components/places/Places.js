@@ -1,8 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Places extends Component {
-  render() {
-    return this.props.places.map((place) => {
+const Places = (props) => (props.places.map((place) => {
       return (
         <div className="place" key={place.id}>
           <h3><a href="">{place.attributes.name}</a></h3>
@@ -10,7 +8,6 @@ class Places extends Component {
         </div>
       )
     })
-  }
-}
+);
 
 export default Places;
