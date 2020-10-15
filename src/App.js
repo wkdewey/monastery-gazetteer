@@ -5,7 +5,6 @@ import { fetchPlaces } from "./actions/placeActions";
 import "./App.css";
 import NavBar from "./components/NavBar"
 import PlacesContainer from "./containers/PlacesContainer"
-import Places from "./components/places/Places"
 import Home from "./components/Home"
 
 class App extends Component {
@@ -22,7 +21,7 @@ class App extends Component {
               <Home />
             </Route>
             <Route path="/places">
-              <Places />
+              <PlacesContainer />
             </Route>
           </Switch>
         </div>
