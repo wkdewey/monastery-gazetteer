@@ -12,3 +12,12 @@ class PlacesContainer extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return { places: state.places }
+}
+
+const mapDispatchToProps = (dispatch) => {
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlacesContainer)
