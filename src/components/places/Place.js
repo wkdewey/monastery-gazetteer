@@ -2,7 +2,7 @@ import React from "react";
 const Place = (props) => {
   console.log(props.places)
   console.log(props.match)
-  const place = props.places[props.match.params.placeId]
+  const place = props.places[props.match.params.placeId - 1]
   console.log(place)
   const placeCard = place ? (
     <div className="place">
