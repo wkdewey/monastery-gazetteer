@@ -20,7 +20,7 @@ class App extends Component {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path="/places" component={PlacesContainer} />
+            <Route path="/places" render={routerProps => <PlacesContainer {...routerProps} places={this.props.places}/>} />
     
           </Switch>
         </div>

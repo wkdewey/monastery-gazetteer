@@ -2,18 +2,22 @@ import { render } from '@testing-library/react';
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import Places from "../components/places/Places"
-import { Route } from "react-router-dom"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import Place from "../components/places/Place"
 
 class PlacesContainer extends Component {
   render() {
+    console.log(`in PlacesContainer, this.props is ${JSON.stringify(this.state.places)}`)
     return (
       <div>
-        <Switch>
-          <Route exact path={match.url}>
-            <Places places={this.props.places} />
-          </Route>
-          <Route path={`${match.url}/:placeId`} render={(routerProps) => <Place {...routerProps} place={this.props.places.find(place => place)} />} />
-        </Switch>
+        <Router>
+          <Switch>
+            <Route exact path={this.props.match.url}>
+              <Places places={this.props.places} />
+            </Route>
+            <Route path={`${this.props.match.url}/:placeId`} render={(routerProps) => <Place {...routerProps} places={this.props.places} />} />
+          </Switch>
+        </Router>
       </div>
     )
   }
