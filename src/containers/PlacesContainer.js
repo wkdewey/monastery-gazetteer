@@ -10,14 +10,12 @@ class PlacesContainer extends Component {
     const places = this.props.places
     return (
       <div>
-        <Router>
           <Switch>
             <Route exact path={this.props.match.url}>
               <Places places={places} />
             </Route>
             <Route path={`${this.props.match.url}/:placeId`} render={(routerProps) => <Place {...routerProps} places={places}/>}/>
           </Switch>
-        </Router>
       </div>
     )
   }
