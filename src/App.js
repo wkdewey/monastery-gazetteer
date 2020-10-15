@@ -5,6 +5,8 @@ import { fetchPlaces } from "./actions/placeActions";
 import "./App.css";
 import NavBar from "./components/NavBar"
 import PlacesContainer from "./containers/PlacesContainer"
+import Places from "./components/places/Places"
+import Home from "./components/Home"
 
 class App extends Component {
   componentDidMount() {
@@ -13,19 +15,17 @@ class App extends Component {
   render() {
     return (
       <Router>
-      <div className="App">
-        <NavBar />
-        <Switch>
-          <Route path="/">
-        <header className="App-header">
-          <p>Welcome to American Ancestries.</p>
-        </header>
-          </Route>
-          <Route path="/places">
-        <PlacesContainer />
-        </Route>
-        </Switch>
-      </div>
+        <div className="App">
+          <NavBar />
+          <Switch>
+            <Route path="/">
+              <Home />
+            </Route>
+            <Route path="/places">
+              <Places />
+            </Route>
+          </Switch>
+        </div>
       </Router>
     );
   }
