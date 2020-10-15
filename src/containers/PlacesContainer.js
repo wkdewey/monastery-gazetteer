@@ -7,15 +7,15 @@ import Place from "../components/places/Place"
 
 class PlacesContainer extends Component {
   render() {
-    console.log(`in PlacesContainer, this.props is ${JSON.stringify(this.state.places)}`)
+    const places = this.props.places
     return (
       <div>
         <Router>
           <Switch>
             <Route exact path={this.props.match.url}>
-              <Places places={this.props.places} />
+              <Places places={places} />
             </Route>
-            <Route path={`${this.props.match.url}/:placeId`} render={(routerProps) => <Place {...routerProps} places={this.props.places} />} />
+            <Route path={`${this.props.match.url}/:placeId`} render={(routerProps) => <Place {...routerProps} places={places}/>}/>
           </Switch>
         </Router>
       </div>

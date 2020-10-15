@@ -1,13 +1,20 @@
 import React from "react";
-const Place = ({ match, places }) => {
-  console.log(places)
-  const place = places[match.params.placeId]
-      return (
-        <div className="place">
-          <h3>{place.name}</h3>
-          <p>Population: {place.population}</p>
-        </div>
-      )
+const Place = (props) => {
+  console.log(props.places)
+  console.log(props.match)
+  const place = props.places[props.match.params.placeId]
+  console.log(place)
+  const placeCard = place ? (
+    <div className="place">
+      <h3>{place.attributes.name}</h3>
+      <p>Population: {place.attributes.population}</p>
+    </div>
+  ) : "Place not found";
+  return (
+    <div>
+      {placeCard}
+    </div>
+  )
 }
 
 export default Place;
