@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import { connect } from "react-redux";
 import { fetchPlaces } from "./actions/placeActions";
 import "./App.css";
@@ -9,11 +8,13 @@ class App extends Component {
     this.props.fetchPlaces();
   }
   render() {
+    console.log(`props are ${this.props.places}`)
     return (
       <div className="App">
         <header className="App-header">
           <p>Welcome to American Ancestries.</p>
         </header>
+
       </div>
     );
   }
