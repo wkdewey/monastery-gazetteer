@@ -52,7 +52,7 @@ class PlaceInput extends Component {
                 value={this.state.population}
                 onChange={this.state.handlePopulationChange}
               />
-            </labqel>
+            </label>
           </div>
           <div>
             <label>
