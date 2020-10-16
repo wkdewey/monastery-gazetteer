@@ -1,6 +1,6 @@
-import React from "react";
+import React, { Component } from "react";
 
-class PlaceInput extends React.Component {
+class PlaceInput extends Component {
   constructor(props) {
     super(props);
 
@@ -15,6 +15,7 @@ class PlaceInput extends React.Component {
 
   render() {
     return (
+      <div>
       <form>
         <div><label>Place name<input id="name" name="name" type="text" value={this.state.name} /></label></div>
         <div><label>Total population<input id="population" name="population" type="number" value={this.state.population} /></label></div>
@@ -23,6 +24,9 @@ class PlaceInput extends React.Component {
         <div><label>Mexican-American population<input id="population" name="mexican_pop" type="number" value={this.state.mexican_pop} /></label></div>
         <div><button type="submit"> Submit</button></div>
       </form>
+      </div>
     )
   }
 }
+
+export default PlaceInput
