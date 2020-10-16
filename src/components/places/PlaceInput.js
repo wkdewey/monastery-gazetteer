@@ -13,7 +13,10 @@ class PlaceInput extends Component {
     }
   }
 
+  
+
   render() {
+    console.log("in PlaceInput")
     return (
       <div>
       <form>
