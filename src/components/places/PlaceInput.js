@@ -25,6 +25,24 @@ class PlaceInput extends Component {
     });
   };
 
+  handleGermanPopChange = (event) => {
+    this.setState({
+      german_pop: event.target.value,
+    });
+  };
+
+  handleAfAmPopChange = (event) => {
+    this.setState({
+      af_am_pop: event.target.value,
+    });
+  };
+
+  handleMexicanPopChange = (event) => {
+    this.setState({
+      mexican_pop: event.target.value,
+    });
+  };
+
   render() {
     console.log("in PlaceInput");
     return (
@@ -50,7 +68,7 @@ class PlaceInput extends Component {
                 name="population"
                 type="number"
                 value={this.state.population}
-                onChange={this.state.handlePopulationChange}
+                onChange={this.handlePopulationChange}
               />
             </label>
           </div>
@@ -58,10 +76,11 @@ class PlaceInput extends Component {
             <label>
               German-American population
               <input
-                id="population"
+                id="german_pop"
                 name="german_pop"
                 type="number"
                 value={this.state.german_pop}
+                onChange={this.handleGermanPopChange}
               />
             </label>
           </div>
@@ -69,10 +88,11 @@ class PlaceInput extends Component {
             <label>
               African-American population
               <input
-                id="population"
+                id="af_am_pop"
                 name="af_am_pop"
                 type="number"
                 value={this.state.af_am_pop}
+                onChange={this.handleAfAmPopChange}
               />
             </label>
           </div>
@@ -84,6 +104,7 @@ class PlaceInput extends Component {
                 name="mexican_pop"
                 type="number"
                 value={this.state.mexican_pop}
+                onChange={this.handleMexicanPopChange}
               />
             </label>
           </div>
