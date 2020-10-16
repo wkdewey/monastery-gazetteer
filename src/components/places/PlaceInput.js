@@ -43,11 +43,26 @@ class PlaceInput extends Component {
     });
   };
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    let formData = {
+      name: this.state.name,
+      population: this.state.population,
+      german_pop: this.state.german_pop,
+      af_am_pop: this.state.af_am_pop,
+      mexican_pop: this.state.mexican_pop,
+    };
+    this.props.handleLogin(formData);
+  };
+
   render() {
-    console.log("in PlaceInput");
     return (
       <div>
-        <form>
+        <form
+          onSubmit={(e) => {
+            this.handleSubmit(e);
+          }}
+        >
           <div>
             <label>
               Place name
