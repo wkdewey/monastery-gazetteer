@@ -52,7 +52,8 @@ class PlaceInput extends Component {
       af_am_pop: this.state.af_am_pop,
       mexican_pop: this.state.mexican_pop,
     };
-    this.props.handleLogin(formData);
+    console.log(this.props);
+    this.props.addPlace(formData);
   };
 
   render() {
