@@ -38,10 +38,4 @@ const mapStateToProps = (state) => {
   return { places: state.places };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addPlace: (formData) => dispatch({ type: "ADD_PLACE", place: formData }),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlacesContainer);
+export default connect(mapStateToProps)(PlacesContainer);

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 
+import { connect } from "react-redux";
+
 class PlaceInput extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       name: "",
       population: 0,
@@ -45,6 +46,7 @@ class PlaceInput extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    console.log("handleSubmit called");
     let formData = {
       name: this.state.name,
       population: this.state.population,
@@ -52,7 +54,6 @@ class PlaceInput extends Component {
       af_am_pop: this.state.af_am_pop,
       mexican_pop: this.state.mexican_pop,
     };
-    console.log(this.props);
     this.props.addPlace(formData);
   };
 
@@ -133,4 +134,11 @@ class PlaceInput extends Component {
   }
 }
 
-export default PlaceInput;
+const mapDispatchToProps = (dispatch) => {
+  console.log("mapDispatchToProps called");
+  return {
+    addPlace: (formData) => dispatch({ type: "ADD_PLACE", place: formData }),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(PlaceInput);
