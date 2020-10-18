@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-
 import { connect } from "react-redux";
+import { addPlace } from "../../actions/placeActions";
 
 class PlaceInput extends Component {
   constructor(props) {
@@ -138,7 +138,7 @@ class PlaceInput extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addPlace: () => dispatch(addPlace()),
+    addPlace: (place) => dispatch(addPlace(place)),
   };
 };
 export default connect(null, mapDispatchToProps)(PlaceInput);

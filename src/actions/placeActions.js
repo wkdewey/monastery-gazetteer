@@ -20,8 +20,7 @@ export const fetchPlaces = () => {
   };
 };
 
-export const addPlace = () => {
-  return (place) => {
-    dispatch({ type: "ADD_PLACE", place });
-  };
-};
+export function addPlace(place) {
+  console.log(`in placeActions, place is ${place}`);
+  return { type: "ADD_PLACE", place };
+}
