@@ -23,6 +23,9 @@ export const fetchPlaces = () => {
 export const addPlace = (place) => {
   return (dispatch) => {
     dispatch({ type: "POSTING_PLACE" });
+    console.log(`in addPlace action`);
+    console.log(dispatch);
+    console.log(place);
     fetch("http://localhost:3000/api/v1/places", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

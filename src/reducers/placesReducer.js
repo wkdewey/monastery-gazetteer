@@ -17,7 +17,7 @@ const placesReducer = (state = { places: [], loading: false }, action) => {
     case "ADD_PLACE":
       return {
         ...state,
-        places: [action.place, ...state.places],
+        places: [...state.places, action.place],
         loading: false,
       };
     default:
