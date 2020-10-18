@@ -1,9 +1,7 @@
 import React from "react";
 const Place = (props) => {
-  console.log(props.places)
-  console.log(props.match)
-  const place = props.places[props.match.params.placeId - 1]
-  console.log(place)
+  console.log(props);
+  const place = props.places[props.match.params.placeId - 1];
   const placeCard = place ? (
     <div className="place">
       <h3>{place.attributes.name}</h3>
@@ -12,12 +10,10 @@ const Place = (props) => {
       <p>African-American: {place.attributes.percent_african_american}%</p>
       <p>Mexican-American: {place.attributes.percent_mexican}%</p>
     </div>
-  ) : "Place not found";
-  return (
-    <div>
-      {placeCard}
-    </div>
-  )
-}
+  ) : (
+    "Place not found"
+  );
+  return <div>{placeCard}</div>;
+};
 
 export default Place;

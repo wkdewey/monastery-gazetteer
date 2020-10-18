@@ -2,6 +2,7 @@
 import React from "react";
 
 const Home = () => {
+  console.log("in Home component")
   return(
     <div>
       <header className="App-header">
