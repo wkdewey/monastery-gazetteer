@@ -5,6 +5,7 @@ import { fetchPlaces } from "./actions/placeActions";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import PlacesContainer from "./containers/PlacesContainer";
+import AncestryGroupsContainer from "./containers/AncestryGroupsContainer";
 import Home from "./components/Home";
 
 class App extends Component {
