@@ -20,7 +20,17 @@ export const fetchPlaces = () => {
   };
 };
 
-export function addPlace(place) {
-  console.log(`in placeActions, place is ${place}`);
-  return { type: "ADD_PLACE", place };
-}
+export const addPlace = (place) => {
+  return (dispatch) => {
+    dispatch({ type: "POSTING_PLACE" });
+    fetch("http://localhost:3000/api/v1/places", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(place),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch({ type: "ADD_PLACE", place: json.data });
+      });
+  };
+};
