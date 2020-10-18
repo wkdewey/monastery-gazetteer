@@ -136,4 +136,9 @@ class PlaceInput extends Component {
   }
 }
 
-export default PlaceInput;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addPlace: () => dispatch(addPlace()),
+  };
+};
+export default connect(null, mapDispatchToProps)(PlaceInput);
