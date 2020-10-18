@@ -21,7 +21,7 @@ export const fetchPlaces = () => {
 };
 
 export const addPlace = () => {
-  return (dispatch, formData) => {
-    dispatch({ type: "ADD_PLACE", place: formData });
+  return (place) => {
+    dispatch({ type: "ADD_PLACE", place });
   };
 };
