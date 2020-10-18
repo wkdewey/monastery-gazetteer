@@ -29,6 +29,18 @@ class App extends Component {
                 );
               }}
             />
+            <Route
+              path="/places"
+              render={(routerProps) => {
+                console.log("AncestryGroupsqContainer is being rendered");
+                return (
+                  <AncestryGroupsContainer
+                    {...routerProps}
+                    ancestry_groups={this.props.ancestry_groups}
+                  />
+                );
+              }}
+            />
             <Route path="/">
               <Home />
             </Route>
