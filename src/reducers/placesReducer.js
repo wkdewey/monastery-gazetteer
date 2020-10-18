@@ -1,5 +1,5 @@
 const placesReducer = (state = { places: [], loading: false }, action) => {
-  console.log("placesReducer called");
+  console.log(`placesReducer called with action=${JSON.stringify(action)}`);
   switch (action.type) {
     case "LOADING_PLACES":
       return {

@@ -54,7 +54,8 @@ class PlaceInput extends Component {
       af_am_pop: this.state.af_am_pop,
       mexican_pop: this.state.mexican_pop,
     };
-    this.props.addPlace(formData);
+    console.log(formData);
+    // this.props.postPlace(formData);
   };
 
   render() {
@@ -62,6 +63,7 @@ class PlaceInput extends Component {
       <div>
         <form
           onSubmit={(e) => {
+            console.log("onSubmit!!!111");
             this.handleSubmit(e);
           }}
         >
@@ -134,11 +136,4 @@ class PlaceInput extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  console.log("mapDispatchToProps called");
-  return {
-    addPlace: (formData) => dispatch({ type: "ADD_PLACE", place: formData }),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(PlaceInput);
+export default PlaceInput;
