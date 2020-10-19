@@ -32,7 +32,7 @@ class App extends Component {
               }}
             />
             <Route
-              path="/places"
+              path="/ancestry_groups"
               render={(routerProps) => {
                 console.log("AncestryGroupsqContainer is being rendered");
                 return (

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import AncestryGroups from "../components/ancestry_groups/AncestryGroups";
 import { BrowserRouter as Route, Switch } from "react-router-dom";
-import AncestryGroup from "../components/ancestry_groups/AncestryGroup";
+import AncestryGroup from "../components/ancestry_groups/AncestryGroup.js";
 
 class AncestryGroupsContainer extends Component {
   render() {
