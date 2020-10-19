@@ -1,4 +1,7 @@
-const placesReducer = (state = { places: [], loading: false }, action) => {
+const placesReducer = (
+  state = { places: [], ancestry_groups: [], loading: false },
+  action
+) => {
   console.log(`placesReducer called with action=${JSON.stringify(action)}`);
   switch (action.type) {
     case "LOADING_PLACES":
@@ -18,6 +21,19 @@ const placesReducer = (state = { places: [], loading: false }, action) => {
       return {
         ...state,
         places: [...state.places, action.place],
+        loading: false,
+      };
+    case "LOADING_ANCESTRY_GROUPS":
+      return {
+        ...state,
+        ancestry_groups: [...state.ancestry_groups],
+        loading: true,
+      };
+    case "ADD_ANCESTRY_GROUPS":
+      console.log("hit ADD_ANCESTRY_GROUPS in reducer");
+      return {
+        ...state,
+        ancestry_groups: action.ancestry_groups,
         loading: false,
       };
     default:
