@@ -1,7 +1,11 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+
 const Place = (props) => {
   console.log(props);
-  const place = props.places[props.match.params.placeId - 1];
+  let { placeId } = useParams();
+  console.log(useParams());
+  const place = props.places[placeId - 1];
   const placeCard = place ? (
     <div className="place">
       <h3>{place.attributes.name}</h3>
