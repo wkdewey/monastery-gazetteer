@@ -6,18 +6,15 @@ import AncestryGroup from "../components/ancestry_groups/AncestryGroup.js";
 
 class AncestryGroupsContainer extends Component {
   render() {
-    const ancestry_groups = this.props.ancestry_groups;
+    const ancestryGroups = this.props.ancestryGroups;
     return (
       <div>
         <Switch>
           <Route exact path={`${this.props.match.path}/:ancestryGroupId`}>
-            <AncestryGroup ancestry_groups={ancestry_groups} />
+            <AncestryGroup ancestryGroups={ancestryGroups} />
           </Route>
-          {/* <Route path={`${this.props.match.path}/:ancestryGroupId`}>
-            <AncestryGroup match={this.props.match} ancestry_groups={ancestry_groups} />
-          </Route> */}
           <Route path={this.props.match.path}>
-            <AncestryGroups ancestry_groups={ancestry_groups} />
+            <AncestryGroups ancestryGroups={ancestryGroups} />
           </Route>
         </Switch>
       </div>
@@ -26,7 +23,7 @@ class AncestryGroupsContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { ancestry_groups: state.ancestry_groups };
+  return { ancestryGroups: state.ancestryGroups };
 };
 
 export default connect(mapStateToProps)(AncestryGroupsContainer);

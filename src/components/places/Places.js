@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 const Places = (props) =>
   props.places.map((place) => {
-    console.log(props.places);
     return (
       <div className="place" key={place.id}>
         <h3>

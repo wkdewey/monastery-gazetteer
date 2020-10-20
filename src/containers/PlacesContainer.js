@@ -9,22 +9,13 @@ import PlaceInput from "../components/places/PlaceInput";
 class PlacesContainer extends Component {
   render() {
     const places = this.props.places;
-    const place_ancestry_groups = this.props.place_ancestry_groups;
-    console.log(place_ancestry_groups);
+    const placeAncestryGroups = this.props.placeAncestryGroups;
     return (
       <div>
         <Switch>
           <Route path={`${this.props.match.path}/new`}>
-            <PlaceInput place_ancestry_groups={place_ancestry_groups} />
+            <PlaceInput placeAncestryGroups={placeAncestryGroups} />
           </Route>
-          {/* <Route
-            exact
-            path={`${this.props.match.path}/:placeId`}
-            render={(routerProps) => {
-              console.log("should redirect to Place");
-              return <Place {...routerProps} places={places} />;
-            }}
-          /> */}
           <Route path={`${this.props.match.path}/:placeId`}>
             <Place places={places} />
             <PlaceComparison places={places} />
