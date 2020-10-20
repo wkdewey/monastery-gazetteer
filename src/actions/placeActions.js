@@ -47,6 +47,10 @@ export const fetchAncestryGroups = () => {
       })
       .then((json) => {
         dispatch({ type: "ADD_ANCESTRY_GROUPS", ancestry_groups: json.data });
+        dispatch({
+          type: "ADD_PLACE_ANCESTRY_GROUPS",
+          ancestry_groups: json.data,
+        });
       });
   };
 };

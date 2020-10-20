@@ -14,6 +14,7 @@ class App extends Component {
     this.props.fetchAncestryGroups();
   }
   render() {
+    console.log(this.props.place_ancestry_groups);
     return (
       <Router>
         <div className="App">
@@ -27,6 +28,8 @@ class App extends Component {
                   <PlacesContainer
                     {...routerProps}
                     places={this.props.places}
+                    ancestry_groups={this.props.ancestry_groups}
+                    place_ancestry_groups={this.props.place_ancestry_groups}
                   />
                 );
               }}
@@ -56,6 +59,7 @@ const mapStateToProps = (state) => {
   return {
     places: state.places,
     ancestry_groups: state.ancestry_groups,
+    place_ancestry_groups: state.place_ancestry_groups,
   };
 };
 const mapDispatchToProps = (dispatch) => {

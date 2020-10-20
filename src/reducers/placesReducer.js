@@ -36,6 +36,13 @@ const placesReducer = (
         ancestry_groups: action.ancestry_groups,
         loading: false,
       };
+    case "ADD_PLACE_ANCESTRY_GROUPS":
+      return {
+        ...state,
+        place_ancestry_groups: action.ancestry_groups.map((ancestry_group) => {
+          return { ancestry_group_id: ancestry_group.id, population: 0 };
+        }),
+      };
     default:
       return state;
   }

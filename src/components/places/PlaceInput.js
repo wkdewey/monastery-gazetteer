@@ -8,8 +8,16 @@ class PlaceInput extends Component {
     this.state = {
       name: "",
       population: 0,
+      place_ancestry_groups: null,
     };
   }
+
+  // componentDidMount() {
+  //   // this.props.fetchAncestryGroups();
+  //   this.setState({
+  //     place_ancestry_groups: this.props.place_ancestry_groups,
+  //   });
+  // }
 
   handleNameChange = (event) => {
     this.setState({
@@ -18,6 +26,7 @@ class PlaceInput extends Component {
   };
 
   handlePopulationChange = (event) => {
+    console.log(this.state);
     this.setState({
       population: event.target.value,
     });
@@ -34,6 +43,9 @@ class PlaceInput extends Component {
   };
 
   render() {
+    console.log(this.state);
+    console.log(this.props.place_ancestry_groups);
+    console.log(this.state.place_ancestry_groups);
     return (
       <div>
         <form
@@ -65,6 +77,19 @@ class PlaceInput extends Component {
               />
             </label>
           </div>
+          {this.props.place_ancestry_groups
+            ? this.props.place_ancestry_groups.map((group) => {
+                console.log(group);
+                return (
+                  <div>
+                    <label>
+                      Id: {group.id}
+                      <input type="number" value={group.population} />
+                    </label>
+                  </div>
+                );
+              })
+            : null}
           <div>
             <button type="submit"> Submit</button>
           </div>
@@ -73,10 +98,19 @@ class PlaceInput extends Component {
     );
   }
 }
-
+const mapStateToProps = (state) => {
+  return { place_ancestry_groups: state.place_ancestry_groups };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     addPlace: (place) => dispatch(addPlace(place)),
+    // fetchAncestryGroups: () => dispatch(fetchAncestryGroups()),
   };
 };
-export default connect(null, mapDispatchToProps)(PlaceInput);
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     fetchPlaces: () => dispatch(fetchPlaces()),
+
+//   };
+// };
+export default connect(mapStateToProps, mapDispatchToProps)(PlaceInput);
