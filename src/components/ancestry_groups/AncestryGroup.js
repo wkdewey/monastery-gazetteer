@@ -19,7 +19,8 @@ const AncestryGroup = (props) => {
         return (
           <div className="place" key={place.id}>
             <p>
-              {place.attributes.place.name}: {place.attributes.percent}%
+              {place.attributes.place.name}: {place.attributes.percent}%,{" "}
+              {place.attributes.relative_to_national}x national average
             </p>
           </div>
         );
