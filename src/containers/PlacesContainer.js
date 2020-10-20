@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Places from "../components/places/Places";
 import { Route, Switch } from "react-router-dom";
 import Place from "../components/places/Place";
+import PlaceComparison from "../components/places/PlaceComparison";
 import PlaceInput from "../components/places/PlaceInput";
 
 class PlacesContainer extends Component {
@@ -24,6 +25,7 @@ class PlacesContainer extends Component {
           /> */}
           <Route path={`${this.props.match.path}/:placeId`}>
             <Place places={places} />
+            <PlaceComparison places={places} />
           </Route>
           <Route path={this.props.match.path}>
             <Places places={places} />

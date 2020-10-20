@@ -8,9 +8,6 @@ class PlaceInput extends Component {
     this.state = {
       name: "",
       population: 0,
-      german_pop: 0,
-      af_am_pop: 0,
-      mexican_pop: 0,
     };
   }
 
@@ -26,33 +23,11 @@ class PlaceInput extends Component {
     });
   };
 
-  handleGermanPopChange = (event) => {
-    this.setState({
-      german_pop: event.target.value,
-    });
-  };
-
-  handleAfAmPopChange = (event) => {
-    this.setState({
-      af_am_pop: event.target.value,
-    });
-  };
-
-  handleMexicanPopChange = (event) => {
-    this.setState({
-      mexican_pop: event.target.value,
-    });
-  };
-
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log("handleSubmit called");
     let formData = {
       name: this.state.name,
       population: this.state.population,
-      german_pop: this.state.german_pop,
-      af_am_pop: this.state.af_am_pop,
-      mexican_pop: this.state.mexican_pop,
     };
     console.log(formData);
     this.props.addPlace(formData);
@@ -63,7 +38,6 @@ class PlaceInput extends Component {
       <div>
         <form
           onSubmit={(e) => {
-            console.log("onSubmit!!!111");
             this.handleSubmit(e);
           }}
         >
@@ -88,42 +62,6 @@ class PlaceInput extends Component {
                 type="number"
                 value={this.state.population}
                 onChange={this.handlePopulationChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              German-American population
-              <input
-                id="german_pop"
-                name="german_pop"
-                type="number"
-                value={this.state.german_pop}
-                onChange={this.handleGermanPopChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              African-American population
-              <input
-                id="af_am_pop"
-                name="af_am_pop"
-                type="number"
-                value={this.state.af_am_pop}
-                onChange={this.handleAfAmPopChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Mexican-American population
-              <input
-                id="population"
-                name="mexican_pop"
-                type="number"
-                value={this.state.mexican_pop}
-                onChange={this.handleMexicanPopChange}
               />
             </label>
           </div>
