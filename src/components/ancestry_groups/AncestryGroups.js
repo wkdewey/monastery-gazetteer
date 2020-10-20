@@ -2,20 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const AncestryGroups = (props) =>
-  props.ancestry_groups.map((ancestry_group) => {
-    console.log(props.ancestry_groups);
+  props.ancestryGroups.map((ancestryGroup) => {
     return (
-      <div className="ancestry_group" key={ancestry_group.id}>
+      <div className="ancestry_group" key={ancestryGroup.id}>
         <h3>
           <Link
-            key={ancestry_group.id}
-            to={`/ancestry_groups/${ancestry_group.id}`}
+            key={ancestryGroup.id}
+            to={`/ancestry_groups/${ancestryGroup.id}`}
           >
-            {ancestry_group.attributes.name}
+            {ancestryGroup.attributes.name}
           </Link>
         </h3>
         <p>
-          Percent of US Population: {ancestry_group.attributes.national_percent}
+          Percent of US Population: {ancestryGroup.attributes.nationalPercent}
         </p>
       </div>
     );

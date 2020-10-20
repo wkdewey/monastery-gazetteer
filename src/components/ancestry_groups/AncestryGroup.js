@@ -5,22 +5,21 @@ const AncestryGroup = (props) => {
   console.log(props);
   let { ancestryGroupId } = useParams();
   console.log(useParams());
-  const ancestry_group = props.ancestry_groups[ancestryGroupId - 1];
-  const places = ancestry_group.attributes.place_ancestry_groups;
+  const ancestryGroup = props.ancestryGroups[ancestryGroupId - 1];
+  const places = ancestryGroup.attributes.placeAncestryGroups;
   places.sort((a, b) => (a.attributes.percent < b.attributes.percent ? 1 : -1));
-  const ancestryGroupCard = ancestry_group ? (
+  const ancestryGroupCard = ancestryGroup ? (
     <div className="ancestry group">
-      <h3>{ancestry_group.attributes.name}</h3>
+      <h3>{ancestryGroup.attributes.name}</h3>
       <p>
-        Population in the United States:{" "}
-        {ancestry_group.attributes.national_pop}
+        Population in the United States: {ancestryGroup.attributes.nationalPop}
       </p>
       {places.map((place) => {
         return (
           <div className="place" key={place.id}>
             <p>
               {place.attributes.place.name}: {place.attributes.percent}%,{" "}
-              {place.attributes.relative_to_national}x national average
+              {place.attributes.relativeToNational}x national average
             </p>
           </div>
         );
