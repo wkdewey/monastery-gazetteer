@@ -70,8 +70,17 @@ class PlaceInput extends Component {
                 return (
                   <div>
                     <label>
-                      Id: {group.id}
-                      <input type="number" value={group.population} />
+                      {group.attributes.ancestry_group_name}
+                      <input
+                        id={
+                          "population " + group.attributes.ancestry_group_name
+                        }
+                        name={
+                          "population " + group.attributes.ancestry_group_name
+                        }
+                        type="number"
+                        value={group.attributes.population}
+                      />
                     </label>
                   </div>
                 );
