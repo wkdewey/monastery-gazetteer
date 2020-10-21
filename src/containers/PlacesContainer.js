@@ -9,6 +9,7 @@ import PlaceInput from "../components/places/PlaceInput";
 class PlacesContainer extends Component {
   render() {
     const places = this.props.places;
+    console.log(places);
     const placeAncestryGroups = this.props.placeAncestryGroups;
     return (
       <div>

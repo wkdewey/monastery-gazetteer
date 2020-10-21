@@ -14,7 +14,7 @@ const AncestryGroups = (props) =>
           </Link>
         </h3>
         <p>
-          Percent of US Population: {ancestryGroup.attributes.nationalPercent}
+          Percent of US Population: {ancestryGroup.attributes.national_percent}
         </p>
       </div>
     );

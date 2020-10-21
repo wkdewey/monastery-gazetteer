@@ -14,7 +14,6 @@ class App extends Component {
     this.props.fetchAncestryGroups();
   }
   render() {
-    console.log(this.props.place_ancestry_groups);
     return (
       <Router>
         <div className="App">
@@ -23,13 +22,12 @@ class App extends Component {
             <Route
               path="/places"
               render={(routerProps) => {
-                console.log("PlacesContainer is being rendered");
                 return (
                   <PlacesContainer
                     {...routerProps}
                     places={this.props.places}
-                    ancestry_groups={this.props.ancestry_groups}
-                    place_ancestry_groups={this.props.place_ancestry_groups}
+                    ancestryGroups={this.props.ancestryGroups}
+                    placeAncestryGroups={this.props.placeAncestryGroups}
                   />
                 );
               }}
@@ -37,11 +35,10 @@ class App extends Component {
             <Route
               path="/ancestry_groups"
               render={(routerProps) => {
-                console.log("AncestryGroupsContainer is being rendered");
                 return (
                   <AncestryGroupsContainer
                     {...routerProps}
-                    ancestry_groups={this.props.ancestry_groups}
+                    ancestryGroups={this.props.ancestryGroups}
                   />
                 );
               }}
@@ -58,8 +55,8 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     places: state.places,
-    ancestry_groups: state.ancestry_groups,
-    place_ancestry_groups: state.place_ancestry_groups,
+    ancestryGroups: state.ancestryGroups,
+    placeAncestryGroups: state.placeAncestryGroups,
   };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 const Place = (props) => {
   let { placeId } = useParams();
   const place = props.places[placeId - 1];
-  const groups = place.attributes.placeAncestryGroups;
+  console.log(`place is ${place}`);
+  const groups = place.attributes.place_ancestry_groups;
   groups.sort((a, b) => (a.attributes.percent < b.attributes.percent ? 1 : -1));
   const placeCard = place ? (
     <div className="place">
@@ -14,7 +15,8 @@ const Place = (props) => {
         return (
           <div className="ancestry group" key={group.id}>
             <p>
-              {group.attributes.ancestryGroup.name}: {group.attributes.percent}%
+              {group.attributes.ancestry_group.name}: {group.attributes.percent}
+              %
             </p>
           </div>
         );

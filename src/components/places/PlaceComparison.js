@@ -4,9 +4,11 @@ import { useParams } from "react-router-dom";
 const PlaceComparison = (props) => {
   let { placeId } = useParams();
   const place = props.places[placeId - 1];
-  const groups = place.attributes.placeAncestryGroups;
+  const groups = place.attributes.place_ancestry_groups;
   groups.sort((a, b) =>
-    a.attributes.relativeToNational < b.attributes.relativeToNational ? 1 : -1
+    a.attributes.relative_to_national < b.attributes.relative_to_national
+      ? 1
+      : -1
   );
   const placeCard = place ? (
     <div className="place compared">
@@ -16,8 +18,8 @@ const PlaceComparison = (props) => {
         return (
           <div className="ancestry group compared" key={group.id}>
             <p>
-              {group.attributes.ancestryGroup.name}:{" "}
-              {group.attributes.relativeToNational}
+              {group.attributes.ancestry_group.name}:{" "}
+              {group.attributes.relative_to_national}
             </p>
           </div>
         );
