@@ -20,21 +20,38 @@ class PlaceInput extends Component {
 
   handlePopulationChange = (event) => {
     this.setState({
-      population: event.target.value,
+      population: parseInt(event.target.value),
     });
   };
-  handleGroupChange = (event) => {};
+  handleGroupChange = (groups, id, event) => {
+    // debugger;
+    let group = { ...groups[id] };
+    group.population = parseInt(event.target.value);
+    groups[id] = group;
+    this.setState({
+      placeAncestryGroups: groups,
+    });
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
     let formData = {
       name: this.state.name,
       population: this.state.population,
+      placeAncestryGroups: this.state.placeAncestryGroups,
     };
     this.props.addPlace(formData);
   };
 
   render() {
+    let groups;
+    if (this.state.placeAncestryGroups) {
+      groups = [...this.state.placeAncestryGroups];
+    } else if (this.props.placeAncestryGroups) {
+      groups = [...this.props.placeAncestryGroups];
+    } else {
+      groups = [];
+    }
     return (
       <div>
         <form
@@ -66,25 +83,29 @@ class PlaceInput extends Component {
               />
             </label>
           </div>
-          {this.props.placeAncestryGroups
-            ? this.props.placeAncestryGroups.map((group) => {
-                console.log(group);
-                return (
-                  <div key={group.ancestryGroupId}>
-                    <label>
-                      {group.ancestryGroupName + " population"}
-                      <input
-                        id={"population " + group.ancestryGroupName}
-                        name={"population " + group.ancestryGroupName}
-                        type="number"
-                        value={group.population}
-                        onChange={this.handleGroupChange}
-                      />
-                    </label>
-                  </div>
-                );
-              })
-            : null}
+          {groups.map((group) => {
+            return (
+              <div key={group.ancestryGroupId}>
+                <label>
+                  {group.ancestryGroupName + " population"}
+                  <input
+                    id={"population " + group.ancestryGroupName}
+                    name={"population " + group.ancestryGroupName}
+                    type="number"
+                    value={group.population}
+                    onChange={(e) =>
+                      this.handleGroupChange(
+                        groups,
+                        parseInt(group.ancestryGroupId) - 1,
+                        e
+                      )
+                    }
+                  />
+                </label>
+              </div>
+            );
+          })}
+          ;
           <div>
             <button type="submit"> Submit</button>
           </div>
@@ -93,12 +114,10 @@ class PlaceInput extends Component {
     );
   }
 }
-const mapStateToProps = (state) => {
-  return { placeAncestryGroups: state.placeAncestryGroups };
-};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     addPlace: (place) => dispatch(addPlace(place)),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(PlaceInput);
+export default connect(null, mapDispatchToProps)(PlaceInput);
