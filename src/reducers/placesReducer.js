@@ -38,7 +38,11 @@ const placesReducer = (
       return {
         ...state,
         placeAncestryGroups: action.ancestryGroups.map((ancestryGroup) => {
-          return { ancestryGroupId: ancestryGroup.id, population: 0 };
+          return {
+            ancestryGroupId: ancestryGroup.id,
+            population: 0,
+            ancestryGroupName: ancestryGroup.attributes.name,
+          };
         }),
       };
     default:

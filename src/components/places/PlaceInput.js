@@ -23,6 +23,7 @@ class PlaceInput extends Component {
       population: event.target.value,
     });
   };
+  handleGroupChange = (event) => {};
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -67,19 +68,17 @@ class PlaceInput extends Component {
           </div>
           {this.props.placeAncestryGroups
             ? this.props.placeAncestryGroups.map((group) => {
+                console.log(group);
                 return (
-                  <div>
+                  <div key={group.ancestryGroupId}>
                     <label>
-                      {group.attributes.ancestry_group_name}
+                      {group.ancestryGroupName + " population"}
                       <input
-                        id={
-                          "population " + group.attributes.ancestry_group_name
-                        }
-                        name={
-                          "population " + group.attributes.ancestry_group_name
-                        }
+                        id={"population " + group.ancestryGroupName}
+                        name={"population " + group.ancestryGroupName}
                         type="number"
-                        value={group.attributes.population}
+                        value={group.population}
+                        onChange={this.handleGroupChange}
                       />
                     </label>
                   </div>
