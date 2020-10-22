@@ -6,7 +6,6 @@ const placesReducer = (
     case "LOADING_PLACES":
       return {
         ...state,
-        places: [...state.places],
         loading: true,
       };
     case "ADD_PLACES":
@@ -24,7 +23,6 @@ const placesReducer = (
     case "LOADING_ANCESTRY_GROUPS":
       return {
         ...state,
-        ancestryGroups: [...state.ancestryGroups],
         loading: true,
       };
     case "ADD_ANCESTRY_GROUPS":
