@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addPlace } from "../../actions/placeActions";
+import { addPlace, fetchAncestryGroups } from "../../actions/placeActions";
 
 class PlaceInput extends Component {
   constructor(props) {
@@ -8,6 +8,7 @@ class PlaceInput extends Component {
     this.state = {
       name: "",
       population: 0,
+      placeAncestryGroups: null,
     };
   }
 
@@ -19,8 +20,18 @@ class PlaceInput extends Component {
 
   handlePopulationChange = (event) => {
     this.setState({
-      population: event.target.value,
+      population: parseInt(event.target.value),
     });
+  };
+  handleGroupChange = (groups, id, event) => {
+    // debugger;
+    let group = { ...groups[id] };
+    group.population = parseInt(event.target.value);
+    groups[id] = group;
+    this.setState({
+      placeAncestryGroups: groups,
+    });
+    console.log(this.state);
   };
 
   handleSubmit = (e) => {
@@ -28,12 +39,37 @@ class PlaceInput extends Component {
     let formData = {
       name: this.state.name,
       population: this.state.population,
+      place_ancestry_groups_attributes: this.state.placeAncestryGroups.map(
+        (group) => {
+          return {
+            ancestry_group_id: parseInt(group.ancestryGroupId),
+            population: group.population,
+          };
+        }
+      ),
     };
-    console.log(formData);
+    console.log(this.props);
     this.props.addPlace(formData);
+    this.props.fetchAncestryGroups();
+    const placeAncestryGroups = this.state.placeAncestryGroups.map((group) => {
+      return { ...group, population: 0 };
+    });
+    this.setState({
+      name: "",
+      population: 0,
+      placeAncestryGroups,
+    });
   };
 
   render() {
+    let groups;
+    if (this.state.placeAncestryGroups) {
+      groups = [...this.state.placeAncestryGroups];
+    } else if (this.props.placeAncestryGroups) {
+      groups = [...this.props.placeAncestryGroups];
+    } else {
+      groups = [];
+    }
     return (
       <div>
         <form
@@ -65,6 +101,28 @@ class PlaceInput extends Component {
               />
             </label>
           </div>
+          {groups.map((group) => {
+            return (
+              <div key={group.ancestryGroupId}>
+                <label>
+                  {group.ancestryGroupName + " population"}
+                  <input
+                    id={"population " + group.ancestryGroupName}
+                    name={"population " + group.ancestryGroupName}
+                    type="number"
+                    value={group.population}
+                    onChange={(e) =>
+                      this.handleGroupChange(
+                        groups,
+                        parseInt(group.ancestryGroupId) - 1,
+                        e
+                      )
+                    }
+                  />
+                </label>
+              </div>
+            );
+          })}
           <div>
             <button type="submit"> Submit</button>
           </div>
@@ -77,6 +135,7 @@ class PlaceInput extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     addPlace: (place) => dispatch(addPlace(place)),
+    fetchAncestryGroups: () => dispatch(fetchAncestryGroups()),
   };
 };
 export default connect(null, mapDispatchToProps)(PlaceInput);

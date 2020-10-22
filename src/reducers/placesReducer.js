@@ -1,17 +1,14 @@
 const placesReducer = (
-  state = { places: [], ancestry_groups: [], loading: false },
+  state = { places: [], ancestryGroups: [], loading: false },
   action
 ) => {
-  console.log(`placesReducer called with action=${JSON.stringify(action)}`);
   switch (action.type) {
     case "LOADING_PLACES":
       return {
         ...state,
-        places: [...state.places],
         loading: true,
       };
     case "ADD_PLACES":
-      console.log("hit ADD_PLACES in reducer");
       return {
         ...state,
         places: action.places,
@@ -26,15 +23,25 @@ const placesReducer = (
     case "LOADING_ANCESTRY_GROUPS":
       return {
         ...state,
-        ancestry_groups: [...state.ancestry_groups],
         loading: true,
       };
     case "ADD_ANCESTRY_GROUPS":
       console.log("hit ADD_ANCESTRY_GROUPS in reducer");
       return {
         ...state,
-        ancestry_groups: action.ancestry_groups,
+        ancestryGroups: action.ancestryGroups,
         loading: false,
+      };
+    case "ADD_PLACE_ANCESTRY_GROUPS":
+      return {
+        ...state,
+        placeAncestryGroups: action.ancestryGroups.map((ancestryGroup) => {
+          return {
+            ancestryGroupId: ancestryGroup.id,
+            population: 0,
+            ancestryGroupName: ancestryGroup.attributes.name,
+          };
+        }),
       };
     default:
       return state;
