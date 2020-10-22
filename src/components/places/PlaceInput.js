@@ -49,6 +49,15 @@ class PlaceInput extends Component {
       ),
     };
     this.props.addPlace(formData);
+
+    const placeAncestryGroups = this.state.placeAncestryGroups.map((group) => {
+      return { ...group, population: 0 };
+    });
+    this.setState({
+      name: "",
+      population: 0,
+      placeAncestryGroups,
+    });
   };
 
   render() {
