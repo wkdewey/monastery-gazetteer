@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addPlace } from "../../actions/placeActions";
+import { addPlace, fetchAncestryGroups } from "../../actions/placeActions";
 
 class PlaceInput extends Component {
   constructor(props) {
@@ -48,8 +48,9 @@ class PlaceInput extends Component {
         }
       ),
     };
+    console.log(this.props);
     this.props.addPlace(formData);
-
+    this.props.fetchAncestryGroups();
     const placeAncestryGroups = this.state.placeAncestryGroups.map((group) => {
       return { ...group, population: 0 };
     });
@@ -135,6 +136,7 @@ class PlaceInput extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     addPlace: (place) => dispatch(addPlace(place)),
+    fetchAncestryGroups: () => dispatch(fetchAncestryGroups()),
   };
 };
 export default connect(null, mapDispatchToProps)(PlaceInput);
