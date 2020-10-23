@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchPlaces, fetchAncestryGroups } from "./actions/placeActions";
+import { fetchPlaces } from "./actions/placeActions";
+import { fetchAncestryGroups } from "./actions/ancestryGroupActions";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import PlacesContainer from "./containers/PlacesContainer";
