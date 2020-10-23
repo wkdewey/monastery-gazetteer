@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { Card, CardBody, CardTitle } from "reactstrap";
 
 const Place = (props) => {
   let { placeId } = useParams();
@@ -12,18 +13,22 @@ const Place = (props) => {
     );
     const placeCard = place ? (
       <div className="place">
-        <h3>{place.attributes.name}</h3>
-        <p>Population: {place.attributes.population}</p>
-        {groups.map((group) => {
-          return (
-            <div className="ancestry group" key={group.id}>
-              <p>
-                {group.attributes.ancestry_group.name}:{" "}
-                {group.attributes.percent}%
-              </p>
-            </div>
-          );
-        })}
+        <Card>
+          <CardBody>
+            <CardTitle>{place.attributes.name}</CardTitle>
+            <p>Population: {place.attributes.population}</p>
+            {groups.map((group) => {
+              return (
+                <div className="ancestry group" key={group.id}>
+                  <p>
+                    {group.attributes.ancestry_group.name}:{" "}
+                    {group.attributes.percent}%
+                  </p>
+                </div>
+              );
+            })}
+          </CardBody>
+        </Card>
       </div>
     ) : (
       "Place not found"
