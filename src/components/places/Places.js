@@ -20,8 +20,10 @@ const Places = (props) => {
                 <CardBody>
                   <CardTitle>
                     <h3>
-                      <CardLink key={place.id} to={`/places/${place.id}`}>
-                        {place.attributes.name}
+                      <CardLink>
+                        <Link key={place.id} to={`/places/${place.id}`}>
+                          {place.attributes.name}
+                        </Link>
                       </CardLink>
                     </h3>
                   </CardTitle>
