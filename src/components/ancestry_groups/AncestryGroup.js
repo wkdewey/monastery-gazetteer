@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { Card, CardBody, CardTitle, CardText, Table } from "reactstrap";
 
 const AncestryGroup = (props) => {
   console.log(props);
@@ -13,21 +14,35 @@ const AncestryGroup = (props) => {
     );
     const ancestryGroupCard = ancestryGroup ? (
       <div className="ancestry group">
-        <h3>{ancestryGroup.attributes.name}</h3>
-        <p>
-          Population in the United States:{" "}
-          {ancestryGroup.attributes.national_pop}
-        </p>
-        {places.map((place) => {
-          return (
-            <div className="place" key={place.id}>
-              <p>
-                {place.attributes.place.name}: {place.attributes.percent}%,{" "}
-                {place.attributes.relative_to_national}x national average
-              </p>
-            </div>
-          );
-        })}
+        <Card>
+          <CardBody>
+            <CardTitle>
+              <h3>{ancestryGroup.attributes.name}</h3>
+            </CardTitle>
+            <CardText>
+              Population in the United States:{" "}
+              {ancestryGroup.attributes.national_pop.toLocaleString()}
+            </CardText>
+          </CardBody>
+        </Card>
+        <Table>
+          <thead>
+            <tr>
+              <th>Place</th>
+              <th>Percent</th>
+              <th>Relative to overall US population</th>
+            </tr>
+          </thead>
+          {places.map((place) => {
+            return (
+              <tr className="place" key={place.id}>
+                <td>{place.attributes.place.name}</td>
+                <td>{place.attributes.percent}%</td>
+                <td>{place.attributes.relative_to_national}x</td>
+              </tr>
+            );
+          })}
+        </Table>
       </div>
     ) : (
       "Place not found"

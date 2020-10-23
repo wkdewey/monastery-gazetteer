@@ -27,7 +27,9 @@ const Places = (props) => {
                       </CardLink>
                     </h3>
                   </CardTitle>
-                  <CardText>Population: {place.attributes.population}</CardText>
+                  <CardText>
+                    Population: {place.attributes.population.toLocaleString()}
+                  </CardText>
                 </CardBody>
               </Card>
             </div>

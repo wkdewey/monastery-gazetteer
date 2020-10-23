@@ -31,8 +31,8 @@ const AncestryGroups = (props) => {
                     </h3>
                   </CardTitle>
                   <CardText>
-                    Percent of US Population:{" "}
-                    {ancestryGroup.attributes.national_percent}
+                    {ancestryGroup.attributes.national_percent}% of US
+                    population
                   </CardText>
                 </CardBody>
               </Card>
