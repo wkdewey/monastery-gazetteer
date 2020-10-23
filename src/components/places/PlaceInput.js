@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addPlace, fetchAncestryGroups } from "../../actions/placeActions";
-
+import { Button, Form, FormGroup, Label, Input, Spinner } from "reactstrap";
 class PlaceInput extends Component {
   constructor(props) {
     super(props);
@@ -69,44 +69,50 @@ class PlaceInput extends Component {
       groups = [...this.props.placeAncestryGroups];
     } else {
       groups = [];
+      return (
+        <div>
+          <h3>Loading, please wait.</h3>
+          <Spinner />
+        </div>
+      );
     }
     return (
       <div>
-        <form
+        <Form
           onSubmit={(e) => {
             this.handleSubmit(e);
           }}
         >
-          <div>
-            <label>
+          <FormGroup>
+            <Label>
               Place name
-              <input
+              <Input
                 id="name"
                 name="name"
                 type="text"
                 value={this.state.name}
                 onChange={this.handleNameChange}
               />
-            </label>
-          </div>
-          <div>
-            <label>
+            </Label>
+          </FormGroup>
+          <FormGroup>
+            <Label>
               Total population
-              <input
+              <Input
                 id="population"
                 name="population"
                 type="number"
                 value={this.state.population}
                 onChange={this.handlePopulationChange}
               />
-            </label>
-          </div>
+            </Label>
+          </FormGroup>
           {groups.map((group) => {
             return (
-              <div key={group.ancestryGroupId}>
-                <label>
+              <FormGroup key={group.ancestryGroupId}>
+                <Label>
                   {group.ancestryGroupName + " population"}
-                  <input
+                  <Input
                     id={"population " + group.ancestryGroupName}
                     name={"population " + group.ancestryGroupName}
                     type="number"
@@ -119,14 +125,12 @@ class PlaceInput extends Component {
                       )
                     }
                   />
-                </label>
-              </div>
+                </Label>
+              </FormGroup>
             );
           })}
-          <div>
-            <button type="submit"> Submit</button>
-          </div>
-        </form>
+          <Button type="submit"> Submit</Button>
+        </Form>
       </div>
     );
   }

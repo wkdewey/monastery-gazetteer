@@ -1,14 +1,33 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import {
+  Nav,
+  Navbar,
+  NavLink,
+  NavItem,
+  NavbarBrand,
+  NavbarToggler,
+} from "reactstrap";
 
 const NavBar = () => {
   return (
-    <div className="navbar">
-      <NavLink to="/">Home</NavLink>
-      <NavLink to="/places">Places</NavLink>
-      <NavLink to="/ancestry_groups">Ancestry Groups</NavLink>
-      <NavLink to="/places/new">New Place</NavLink>
-    </div>
+    <Navbar color="light">
+      <NavbarBrand>American Ancestries</NavbarBrand>
+      <NavbarToggler></NavbarToggler>
+      <Nav class="mr-auto" tabs>
+        <NavItem>
+          <NavLink href="/">Home</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/places">Places</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/ancestry_groups">Ancestry Groups</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/places/new">New Place</NavLink>
+        </NavItem>
+      </Nav>
+    </Navbar>
   );
 };
 

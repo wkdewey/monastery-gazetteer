@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { ListGroup, ListGroupItem } from "reactstrap";
 
 const PlaceComparison = (props) => {
   let { placeId } = useParams();
@@ -13,18 +14,20 @@ const PlaceComparison = (props) => {
     );
     const placeCard = place ? (
       <div className="place compared">
-        <h3>Relative representation of groups</h3>
+        <h3>Sorted by relative representation</h3>
         <p>(times the national average)</p>
-        {groups.map((group) => {
-          return (
-            <div className="ancestry group compared" key={group.id}>
-              <p>
-                {group.attributes.ancestry_group.name}:{" "}
-                {group.attributes.relative_to_national}
-              </p>
-            </div>
-          );
-        })}
+        <ListGroup>
+          {groups.map((group) => {
+            return (
+              <ListGroupItem className="ancestry group compared" key={group.id}>
+                <p>
+                  {group.attributes.ancestry_group.name}:{" "}
+                  {group.attributes.relative_to_national}
+                </p>
+              </ListGroupItem>
+            );
+          })}
+        </ListGroup>
       </div>
     ) : (
       "Place not found"
