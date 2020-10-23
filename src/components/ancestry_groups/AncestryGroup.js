@@ -14,7 +14,9 @@ const AncestryGroup = (props) => {
   let { ancestryGroupId } = useParams();
   console.log(useParams());
   if (props.ancestryGroups.length > 0) {
-    const ancestryGroup = props.ancestryGroups[ancestryGroupId - 1];
+    const ancestryGroup = props.ancestryGroups.find(
+      (group) => group.id === ancestryGroupId
+    );
     const places = ancestryGroup.attributes.place_ancestry_groups;
     places.sort((a, b) =>
       a.attributes.percent < b.attributes.percent ? 1 : -1

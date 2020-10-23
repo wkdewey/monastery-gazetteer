@@ -15,6 +15,7 @@ const Places = (props) => {
     return (
       <CardColumns>
         {props.places.map((place) => {
+          console.log(place);
           return (
             <div className="place" key={place.id}>
               <Card>

@@ -12,7 +12,7 @@ import {
 const Place = (props) => {
   let { placeId } = useParams();
   if (props.places.length > 0) {
-    const place = props.places[placeId - 1];
+    const place = props.places.find((place) => place.id === placeId);
     console.log(`place is ${place}`);
     const groups = place.attributes.place_ancestry_groups;
     groups.sort((a, b) =>

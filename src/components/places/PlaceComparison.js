@@ -5,7 +5,7 @@ import { ListGroup, ListGroupItem } from "reactstrap";
 const PlaceComparison = (props) => {
   let { placeId } = useParams();
   if (props.places.length > 0) {
-    const place = props.places[placeId - 1];
+    const place = props.places.find((place) => place.id === placeId);
     const groups = place.attributes.place_ancestry_groups;
     groups.sort((a, b) =>
       a.attributes.relative_to_national < b.attributes.relative_to_national
