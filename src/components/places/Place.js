@@ -1,6 +1,13 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Card, CardBody, CardTitle, CardText, Table } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardText,
+  Table,
+  Spinner,
+} from "reactstrap";
 
 const Place = (props) => {
   let { placeId } = useParams();
@@ -50,6 +57,7 @@ const Place = (props) => {
     return (
       <div>
         <h3>Loading, please wait.</h3>
+        <Spinner />
       </div>
     );
 };

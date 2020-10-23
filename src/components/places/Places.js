@@ -7,6 +7,7 @@ import {
   CardLink,
   CardText,
   CardColumns,
+  Spinner,
 } from "reactstrap";
 
 const Places = (props) => {
@@ -41,6 +42,7 @@ const Places = (props) => {
     return (
       <div>
         <h3>Loading, please wait.</h3>
+        <Spinner />
       </div>
     );
   }

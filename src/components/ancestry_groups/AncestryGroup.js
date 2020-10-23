@@ -1,6 +1,13 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Card, CardBody, CardTitle, CardText, Table } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardText,
+  Table,
+  Spinner,
+} from "reactstrap";
 
 const AncestryGroup = (props) => {
   console.log(props);
@@ -52,6 +59,7 @@ const AncestryGroup = (props) => {
     return (
       <div>
         <h3>Loading, please wait.</h3>
+        <Spinner />
       </div>
     );
 };

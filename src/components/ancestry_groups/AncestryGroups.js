@@ -7,6 +7,7 @@ import {
   CardLink,
   CardText,
   CardColumns,
+  Spinner,
 } from "reactstrap";
 
 const AncestryGroups = (props) => {
@@ -45,6 +46,7 @@ const AncestryGroups = (props) => {
     return (
       <div>
         <h3>Loading, please wait.</h3>
+        <Spinner />
       </div>
     );
   }
