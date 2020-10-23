@@ -1,27 +1,38 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Card, CardBody, CardTitle, CardLink, CardText } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardLink,
+  CardText,
+  CardColumns,
+} from "reactstrap";
 
 const Places = (props) => {
   if (props.places.length > 0) {
-    return props.places.map((place) => {
-      return (
-        <div className="place" key={place.id}>
-          <Card>
-            <CardBody>
-              <CardTitle>
-                <h3>
-                  <CardLink key={place.id} to={`/places/${place.id}`}>
-                    {place.attributes.name}
-                  </CardLink>
-                </h3>
-              </CardTitle>
-              <CardText>Population: {place.attributes.population}</CardText>
-            </CardBody>
-          </Card>
-        </div>
-      );
-    });
+    return (
+      <CardColumns>
+        {props.places.map((place) => {
+          return (
+            <div className="place" key={place.id}>
+              <Card>
+                <CardBody>
+                  <CardTitle>
+                    <h3>
+                      <CardLink key={place.id} to={`/places/${place.id}`}>
+                        {place.attributes.name}
+                      </CardLink>
+                    </h3>
+                  </CardTitle>
+                  <CardText>Population: {place.attributes.population}</CardText>
+                </CardBody>
+              </Card>
+            </div>
+          );
+        })}
+      </CardColumns>
+    );
   } else {
     return (
       <div>
