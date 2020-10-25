@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addPlace, fetchAncestryGroups } from "../../actions/placeActions";
+import { addPlace } from "../../actions/placeActions";
+import { fetchAncestryGroups } from "../../actions/ancestryGroupActions";
 import { Button, Form, FormGroup, Label, Input, Spinner } from "reactstrap";
 class PlaceInput extends Component {
   constructor(props) {
@@ -24,10 +25,10 @@ class PlaceInput extends Component {
     });
   };
   handleGroupChange = (groups, id, event) => {
-    // debugger;
-    let group = { ...groups[id] };
+    let group = { ...groups.find((group) => group.ancestryGroupId === id) };
     group.population = parseInt(event.target.value);
-    groups[id] = group;
+    const idx = groups.findIndex((group) => group.ancestryGroupId === id);
+    groups[idx] = group;
     this.setState({
       placeAncestryGroups: groups,
     });
@@ -42,7 +43,7 @@ class PlaceInput extends Component {
       place_ancestry_groups_attributes: this.state.placeAncestryGroups.map(
         (group) => {
           return {
-            ancestry_group_id: parseInt(group.ancestryGroupId),
+            ancestry_group_id: group.ancestryGroupId,
             population: group.population,
           };
         }
@@ -118,11 +119,7 @@ class PlaceInput extends Component {
                     type="number"
                     value={group.population}
                     onChange={(e) =>
-                      this.handleGroupChange(
-                        groups,
-                        parseInt(group.ancestryGroupId) - 1,
-                        e
-                      )
+                      this.handleGroupChange(groups, group.ancestryGroupId, e)
                     }
                   />
                 </Label>

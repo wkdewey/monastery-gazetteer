@@ -9,14 +9,14 @@ import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import placesReducer from "./reducers/placesReducer.js";
+import reducer from "./reducers/reducer.js";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const composeEnhancers = composeWithDevTools({
   // Specify name here, actionsBlacklist, actionsCreators and other options if needed
 });
 const store = createStore(
-  placesReducer,
+  reducer,
   /* preloadedState, */ composeEnhancers(
     applyMiddleware(thunk)
     // other store enhancers if any

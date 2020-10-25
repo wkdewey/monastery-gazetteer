@@ -1,4 +1,4 @@
-const placesReducer = (
+const reducer = (
   state = { places: [], ancestryGroups: [], loading: false },
   action
 ) => {
@@ -48,4 +48,4 @@ const placesReducer = (
   }
 };
 
-export default placesReducer;
+export default reducer;

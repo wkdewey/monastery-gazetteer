@@ -10,10 +10,7 @@ import {
 } from "reactstrap";
 
 const AncestryGroup = (props) => {
-  console.log(props);
   let { ancestryGroupId } = useParams();
-  console.log(useParams());
-  debugger;
   if (props.ancestryGroups.length > 0) {
     const ancestryGroup = props.ancestryGroups.find(
       (group) => group.id === ancestryGroupId
