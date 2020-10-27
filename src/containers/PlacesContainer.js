@@ -5,8 +5,13 @@ import { Route, Switch } from "react-router-dom";
 import Place from "../components/places/Place";
 import PlaceComparison from "../components/places/PlaceComparison";
 import PlaceInput from "../components/places/PlaceInput";
+import { fetchPlaces } from "../actions/placeActions";
 
 class PlacesContainer extends Component {
+  componentDidMount() {
+    this.props.fetchPlaces();
+  }
+
   render() {
     const places = this.props.places;
     console.log(places);
@@ -31,7 +36,15 @@ class PlacesContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { places: state.places };
+  return {
+    places: state.places,
+    placeAncestryGroups: state.placeAncestryGroups,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchPlaces: () => dispatch(fetchPlaces()),
+  };
 };
 
-export default connect(mapStateToProps)(PlacesContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(PlacesContainer);
