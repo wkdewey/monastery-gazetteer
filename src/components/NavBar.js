@@ -13,7 +13,7 @@ const NavBar = () => {
     <Navbar color="light">
       <NavbarBrand>American Ancestries</NavbarBrand>
       <NavbarToggler></NavbarToggler>
-      <Nav class="mr-auto" tabs>
+      <Nav className="mr-auto" tabs>
         <NavItem>
           <NavLink href="/">Home</NavLink>
         </NavItem>
