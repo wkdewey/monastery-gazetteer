@@ -24,6 +24,7 @@ class PlaceInput extends Component {
       population: parseInt(event.target.value),
     });
   };
+
   handleGroupChange = (groups, id, event) => {
     let group = { ...groups.find((group) => group.ancestryGroupId === id) };
     group.population = parseInt(event.target.value);
@@ -32,7 +33,6 @@ class PlaceInput extends Component {
     this.setState({
       placeAncestryGroups: groups,
     });
-    console.log(this.state);
   };
 
   handleSubmit = (e) => {
