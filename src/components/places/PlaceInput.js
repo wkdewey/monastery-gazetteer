@@ -49,7 +49,6 @@ class PlaceInput extends Component {
         }
       ),
     };
-    console.log(this.props);
     this.props.addPlace(formData);
     this.props.fetchAncestryGroups();
     const placeAncestryGroups = this.state.placeAncestryGroups.map((group) => {
@@ -77,6 +76,7 @@ class PlaceInput extends Component {
         </div>
       );
     }
+    console.log(groups);
     return (
       <div>
         <Form

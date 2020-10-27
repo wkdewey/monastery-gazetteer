@@ -16,25 +16,13 @@ class App extends Component {
             <Route
               path="/places"
               render={(routerProps) => {
-                return (
-                  <PlacesContainer
-                    {...routerProps}
-                    places={this.props.places}
-                    ancestryGroups={this.props.ancestryGroups}
-                    placeAncestryGroups={this.props.placeAncestryGroups}
-                  />
-                );
+                return <PlacesContainer {...routerProps} />;
               }}
             />
             <Route
               path="/ancestry_groups"
               render={(routerProps) => {
-                return (
-                  <AncestryGroupsContainer
-                    {...routerProps}
-                    ancestryGroups={this.props.ancestryGroups}
-                  />
-                );
+                return <AncestryGroupsContainer {...routerProps} />;
               }}
             />
             <Route path="/">

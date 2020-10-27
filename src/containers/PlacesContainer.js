@@ -6,10 +6,12 @@ import Place from "../components/places/Place";
 import PlaceComparison from "../components/places/PlaceComparison";
 import PlaceInput from "../components/places/PlaceInput";
 import { fetchPlaces } from "../actions/placeActions";
+import { fetchAncestryGroups } from "../actions/ancestryGroupActions";
 
 class PlacesContainer extends Component {
   componentDidMount() {
     this.props.fetchPlaces();
+    this.props.fetchAncestryGroups();
   }
 
   render() {
@@ -44,6 +46,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchPlaces: () => dispatch(fetchPlaces()),
+    fetchAncestryGroups: () => dispatch(fetchAncestryGroups()),
   };
 };
 
