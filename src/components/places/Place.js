@@ -1,4 +1,5 @@
 import React from "react";
+import Loading from "../Loading";
 import { useParams } from "react-router-dom";
 import {
   Card,
@@ -53,13 +54,7 @@ const Place = (props) => {
       "Place not found"
     );
     return <div>{placeCard}</div>;
-  } else
-    return (
-      <div>
-        <h3>Loading, please wait.</h3>
-        <Spinner />
-      </div>
-    );
+  } else return <Loading />;
 };
 
 export default Place;

@@ -1,4 +1,6 @@
 import React from "react";
+
+import Loading from "../Loading";
 import { Link } from "react-router-dom";
 import {
   Card,
@@ -7,7 +9,6 @@ import {
   CardLink,
   CardText,
   CardColumns,
-  Spinner,
 } from "reactstrap";
 
 const AncestryGroups = (props) => {
@@ -43,12 +44,7 @@ const AncestryGroups = (props) => {
       </CardColumns>
     );
   } else {
-    return (
-      <div>
-        <h3>Loading, please wait.</h3>
-        <Spinner />
-      </div>
-    );
+    return <Loading />;
   }
 };
 

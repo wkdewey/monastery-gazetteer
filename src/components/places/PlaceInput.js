@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addPlace } from "../../actions/placeActions";
 import { fetchAncestryGroups } from "../../actions/ancestryGroupActions";
-import { Button, Form, FormGroup, Label, Input, Spinner } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import Loading from "../Loading";
 class PlaceInput extends Component {
   constructor(props) {
     super(props);
@@ -69,12 +70,7 @@ class PlaceInput extends Component {
       groups = [...this.props.placeAncestryGroups];
     } else {
       groups = [];
-      return (
-        <div>
-          <h3>Loading, please wait.</h3>
-          <Spinner />
-        </div>
-      );
+      return <Loading />;
     }
     console.log(groups);
     return (
