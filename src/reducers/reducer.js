@@ -1,36 +1,19 @@
-const reducer = (
-  state = { places: [], ancestryGroups: [], loading: false },
-  action
-) => {
+const reducer = (state = { places: [], ancestryGroups: [] }, action) => {
   switch (action.type) {
-    case "LOADING_PLACES":
-      return {
-        ...state,
-        loading: true,
-      };
     case "ADD_PLACES":
       return {
         ...state,
         places: action.places,
-        loading: false,
       };
     case "ADD_PLACE":
       return {
         ...state,
         places: [...state.places, action.place],
-        loading: false,
-      };
-    case "LOADING_ANCESTRY_GROUPS":
-      return {
-        ...state,
-        loading: true,
       };
     case "ADD_ANCESTRY_GROUPS":
-      console.log("hit ADD_ANCESTRY_GROUPS in reducer");
       return {
         ...state,
         ancestryGroups: action.ancestryGroups,
-        loading: false,
       };
     case "ADD_PLACE_ANCESTRY_GROUPS":
       return {

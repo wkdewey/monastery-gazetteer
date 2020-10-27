@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Places from "../components/places/Places";
 import { Route, Switch } from "react-router-dom";
 import Place from "../components/places/Place";
 import PlaceComparison from "../components/places/PlaceComparison";
 import PlaceInput from "../components/places/PlaceInput";
+import Places from "../components/places/Places";
 import { fetchPlaces } from "../actions/placeActions";
 import { fetchAncestryGroups } from "../actions/ancestryGroupActions";
 
@@ -16,7 +16,6 @@ class PlacesContainer extends Component {
 
   render() {
     const places = this.props.places;
-    console.log(places);
     const placeAncestryGroups = this.props.placeAncestryGroups;
     return (
       <div>
