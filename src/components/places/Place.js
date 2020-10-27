@@ -1,14 +1,7 @@
 import React from "react";
 import Loading from "../Loading";
 import { useParams } from "react-router-dom";
-import {
-  Card,
-  CardBody,
-  CardTitle,
-  CardText,
-  Table,
-  Spinner,
-} from "reactstrap";
+import { Card, CardBody, CardTitle, CardText, Table } from "reactstrap";
 
 const Place = (props) => {
   let { placeId } = useParams();
