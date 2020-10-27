@@ -3,8 +3,13 @@ import { connect } from "react-redux";
 import AncestryGroups from "../components/ancestry_groups/AncestryGroups";
 import { Route, Switch } from "react-router-dom";
 import AncestryGroup from "../components/ancestry_groups/AncestryGroup.js";
+import { fetchAncestryGroups } from "../actions/ancestryGroupActions";
 
 class AncestryGroupsContainer extends Component {
+  componentDidMount() {
+    this.props.fetchAncestryGroups();
+  }
+
   render() {
     const ancestryGroups = this.props.ancestryGroups;
     return (
@@ -26,4 +31,13 @@ const mapStateToProps = (state) => {
   return { ancestryGroups: state.ancestryGroups };
 };
 
-export default connect(mapStateToProps)(AncestryGroupsContainer);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchAncestryGroups: () => dispatch(fetchAncestryGroups()),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AncestryGroupsContainer);

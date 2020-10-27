@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addPlace } from "../../actions/placeActions";
 import { fetchAncestryGroups } from "../../actions/ancestryGroupActions";
-import { Button, Form, FormGroup, Label, Input, Spinner } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import Loading from "../Loading";
 class PlaceInput extends Component {
   constructor(props) {
     super(props);
@@ -24,6 +25,7 @@ class PlaceInput extends Component {
       population: parseInt(event.target.value),
     });
   };
+
   handleGroupChange = (groups, id, event) => {
     let group = { ...groups.find((group) => group.ancestryGroupId === id) };
     group.population = parseInt(event.target.value);
@@ -32,7 +34,6 @@ class PlaceInput extends Component {
     this.setState({
       placeAncestryGroups: groups,
     });
-    console.log(this.state);
   };
 
   handleSubmit = (e) => {
@@ -49,7 +50,6 @@ class PlaceInput extends Component {
         }
       ),
     };
-    console.log(this.props);
     this.props.addPlace(formData);
     this.props.fetchAncestryGroups();
     const placeAncestryGroups = this.state.placeAncestryGroups.map((group) => {
@@ -70,13 +70,9 @@ class PlaceInput extends Component {
       groups = [...this.props.placeAncestryGroups];
     } else {
       groups = [];
-      return (
-        <div>
-          <h3>Loading, please wait.</h3>
-          <Spinner />
-        </div>
-      );
+      return <Loading />;
     }
+    console.log(groups);
     return (
       <div>
         <Form
