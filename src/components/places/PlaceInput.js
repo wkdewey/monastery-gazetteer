@@ -72,7 +72,6 @@ class PlaceInput extends Component {
       groups = [];
       return <Loading />;
     }
-    console.log(groups);
     return (
       <div>
         <Form

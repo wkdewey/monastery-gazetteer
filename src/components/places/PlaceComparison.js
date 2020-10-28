@@ -10,7 +10,9 @@ const PlaceComparison = (props) => {
     if (place) {
       const groups = place.attributes.place_ancestry_groups;
       groups.sort((a, b) =>
-        a.attributes.percent < b.attributes.percent ? 1 : -1
+        a.attributes.relative_to_national < b.attributes.relative_to_national
+          ? 1
+          : -1
       );
       placeCard = (
         <div className="place compared">
