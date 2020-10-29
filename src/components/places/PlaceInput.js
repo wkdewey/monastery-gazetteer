@@ -4,6 +4,7 @@ import { addPlace } from "../../actions/placeActions";
 import { fetchAncestryGroups } from "../../actions/ancestryGroupActions";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import Loading from "../Loading";
+
 class PlaceInput extends Component {
   constructor(props) {
     super(props);
