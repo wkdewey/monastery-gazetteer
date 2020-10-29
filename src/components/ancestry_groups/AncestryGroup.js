@@ -46,7 +46,7 @@ const AncestryGroup = (props) => {
         </Table>
       </div>
     ) : (
-      "Place not found"
+      "Ancestry group not found"
     );
     return <div>{ancestryGroupCard}</div>;
   } else return <Loading />;
