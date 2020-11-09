@@ -1,6 +1,5 @@
 export const fetchPlaces = () => {
   return (dispatch) => {
-    dispatch({ type: "LOADING_PLACES" });
     fetch("http://localhost:3000/api/v1/places")
       .then((response) => {
         return response.json();
@@ -13,7 +12,6 @@ export const fetchPlaces = () => {
 
 export const addPlace = (place) => {
   return (dispatch) => {
-    dispatch({ type: "POSTING_PLACE" });
     fetch("http://localhost:3000/api/v1/places", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
