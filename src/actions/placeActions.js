@@ -10,7 +10,13 @@ export const fetchPlaces = () => {
   };
 };
 
-export const addPlace = (place) => {
+export const addPlace = (
+  place = {
+    name: "",
+    population: 0,
+    place_ancestry_groups_attributes: {},
+  }
+) => {
   return (dispatch) => {
     fetch("http://localhost:3000/api/v1/places", {
       method: "POST",
