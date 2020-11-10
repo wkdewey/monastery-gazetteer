@@ -13,8 +13,8 @@ import {
 import Like from "../Like";
 
 class Places extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       placeLikes: [],
     };
