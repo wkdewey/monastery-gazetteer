@@ -38,8 +38,6 @@ class Figure extends BuddhistEntity {
     return found;
   }
   static initialize(data) {
-    const contentContainer = document.querySelector("#content-container");
-    contentContainer.textContent = "";
     for (const key in data) {
       new Figure(
         data[key]["id"],
