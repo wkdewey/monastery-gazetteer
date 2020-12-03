@@ -54,9 +54,27 @@ class Monastery extends BuddhistEntity {
   static showMonasteries() {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
-    for (const monastery of Monastery.allInstances) {
+    const alphabetizedMonasteries = Monastery.alphabetize(
+      Monastery.allInstances
+    );
+    for (const monastery of alphabetizedMonasteries) {
       monastery.render(contentContainer);
     }
+  }
+  static alphabetize(collection) {
+    let sorted = collection.sort(function (a, b) {
+      const nameA = a.name;
+      const nameB = b.name;
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      return 0;
+    });
+    return sorted;
   }
   static showMonasteryForm() {
     const contentContainer = document.querySelector("#content-container");
