@@ -30,6 +30,19 @@ class Figure extends BuddhistEntity {
     }
   }
 
+  static find(name) {
+    const found = Figure.allInstances.find((figure) => figure.name === name);
+    return found;
+  }
+
+  static showFigures() {
+    const contentContainer = document.querySelector("#content-container");
+    contentContainer.textContent = "";
+    for (const figure of Figure.allInstances) {
+      figure.render(contentContainer);
+    }
+  }
+
   render(contentContainer) {
     const div = document.createElement("div");
     const link = document.createElement("a");
@@ -51,18 +64,7 @@ class Figure extends BuddhistEntity {
       monasteryObject.render(contentContainer);
     }
   }
-  static find(name) {
-    const found = Figure.allInstances.find((figure) => figure.name === name);
-    return found;
-  }
 
-  static showFigures() {
-    const contentContainer = document.querySelector("#content-container");
-    contentContainer.textContent = "";
-    for (const figure of Figure.allInstances) {
-      figure.render(contentContainer);
-    }
-  }
   static showFigureForm() {
     const contentContainer = document.querySelector("#content-container");
     const form = document.createElement("form");

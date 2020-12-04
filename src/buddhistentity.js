@@ -88,15 +88,7 @@ class BuddhistEntity {
     submit.classList.add("btn", "btn-sm", "btn-outline-secondary");
     form.appendChild(submit);
   }
-  static createInputElement(id, type, name, value, placeholder) {
-    const element = document.createElement("input");
-    element.id = id;
-    element.type = type;
-    element.name = name;
-    element.value = value;
-    element.placeholder = placeholder;
-    return element;
-  }
+
   static createCheckboxes(collection, model, form) {
     for (const element of collection) {
       const option = BuddhistEntity.createInputElement(
@@ -108,6 +100,17 @@ class BuddhistEntity {
       BuddhistEntity.createCheckboxOption(option, element, form);
     }
   }
+
+  static createInputElement(id, type, name, value, placeholder) {
+    const element = document.createElement("input");
+    element.id = id;
+    element.type = type;
+    element.name = name;
+    element.value = value;
+    element.placeholder = placeholder;
+    return element;
+  }
+
   static createCheckboxOption(option, instance, form) {
     const label = document.createElement("label");
     label.for = option.id;
