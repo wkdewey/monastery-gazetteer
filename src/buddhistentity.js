@@ -5,6 +5,12 @@ class BuddhistEntity {
     this.religious_tradition = religious_tradition;
   }
 
+  static fetchEntries(url) {
+    return fetch(url)
+      .then((response) => response.json())
+      .then((json) => json["data"]);
+  }
+
   render(contentContainer, div, link) {
     div.classList.add(
       "album",
@@ -118,10 +124,5 @@ class BuddhistEntity {
       .call(checkboxes)
       .filter((ch) => ch.checked == true)
       .map((ch) => parseInt(ch.value));
-  }
-  static fetchEntries(url) {
-    return fetch(url)
-      .then((response) => response.json())
-      .then((json) => json["data"]);
   }
 }

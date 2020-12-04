@@ -11,6 +11,52 @@ class Monastery extends BuddhistEntity {
     }
     Monastery.allInstances.push(this);
   }
+
+  static fetchMonasteries() {
+    return super
+      .fetchEntries(MONASTERIES_URL)
+      .then((data) => Monastery.initialize(data));
+  }
+
+  static initialize(data) {
+    for (const key in data) {
+      new Monastery(
+        data[key]["id"],
+        data[key]["attributes"]["name"],
+        data[key]["attributes"]["location"],
+        data[key]["attributes"]["religious_tradition"],
+        data[key]["attributes"]["figures"]
+      );
+    }
+  }
+
+  static showMonasteries() {
+    const contentContainer = document.querySelector("#content-container");
+    contentContainer.textContent = "";
+    const alphabetizedMonasteries = Monastery.alphabetize(
+      Monastery.allInstances
+    );
+    for (const monastery of alphabetizedMonasteries) {
+      monastery.render(contentContainer);
+    }
+  }
+
+  static alphabetize(collection) {
+    let sorted = collection.sort(function (a, b) {
+      const nameA = a.name;
+      const nameB = b.name;
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      return 0;
+    });
+    return sorted;
+  }
+
   render(contentContainer) {
     const div = document.createElement("div");
     const link = document.createElement("a");
@@ -32,7 +78,6 @@ class Monastery extends BuddhistEntity {
       figureObject.render(contentContainer);
     }
   }
-
   static find(name) {
     const found = Monastery.allInstances.find(
       (monastery) => monastery.name === name
@@ -40,42 +85,6 @@ class Monastery extends BuddhistEntity {
     return found;
   }
 
-  static initialize(data) {
-    for (const key in data) {
-      new Monastery(
-        data[key]["id"],
-        data[key]["attributes"]["name"],
-        data[key]["attributes"]["location"],
-        data[key]["attributes"]["religious_tradition"],
-        data[key]["attributes"]["figures"]
-      );
-    }
-  }
-  static showMonasteries() {
-    const contentContainer = document.querySelector("#content-container");
-    contentContainer.textContent = "";
-    const alphabetizedMonasteries = Monastery.alphabetize(
-      Monastery.allInstances
-    );
-    for (const monastery of alphabetizedMonasteries) {
-      monastery.render(contentContainer);
-    }
-  }
-  static alphabetize(collection) {
-    let sorted = collection.sort(function (a, b) {
-      const nameA = a.name;
-      const nameB = b.name;
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
-      }
-
-      return 0;
-    });
-    return sorted;
-  }
   static showMonasteryForm() {
     const contentContainer = document.querySelector("#content-container");
     const form = document.createElement("form");
@@ -103,11 +112,7 @@ class Monastery extends BuddhistEntity {
       figureIds
     );
   }
-  static fetchMonasteries() {
-    return super
-      .fetchEntries(MONASTERIES_URL)
-      .then((data) => Monastery.initialize(data));
-  }
+
   static postMonasteries(
     nameInput,
     locationInput,

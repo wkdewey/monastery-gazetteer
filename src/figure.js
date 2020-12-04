@@ -12,6 +12,24 @@ class Figure extends BuddhistEntity {
     Figure.allInstances.push(this);
   }
 
+  static fetchFigures() {
+    return super
+      .fetchEntries(FIGURES_URL)
+      .then((data) => Figure.initialize(data));
+  }
+
+  static initialize(data) {
+    for (const key in data) {
+      new Figure(
+        data[key]["id"],
+        data[key]["attributes"]["name"],
+        data[key]["attributes"]["lifespan"],
+        data[key]["attributes"]["religious_tradition"],
+        data[key]["attributes"]["monasteries"]
+      );
+    }
+  }
+
   render(contentContainer) {
     const div = document.createElement("div");
     const link = document.createElement("a");
@@ -37,17 +55,7 @@ class Figure extends BuddhistEntity {
     const found = Figure.allInstances.find((figure) => figure.name === name);
     return found;
   }
-  static initialize(data) {
-    for (const key in data) {
-      new Figure(
-        data[key]["id"],
-        data[key]["attributes"]["name"],
-        data[key]["attributes"]["lifespan"],
-        data[key]["attributes"]["religious_tradition"],
-        data[key]["attributes"]["monasteries"]
-      );
-    }
-  }
+
   static showFigures() {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
@@ -80,11 +88,7 @@ class Figure extends BuddhistEntity {
       monasteryIds
     );
   }
-  static fetchFigures() {
-    return super
-      .fetchEntries(FIGURES_URL)
-      .then((data) => Figure.initialize(data));
-  }
+
   static postFigures(
     nameInput,
     lifespanInput,
