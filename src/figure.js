@@ -103,6 +103,7 @@ class Figure extends BuddhistEntity {
       religious_tradition: religiousTraditionInput,
       monastery_ids: monasteryIds,
     };
+    console.log(JSON.stringify(bodyData));
     fetch(FIGURES_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
