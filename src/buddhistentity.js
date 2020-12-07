@@ -13,14 +13,14 @@ class BuddhistEntity {
 
   render(contentContainer, div, link) {
     div.classList.add(
-      "album",
-      "py-5",
-      "bg-light",
-      "col-md-4",
+      // "album",
+      // "py-5",
+      // "bg-light"
+      // "col-md-4",
       "card",
       "mb-4",
-      "shadow-sm",
-      "card-body"
+      "shadow-sm"
+      // "card-body"
     );
     contentContainer.appendChild(div);
     const h2 = document.createElement("h2");

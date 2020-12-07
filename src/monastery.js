@@ -33,6 +33,7 @@ class Monastery extends BuddhistEntity {
   static showMonasteries() {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
+
     const alphabetizedMonasteries = Monastery.alphabetize(
       Monastery.allInstances
     );
