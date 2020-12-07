@@ -12,29 +12,23 @@ class BuddhistEntity {
   }
 
   render(contentContainer, div, link) {
-    div.classList.add(
-      // "album",
-      // "py-5",
-      // "bg-light"
-      // "col-md-4",
-      "card",
-      "mb-4",
-      "shadow-sm"
-      // "card-body"
-    );
+    div.classList.add("col-md-4");
     contentContainer.appendChild(div);
+    const cardDiv = document.createElement("div");
+    cardDiv.classList.add("card", "mb-4", "shadow-sm");
+    div.appendChild(cardDiv);
     const h2 = document.createElement("h2");
     link.href = "#";
     link.textContent = this.name;
     h2.appendChild(link);
-    div.appendChild(h2);
+    cardDiv.appendChild(h2);
     const info = document.createElement("p");
     info.classList.add("card-text");
-    div.appendChild(info);
+    cardDiv.appendChild(info);
     const tradition = document.createElement("p");
     tradition.textContent = "Religious tradition: " + this.religious_tradition;
     tradition.classList.add("card-text");
-    div.appendChild(tradition);
+    cardDiv.appendChild(tradition);
   }
   static showForm(model, form, contentContainer) {
     contentContainer.textContent = "";
