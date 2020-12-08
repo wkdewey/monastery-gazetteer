@@ -38,6 +38,7 @@ class Figure extends BuddhistEntity {
   static showFigures() {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
+    contentContainer.classList.add("row");
     for (const figure of Figure.allInstances) {
       figure.render(contentContainer);
     }
@@ -67,6 +68,7 @@ class Figure extends BuddhistEntity {
 
   static showFigureForm() {
     const contentContainer = document.querySelector("#content-container");
+    contentContainer.classList.remove("row");
     const form = document.createElement("form");
     super.showForm("figure", form, contentContainer);
     const monasteries = Monastery.allInstances;

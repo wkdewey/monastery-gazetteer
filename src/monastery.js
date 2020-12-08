@@ -33,7 +33,7 @@ class Monastery extends BuddhistEntity {
   static showMonasteries() {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
-
+    contentContainer.classList.add("row");
     const alphabetizedMonasteries = Monastery.alphabetize(
       Monastery.allInstances
     );
@@ -90,6 +90,7 @@ class Monastery extends BuddhistEntity {
 
   static showMonasteryForm() {
     const contentContainer = document.querySelector("#content-container");
+    contentContainer.classList.remove("row");
     const form = document.createElement("form");
     super.showForm("monastery", form, contentContainer);
     const figures = Figure.allInstances;
