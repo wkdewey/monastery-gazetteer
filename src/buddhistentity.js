@@ -15,7 +15,7 @@ class BuddhistEntity {
     div.classList.add("col-md-4");
     contentContainer.appendChild(div);
     const cardDiv = document.createElement("div");
-    cardDiv.classList.add("card", "mb-4", "shadow-sm");
+    cardDiv.classList.add("card", "mb-4", "shadow-sm", "bg-danger", "p-3");
     div.appendChild(cardDiv);
     const h2 = document.createElement("h2");
     link.href = "#";
