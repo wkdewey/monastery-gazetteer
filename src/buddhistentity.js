@@ -72,11 +72,7 @@ class BuddhistEntity {
     fieldset.appendChild(br.cloneNode());
     //get all figures, iterate through them, put their name and id
     //means I need a function that just returns all the figures
-    const h3 = document.createElement("h3");
-    h3.textContent = `Choose Associated ${
-      model === "figure" ? "Monasteries" : "Figures"
-    }`;
-    form.appendChild(h3);
+
     const submit = BuddhistEntity.createInputElement(
       "create-button",
       "submit",
@@ -87,7 +83,12 @@ class BuddhistEntity {
     form.appendChild(submit);
   }
 
-  static createCheckboxes(collection, model, form) {
+  static createCheckboxes(collection, model, fieldset) {
+    const h3 = document.createElement("h3");
+    h3.textContent = `Choose Associated ${
+      model === "figure" ? "Monasteries" : "Figures"
+    }`;
+    fieldset.appendChild(h3);
     for (const element of collection) {
       const option = BuddhistEntity.createInputElement(
         `input-${model}-` + element.id,
@@ -95,7 +96,7 @@ class BuddhistEntity {
         model,
         element.id
       );
-      BuddhistEntity.createCheckboxOption(option, element, form);
+      BuddhistEntity.createCheckboxOption(option, element, fieldset);
     }
   }
 
@@ -109,15 +110,14 @@ class BuddhistEntity {
     return element;
   }
 
-  static createCheckboxOption(option, instance, form) {
+  static createCheckboxOption(option, instance, fieldset) {
     const label = document.createElement("label");
     label.for = option.id;
     label.textContent = instance.name;
-    const submit = form.querySelector("#create-button");
-    form.insertBefore(option, submit);
-    form.insertBefore(label, submit);
+    fieldset.appendChild(option);
+    fieldset.appendChild(label);
     const br = document.createElement("br");
-    form.insertBefore(br, submit);
+    fieldset.appendChild(br);
   }
 
   static getIds(checkboxes) {
