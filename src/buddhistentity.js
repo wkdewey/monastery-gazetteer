@@ -35,10 +35,12 @@ class BuddhistEntity {
   static showForm(model, form, contentContainer) {
     contentContainer.textContent = "";
     contentContainer.appendChild(form);
+    const fieldset = document.createElement("fieldset");
+    form.appendChild(fieldset);
     const h2 = document.createElement("h2");
     h2.textContent = `New ${model}`;
-    form.appendChild(h2);
-    form.classList.add("d-flex", "flex-column", "align-items-center");
+    fieldset.appendChild(h2);
+    fieldset.classList.add("d-flex", "flex-column", "align-items-center");
     const inputName = BuddhistEntity.createInputElement(
       "input-name",
       "text",
@@ -46,9 +48,9 @@ class BuddhistEntity {
       "",
       `Enter ${model} name`
     );
-    form.appendChild(inputName);
+    fieldset.appendChild(inputName);
     const br = document.createElement("br");
-    form.appendChild(br);
+    fieldset.appendChild(br);
     const info = model === "monastery" ? "location" : "lifespan";
     const inputInfo = BuddhistEntity.createInputElement(
       `input-${info}`,
@@ -57,8 +59,8 @@ class BuddhistEntity {
       "",
       `Enter ${info}`
     );
-    form.appendChild(inputInfo);
-    form.appendChild(br.cloneNode());
+    fieldset.appendChild(inputInfo);
+    fieldset.appendChild(br.cloneNode());
     const inputTradition = BuddhistEntity.createInputElement(
       "input-religious-tradition",
       "text",
@@ -66,8 +68,8 @@ class BuddhistEntity {
       "",
       "Enter religious tradition"
     );
-    form.appendChild(inputTradition);
-    form.appendChild(br.cloneNode());
+    fieldset.appendChild(inputTradition);
+    fieldset.appendChild(br.cloneNode());
     //get all figures, iterate through them, put their name and id
     //means I need a function that just returns all the figures
     const h3 = document.createElement("h3");
