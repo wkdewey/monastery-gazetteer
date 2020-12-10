@@ -20,14 +20,16 @@ class BuddhistEntity {
     const h2 = document.createElement("h2");
     link.href = "#";
     link.textContent = this.name;
+    link.classList.add("text-warning");
     h2.appendChild(link);
     cardDiv.appendChild(h2);
     const info = document.createElement("p");
-    info.classList.add("card-text");
+    info.classList.add("card-text", "text-warning");
     cardDiv.appendChild(info);
     const tradition = document.createElement("p");
     tradition.textContent = "Religious tradition: " + this.religious_tradition;
-    tradition.classList.add("card-text");
+    tradition.classList.add("card-text", "text-warning");
+
     cardDiv.appendChild(tradition);
   }
   static showForm(model, form, contentContainer) {
