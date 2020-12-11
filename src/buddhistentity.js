@@ -35,12 +35,12 @@ class BuddhistEntity {
   static showForm(model, form, collection, contentContainer) {
     contentContainer.textContent = "";
     contentContainer.appendChild(form);
-    BuddhistEntity.createInputs(form);
+    BuddhistEntity.createInputs(form, model);
     BuddhistEntity.createCheckboxes(form, model, collection);
-    BuddhistEntity.createSubmit(form);
+    BuddhistEntity.createSubmit(form, model);
   }
 
-  static createInputs(form) {
+  static createInputs(form, model) {
     const fieldset = document.createElement("fieldset");
     form.appendChild(fieldset);
     const h2 = document.createElement("h2");
@@ -78,7 +78,7 @@ class BuddhistEntity {
     fieldset.appendChild(br.cloneNode());
   }
 
-  static createCheckboxes(form, collection, model) {
+  static createCheckboxes(form, model, collection) {
     const fieldset = document.createElement("fieldset");
     form.appendChild(fieldset);
     const h3 = document.createElement("h3");
@@ -96,7 +96,7 @@ class BuddhistEntity {
       BuddhistEntity.createCheckboxOption(option, element, fieldset);
     }
   }
-  static createSubmit(form) {
+  static createSubmit(form, model) {
     const submit = BuddhistEntity.createInputElement(
       "create-button",
       "submit",
