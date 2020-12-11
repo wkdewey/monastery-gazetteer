@@ -79,13 +79,17 @@ class BuddhistEntity {
   }
 
   static createCheckboxes(form, model, collection) {
+    const div = document.createElement("div");
+    div.classList.add("container");
+    form.appendChild(div);
     const fieldset = document.createElement("fieldset");
-    form.appendChild(fieldset);
     const h3 = document.createElement("h3");
     h3.textContent = `Choose Associated ${
       model === "figure" ? "Monasteries" : "Figures"
     }`;
-    fieldset.appendChild(h3);
+    div.appendChild(h3);
+    div.appendChild(fieldset);
+    fieldset.classList.add("row", "row-cols-3");
     for (const element of collection) {
       const option = BuddhistEntity.createInputElement(
         `input-${model}-` + element.id,
@@ -93,6 +97,7 @@ class BuddhistEntity {
         model,
         element.id
       );
+      option.classList.add("col");
       BuddhistEntity.createCheckboxOption(option, element, fieldset);
     }
   }
