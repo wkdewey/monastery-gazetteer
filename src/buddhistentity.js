@@ -32,9 +32,15 @@ class BuddhistEntity {
 
     cardDiv.appendChild(tradition);
   }
-  static showForm(model, form, contentContainer) {
+  static showForm(model, form, collection, contentContainer) {
     contentContainer.textContent = "";
     contentContainer.appendChild(form);
+    BuddhistEntity.createInputs(form);
+    BuddhistEntity.createCheckboxes(form, model, collection);
+    BuddhistEntity.createSubmit(form);
+  }
+
+  static createInputs(form) {
     const fieldset = document.createElement("fieldset");
     form.appendChild(fieldset);
     const h2 = document.createElement("h2");
@@ -70,20 +76,11 @@ class BuddhistEntity {
     );
     fieldset.appendChild(inputTradition);
     fieldset.appendChild(br.cloneNode());
-    //get all figures, iterate through them, put their name and id
-    //means I need a function that just returns all the figures
-
-    const submit = BuddhistEntity.createInputElement(
-      "create-button",
-      "submit",
-      "submit",
-      `Create new ${model}`
-    );
-    submit.classList.add("btn", "btn-sm", "btn-outline-secondary");
-    form.appendChild(submit);
   }
 
-  static createCheckboxes(collection, model, fieldset) {
+  static createCheckboxes(form, collection, model) {
+    const fieldset = document.createElement("fieldset");
+    form.appendChild(fieldset);
     const h3 = document.createElement("h3");
     h3.textContent = `Choose Associated ${
       model === "figure" ? "Monasteries" : "Figures"
@@ -98,6 +95,16 @@ class BuddhistEntity {
       );
       BuddhistEntity.createCheckboxOption(option, element, fieldset);
     }
+  }
+  static createSubmit(form) {
+    const submit = BuddhistEntity.createInputElement(
+      "create-button",
+      "submit",
+      "submit",
+      `Create new ${model}`
+    );
+    submit.classList.add("btn", "btn-sm", "btn-outline-secondary");
+    form.appendChild(submit);
   }
 
   static createInputElement(id, type, name, value, placeholder) {
