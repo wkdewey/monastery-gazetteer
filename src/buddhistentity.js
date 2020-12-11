@@ -46,7 +46,7 @@ class BuddhistEntity {
     const h2 = document.createElement("h2");
     h2.textContent = `New ${model}`;
     fieldset.appendChild(h2);
-    fieldset.classList.add("d-flex", "flex-column", "align-items-center");
+    fieldset.classList.add("d-flex", "flex-column", "align-items-left");
     const inputName = BuddhistEntity.createInputElement(
       "input-name",
       "text",
@@ -123,15 +123,15 @@ class BuddhistEntity {
 
   static createCheckboxOption(option, instance, fieldset) {
     const div = document.createElement("div");
-    div.classList.add("form-check");
+    div.classList.add("form-check", "col");
     const label = document.createElement("label");
     label.for = option.id;
     label.textContent = instance.name;
-    label.classList.add("col", "form-check-label");
+    label.classList.add("form-check-label");
     option.classList.add("form-check-input");
     fieldset.appendChild(div);
-    fieldset.appendChild(label);
-    fieldset.appendChild(option);
+    div.appendChild(option);
+    div.appendChild(label);
     const br = document.createElement("br");
     // fieldset.appendChild(br);
   }
