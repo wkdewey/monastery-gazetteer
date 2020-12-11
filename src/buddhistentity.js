@@ -97,7 +97,6 @@ class BuddhistEntity {
         model,
         element.id
       );
-      option.classList.add("col");
       BuddhistEntity.createCheckboxOption(option, element, fieldset);
     }
   }
@@ -123,13 +122,18 @@ class BuddhistEntity {
   }
 
   static createCheckboxOption(option, instance, fieldset) {
+    const div = document.createElement("div");
+    div.classList.add("form-check");
     const label = document.createElement("label");
     label.for = option.id;
     label.textContent = instance.name;
-    fieldset.appendChild(option);
+    label.classList.add("col", "form-check-label");
+    option.classList.add("form-check-input");
+    fieldset.appendChild(div);
     fieldset.appendChild(label);
+    fieldset.appendChild(option);
     const br = document.createElement("br");
-    fieldset.appendChild(br);
+    // fieldset.appendChild(br);
   }
 
   static getIds(checkboxes) {
