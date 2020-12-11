@@ -70,8 +70,8 @@ class Figure extends BuddhistEntity {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.classList.remove("row");
     const form = document.createElement("form");
-    super.showForm("figure", form, contentContainer);
     const monasteries = Monastery.allInstances;
+    super.showForm("figure", form, monasteries, contentContainer);
     super.createCheckboxes(monasteries, "monastery", form);
     form.addEventListener("submit", (e) => Figure.createFigureFormHandler(e));
   }
