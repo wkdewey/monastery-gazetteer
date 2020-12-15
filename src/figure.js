@@ -58,6 +58,9 @@ class Figure extends BuddhistEntity {
     contentContainer.textContent = "";
     contentContainer.classList.remove("row");
     this.render(contentContainer);
+    let deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete figure";
+    contentContainer.appendChild(deleteButton);
     let monasteries = document.createElement("h3");
     monasteries.textContent = "Associated Monasteries";
     contentContainer.appendChild(monasteries);
