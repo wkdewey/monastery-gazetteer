@@ -62,7 +62,7 @@ class Figure extends BuddhistEntity {
     deleteButton.textContent = "Delete figure";
     contentContainer.appendChild(deleteButton);
     deleteButton.addEventListener("click", (e) =>
-      Figure.deleteMonastery(e, figure.id)
+      Figure.deleteFigure(e, this.id)
     );
     let monasteries = document.createElement("h3");
     monasteries.textContent = "Associated Monasteries";
@@ -79,7 +79,6 @@ class Figure extends BuddhistEntity {
     const form = document.createElement("form");
     const monasteries = Monastery.allInstances;
     super.showForm("figure", form, monasteries, contentContainer);
-    super.createCheckboxes(monasteries, "monastery", form);
     form.addEventListener("submit", (e) => Figure.createFigureFormHandler(e));
   }
 
@@ -112,7 +111,6 @@ class Figure extends BuddhistEntity {
       religious_tradition: religiousTraditionInput,
       monastery_ids: monasteryIds,
     };
-    console.log(JSON.stringify(bodyData));
     fetch(FIGURES_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -137,8 +135,8 @@ class Figure extends BuddhistEntity {
     );
     return figure;
   }
-  static deleteFigure(id) {
-    figureUrl = `${FIGURES_URL}/${id}`;
+  static deleteFigure(e, id) {
+    const figureUrl = `${FIGURES_URL}/${id}`;
     fetch(figureUrl, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
