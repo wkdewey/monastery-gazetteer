@@ -79,6 +79,7 @@ class BuddhistEntity {
   }
 
   static createCheckboxes(form, model, collection) {
+    const associatedModel = model === "figure" ? "monastery" : "figure";
     const div = document.createElement("div");
     div.classList.add("container");
     form.appendChild(div);
@@ -92,9 +93,9 @@ class BuddhistEntity {
     fieldset.classList.add("row", "row-cols-3");
     for (const element of collection) {
       const option = BuddhistEntity.createInputElement(
-        `input-${model}-` + element.id,
+        `input-${associatedModel}-` + element.id,
         "checkbox",
-        model,
+        associatedModel,
         element.id
       );
       BuddhistEntity.createCheckboxOption(option, element, fieldset);
