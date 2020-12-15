@@ -78,6 +78,7 @@ class Monastery extends BuddhistEntity {
 
   showAssociatedFigures(contentContainer) {
     contentContainer.textContent = "";
+    contentContainer.classList.remove("row");
     this.render(contentContainer);
     let figures = document.createElement("h3");
     figures.textContent = "Associated Figures";
