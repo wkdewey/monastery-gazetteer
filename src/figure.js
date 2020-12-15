@@ -61,6 +61,9 @@ class Figure extends BuddhistEntity {
     let deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete figure";
     contentContainer.appendChild(deleteButton);
+    deleteButton.addEventListener("click", (e) =>
+      Figure.deleteMonastery(e, figure.id)
+    );
     let monasteries = document.createElement("h3");
     monasteries.textContent = "Associated Monasteries";
     contentContainer.appendChild(monasteries);
@@ -133,5 +136,12 @@ class Figure extends BuddhistEntity {
       data.attributes.monasteries
     );
     return figure;
+  }
+  static deleteFigure(id) {
+    figureUrl = `${FIGURES_URL}/${id}`;
+    fetch(figureUrl, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }
