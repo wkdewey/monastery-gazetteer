@@ -86,6 +86,12 @@ class Monastery extends BuddhistEntity {
     deleteButton.addEventListener("click", (e) =>
       Monastery.deleteMonastery(e, this.id)
     );
+    let editButton = document.createElement("button");
+    editButton.textContent = "Edit monastery";
+    contentContainer.appendChild(editButton);
+    editButton.addEventListener("click", (e) =>
+      Monastery.showMonasteryForm(e, this)
+    );
     let figures = document.createElement("h3");
     figures.textContent = "Associated Figures";
     contentContainer.appendChild(figures);
@@ -95,7 +101,7 @@ class Monastery extends BuddhistEntity {
     }
   }
 
-  static showMonasteryForm() {
+  static showMonasteryForm(e, monastery = null) {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.classList.remove("row");
     const form = document.createElement("form");

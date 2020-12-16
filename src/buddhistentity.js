@@ -133,8 +133,6 @@ class BuddhistEntity {
     fieldset.appendChild(div);
     div.appendChild(option);
     div.appendChild(label);
-    const br = document.createElement("br");
-    // fieldset.appendChild(br);
   }
 
   static getIds(checkboxes) {
