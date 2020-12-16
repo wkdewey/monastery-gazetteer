@@ -80,6 +80,12 @@ class Monastery extends BuddhistEntity {
     contentContainer.textContent = "";
     contentContainer.classList.remove("row");
     this.render(contentContainer);
+    let deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete monastery";
+    contentContainer.appendChild(deleteButton);
+    deleteButton.addEventListener("click", (e) =>
+      Monastery.deleteMonastery(e, this.id)
+    );
     let figures = document.createElement("h3");
     figures.textContent = "Associated Figures";
     contentContainer.appendChild(figures);
@@ -152,5 +158,12 @@ class Monastery extends BuddhistEntity {
       data.attributes.figures
     );
     return monastery;
+  }
+  static deleteMonastery(e, id) {
+    const monasteryUrl = `${MONASTERIES_URL}/${id}`;
+    fetch(monasteryUrl, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }
