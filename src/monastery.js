@@ -107,9 +107,16 @@ class Monastery extends BuddhistEntity {
     const form = document.createElement("form");
     const figures = Figure.allInstances;
     super.showForm("monastery", form, figures, contentContainer);
-    form.addEventListener("submit", (e) =>
-      Monastery.createMonasteryFormHandler(e)
-    );
+    if (monastery) {
+      Monastery.showEditForm(monastery);
+      form.addEventListener("submit", (e) =>
+        Monastery.createMonasteryEditHandler(e)
+      );
+    } else {
+      form.addEventListener("submit", (e) =>
+        Monastery.createMonasteryFormHandler(e)
+      );
+    }
   }
 
   static createMonasteryFormHandler(e) {
@@ -128,6 +135,10 @@ class Monastery extends BuddhistEntity {
       figureIds
     );
   }
+
+  static createMonasteryEditHandler(e) {}
+
+  static showEditForm(monastery) {}
 
   static postMonasteries(
     nameInput,
