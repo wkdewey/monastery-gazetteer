@@ -138,6 +138,7 @@ class Monastery extends BuddhistEntity {
     Monastery.createInputs(form, monastery);
     Monastery.createCheckboxes(form, monastery, figures);
     BuddhistEntity.createSubmit(form, "monastery");
+    form.addEventListener("submit", (e) => Monastery.createEditFormHandler(e));
   }
 
   static createInputs(form, monastery) {
@@ -212,7 +213,22 @@ class Monastery extends BuddhistEntity {
     div.appendChild(label);
   }
 
-  static createMonasteryEditHandler(e) {}
+  static createMonasteryEditHandler(e) {
+    e.preventDefault();
+    const nameInput = document.querySelector("#input-name").value;
+    const locationInput = document.querySelector("#input-location").value;
+    const religiousTraditionInput = document.querySelector(
+      "#input-religious-tradition"
+    ).value;
+    const checkboxes = document.getElementsByName("figure");
+    const figureIds = super.getIds(checkboxes);
+    Monastery.patchMonasteries(
+      nameInput,
+      locationInput,
+      religiousTraditionInput,
+      figureIds
+    );
+  }
 
   static postMonasteries(
     nameInput,
@@ -228,6 +244,32 @@ class Monastery extends BuddhistEntity {
     };
     fetch(MONASTERIES_URL, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(bodyData),
+    })
+      .then((response) => response.json())
+      .then((monastery) => {
+        const monasteryObject = Monastery.createFromJson(monastery.data);
+        const contentContainer = document.querySelector("#content-container");
+        contentContainer.textContent = "";
+        monasteryObject.render(contentContainer);
+      });
+  }
+
+  static patchMonasteries(
+    nameInput,
+    locationInput,
+    religiousTraditionInput,
+    figureIds
+  ) {
+    let bodyData = {
+      name: nameInput,
+      location: locationInput,
+      religious_tradition: religiousTraditionInput,
+      figure_ids: figureIds,
+    };
+    fetch(MONASTERIES_URL, {
+      method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(bodyData),
     })
