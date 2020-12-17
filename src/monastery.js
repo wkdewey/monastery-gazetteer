@@ -90,7 +90,7 @@ class Monastery extends BuddhistEntity {
     editButton.textContent = "Edit monastery";
     contentContainer.appendChild(editButton);
     editButton.addEventListener("click", (e) =>
-      Monastery.showMonasteryForm(e, this)
+      Monastery.showEditForm(e, contentContainer, this)
     );
     let figures = document.createElement("h3");
     figures.textContent = "Associated Figures";
@@ -136,9 +136,55 @@ class Monastery extends BuddhistEntity {
     );
   }
 
-  static createMonasteryEditHandler(e) {}
+  static showEditForm(e, contentContainer, monastery) {
+    contentContainer.textContent = "";
+    contentContainer.classList.remove("row");
+    const form = document.createElement("form");
+    contentContainer.appendChild(form);
+    const figures = Figure.allInstances;
+    Monastery.createInputs(form, monastery);
+    BuddhistEntity.createCheckboxes(form, model, collection);
+    BuddhistEntity.createSubmit(form, model);
+  }
 
-  static showEditForm(monastery) {}
+  static createInputs(form, monastery) {
+    const fieldset = document.createElement("fieldset");
+    form.appendChild(fieldset);
+    const h2 = document.createElement("h2");
+    h2.textContent = `Edit monastery`;
+    fieldset.appendChild(h2);
+    fieldset.classList.add("d-flex", "flex-column", "align-items-left");
+    const inputName = BuddhistEntity.createInputElement(
+      "input-name",
+      "text",
+      "name",
+      monastery.name,
+      `Enter monastery name`
+    );
+    fieldset.appendChild(inputName);
+    const br = document.createElement("br");
+    fieldset.appendChild(br);
+    const inputLocation = BuddhistEntity.createInputElement(
+      `input-location`,
+      "text",
+      "location",
+      monastery.location,
+      `Enter location`
+    );
+    fieldset.appendChild(inputLocation);
+    fieldset.appendChild(br.cloneNode());
+    const inputTradition = BuddhistEntity.createInputElement(
+      "input-religious-tradition",
+      "text",
+      "religious-tradition",
+      monastery.religious_tradition,
+      "Enter religious tradition"
+    );
+    fieldset.appendChild(inputTradition);
+    fieldset.appendChild(br.cloneNode());
+  }
+
+  static createMonasteryEditHandler(e) {}
 
   static postMonasteries(
     nameInput,
