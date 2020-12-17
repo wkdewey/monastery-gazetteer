@@ -136,8 +136,8 @@ class Monastery extends BuddhistEntity {
     contentContainer.appendChild(form);
     const figures = Figure.allInstances;
     Monastery.createInputs(form, monastery);
-    BuddhistEntity.createCheckboxes(form, model, collection);
-    BuddhistEntity.createSubmit(form, model);
+    Monastery.createCheckboxes(form, monastery, figures);
+    BuddhistEntity.createSubmit(form, "monastery");
   }
 
   static createInputs(form, monastery) {
@@ -175,6 +175,41 @@ class Monastery extends BuddhistEntity {
     );
     fieldset.appendChild(inputTradition);
     fieldset.appendChild(br.cloneNode());
+  }
+  static createCheckboxes(form, monastery, figures) {
+    const div = document.createElement("div");
+    div.classList.add("container");
+    form.appendChild(div);
+    const fieldset = document.createElement("fieldset");
+    const h3 = document.createElement("h3");
+    h3.textContent = `Choose Associated Figures`;
+    div.appendChild(h3);
+    div.appendChild(fieldset);
+    fieldset.classList.add("row", "row-cols-3");
+    for (const figure of figures) {
+      const checked = monastery.figures.includes(figure.name);
+      const option = BuddhistEntity.createInputElement(
+        `input-figure-` + figure.id,
+        "checkbox",
+        "figure",
+        figure.id
+      );
+      option.checked = checked;
+      BuddhistEntity.createCheckboxOption(option, figure, fieldset);
+    }
+  }
+
+  static createCheckboxOption(option, instance, fieldset) {
+    const div = document.createElement("div");
+    div.classList.add("form-check", "col");
+    const label = document.createElement("label");
+    label.for = option.id;
+    label.textContent = instance.name;
+    label.classList.add("form-check-label");
+    option.classList.add("form-check-input");
+    fieldset.appendChild(div);
+    div.appendChild(option);
+    div.appendChild(label);
   }
 
   static createMonasteryEditHandler(e) {}
