@@ -101,22 +101,15 @@ class Monastery extends BuddhistEntity {
     }
   }
 
-  static showMonasteryForm(e, monastery = null) {
+  static showMonasteryForm() {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.classList.remove("row");
     const form = document.createElement("form");
     const figures = Figure.allInstances;
     super.showForm("monastery", form, figures, contentContainer);
-    if (monastery) {
-      Monastery.showEditForm(monastery);
-      form.addEventListener("submit", (e) =>
-        Monastery.createMonasteryEditHandler(e)
-      );
-    } else {
-      form.addEventListener("submit", (e) =>
-        Monastery.createMonasteryFormHandler(e)
-      );
-    }
+    form.addEventListener("submit", (e) =>
+      Monastery.createMonasteryFormHandler(e)
+    );
   }
 
   static createMonasteryFormHandler(e) {
