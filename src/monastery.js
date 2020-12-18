@@ -129,21 +129,19 @@ class Monastery extends BuddhistEntity {
     );
   }
 
-  static showEditForm(e, contentContainer, monastery) {
+  showEditForm(e, contentContainer) {
     contentContainer.textContent = "";
     contentContainer.classList.remove("row");
     const form = document.createElement("form");
     contentContainer.appendChild(form);
     const figures = Figure.allInstances;
-    Monastery.createInputs(form, monastery);
-    Monastery.createCheckboxes(form, monastery, figures);
-    BuddhistEntity.createSubmit(form, "monastery");
-    form.addEventListener("submit", (e) =>
-      Monastery.createEditFormHandler(e, monastery.id)
-    );
+    this.createInputs(form);
+    this.createCheckboxes(form, figures);
+    super.createSubmit(form, "monastery");
+    form.addEventListener("submit", (e) => this.createEditFormHandler(e));
   }
 
-  static createInputs(form, monastery) {
+  createInputs(form) {
     const fieldset = document.createElement("fieldset");
     form.appendChild(fieldset);
     const h2 = document.createElement("h2");
@@ -154,7 +152,7 @@ class Monastery extends BuddhistEntity {
       "input-name",
       "text",
       "name",
-      monastery.name,
+      this.name,
       `Enter monastery name`
     );
     fieldset.appendChild(inputName);
@@ -164,7 +162,7 @@ class Monastery extends BuddhistEntity {
       `input-location`,
       "text",
       "location",
-      monastery.location,
+      this.location,
       `Enter location`
     );
     fieldset.appendChild(inputLocation);
@@ -173,13 +171,14 @@ class Monastery extends BuddhistEntity {
       "input-religious-tradition",
       "text",
       "religious-tradition",
-      monastery.religious_tradition,
+      this.religious_tradition,
       "Enter religious tradition"
     );
     fieldset.appendChild(inputTradition);
     fieldset.appendChild(br.cloneNode());
   }
-  static createCheckboxes(form, monastery, figures) {
+
+  createCheckboxes(form, figures) {
     const div = document.createElement("div");
     div.classList.add("container");
     form.appendChild(div);
@@ -190,7 +189,7 @@ class Monastery extends BuddhistEntity {
     div.appendChild(fieldset);
     fieldset.classList.add("row", "row-cols-3");
     for (const figure of figures) {
-      const checked = monastery.figures.includes(figure.name);
+      const checked = this.figures.includes(figure.name);
       const option = BuddhistEntity.createInputElement(
         `input-figure-` + figure.id,
         "checkbox",
@@ -202,20 +201,7 @@ class Monastery extends BuddhistEntity {
     }
   }
 
-  static createCheckboxOption(option, instance, fieldset) {
-    const div = document.createElement("div");
-    div.classList.add("form-check", "col");
-    const label = document.createElement("label");
-    label.for = option.id;
-    label.textContent = instance.name;
-    label.classList.add("form-check-label");
-    option.classList.add("form-check-input");
-    fieldset.appendChild(div);
-    div.appendChild(option);
-    div.appendChild(label);
-  }
-
-  static createEditFormHandler(e, monasteryId) {
+  createEditFormHandler(e) {
     e.preventDefault();
     const nameInput = document.querySelector("#input-name").value;
     const locationInput = document.querySelector("#input-location").value;
@@ -224,12 +210,11 @@ class Monastery extends BuddhistEntity {
     ).value;
     const checkboxes = document.getElementsByName("figure");
     const figureIds = super.getIds(checkboxes);
-    Monastery.patchMonastery(
+    this.patchMonastery(
       nameInput,
       locationInput,
       religiousTraditionInput,
-      figureIds,
-      monasteryId
+      figureIds
     );
   }
 
@@ -259,13 +244,7 @@ class Monastery extends BuddhistEntity {
       });
   }
 
-  static patchMonastery(
-    nameInput,
-    locationInput,
-    religiousTraditionInput,
-    figureIds,
-    monasteryId
-  ) {
+  patchMonastery(nameInput, locationInput, religiousTraditionInput, figureIds) {
     let bodyData = {
       name: nameInput,
       location: locationInput,
@@ -273,7 +252,7 @@ class Monastery extends BuddhistEntity {
       figure_ids: figureIds,
     };
     debugger;
-    fetch(`${MONASTERIES_URL}/${monasteryId}`, {
+    fetch(`${MONASTERIES_URL}/${this.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(bodyData),
