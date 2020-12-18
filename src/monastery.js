@@ -138,7 +138,9 @@ class Monastery extends BuddhistEntity {
     Monastery.createInputs(form, monastery);
     Monastery.createCheckboxes(form, monastery, figures);
     BuddhistEntity.createSubmit(form, "monastery");
-    form.addEventListener("submit", (e) => Monastery.createEditFormHandler(e));
+    form.addEventListener("submit", (e) =>
+      Monastery.createEditFormHandler(e, monastery.id)
+    );
   }
 
   static createInputs(form, monastery) {
@@ -213,7 +215,7 @@ class Monastery extends BuddhistEntity {
     div.appendChild(label);
   }
 
-  static createMonasteryEditHandler(e) {
+  static createEditFormHandler(e, monasteryId) {
     e.preventDefault();
     const nameInput = document.querySelector("#input-name").value;
     const locationInput = document.querySelector("#input-location").value;
@@ -222,11 +224,12 @@ class Monastery extends BuddhistEntity {
     ).value;
     const checkboxes = document.getElementsByName("figure");
     const figureIds = super.getIds(checkboxes);
-    Monastery.patchMonasteries(
+    Monastery.patchMonastery(
       nameInput,
       locationInput,
       religiousTraditionInput,
-      figureIds
+      figureIds,
+      monasteryId
     );
   }
 
@@ -256,11 +259,12 @@ class Monastery extends BuddhistEntity {
       });
   }
 
-  static patchMonasteries(
+  static patchMonastery(
     nameInput,
     locationInput,
     religiousTraditionInput,
-    figureIds
+    figureIds,
+    monasteryId
   ) {
     let bodyData = {
       name: nameInput,
@@ -268,7 +272,8 @@ class Monastery extends BuddhistEntity {
       religious_tradition: religiousTraditionInput,
       figure_ids: figureIds,
     };
-    fetch(MONASTERIES_URL, {
+    debugger;
+    fetch(`${MONASTERIES_URL}/${monasteryId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(bodyData),
