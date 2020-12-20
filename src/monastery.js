@@ -135,13 +135,13 @@ class Monastery extends BuddhistEntity {
     const form = document.createElement("form");
     contentContainer.appendChild(form);
     const figures = Figure.allInstances;
-    this.createInputs(form);
-    this.createCheckboxes(form, figures);
+    this.createEditInputs(form);
+    this.createEditCheckboxes(form, figures);
     BuddhistEntity.createSubmit(form, "monastery");
     form.addEventListener("submit", (e) => this.createEditFormHandler(e));
   }
 
-  createInputs(form) {
+  createEditInputs(form) {
     const fieldset = document.createElement("fieldset");
     form.appendChild(fieldset);
     const h2 = document.createElement("h2");
@@ -178,7 +178,7 @@ class Monastery extends BuddhistEntity {
     fieldset.appendChild(br.cloneNode());
   }
 
-  createCheckboxes(form, figures) {
+  createEditCheckboxes(form, figures) {
     const div = document.createElement("div");
     div.classList.add("container");
     form.appendChild(div);
@@ -251,7 +251,6 @@ class Monastery extends BuddhistEntity {
       religious_tradition: religiousTraditionInput,
       figure_ids: figureIds,
     };
-    debugger;
     fetch(`${MONASTERIES_URL}/${this.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },

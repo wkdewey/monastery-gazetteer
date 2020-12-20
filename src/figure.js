@@ -99,6 +99,95 @@ class Figure extends BuddhistEntity {
     );
   }
 
+  showEditForm(e, contentContainer) {
+    contentContainer.textContent = "";
+    contentContainer.classList.remove("row");
+    const form = document.createElement("form");
+    contentContainer.appendChild(form);
+    const monasteries = Monastery.allInstances;
+    this.createEditInputs(form);
+    this.createEditCheckboxes(form, monasteries);
+    BuddhistEntity.createSubmit(form, "figure");
+    form.addEventListener("submit", (e) => this.createEditFormHandler(e));
+  }
+
+  createEditInputs(form) {
+    const fieldset = document.createElement("fieldset");
+    form.appendChild(fieldset);
+    const h2 = document.createElement("h2");
+    h2.textContent = `Edit monastery`;
+    fieldset.appendChild(h2);
+    fieldset.classList.add("d-flex", "flex-column", "align-items-left");
+    const inputName = BuddhistEntity.createInputElement(
+      "input-name",
+      "text",
+      "name",
+      this.name,
+      `Enter figure name`
+    );
+    fieldset.appendChild(inputName);
+    const br = document.createElement("br");
+    fieldset.appendChild(br);
+    const inputLifespan = BuddhistEntity.createInputElement(
+      `input-lifespan`,
+      "text",
+      "lifespan",
+      this.lifespan,
+      `Enter lifespan`
+    );
+    fieldset.appendChild(inputLifespan);
+    fieldset.appendChild(br.cloneNode());
+    const inputTradition = BuddhistEntity.createInputElement(
+      "input-religious-tradition",
+      "text",
+      "religious-tradition",
+      this.religious_tradition,
+      "Enter religious tradition"
+    );
+    fieldset.appendChild(inputTradition);
+    fieldset.appendChild(br.cloneNode());
+  }
+
+  createEditCheckboxes(form, monasteries) {
+    const div = document.createElement("div");
+    div.classList.add("container");
+    form.appendChild(div);
+    const fieldset = document.createElement("fieldset");
+    const h3 = document.createElement("h3");
+    h3.textContent = `Choose Associated Monasteries`;
+    div.appendChild(h3);
+    div.appendChild(fieldset);
+    fieldset.classList.add("row", "row-cols-3");
+    for (const monastery of monasteries) {
+      const checked = this.monasteries.includes(monastery.name);
+      const option = BuddhistEntity.createInputElement(
+        `input-monastery-` + monastery.id,
+        "checkbox",
+        "monastery",
+        monastery.id
+      );
+      option.checked = checked;
+      BuddhistEntity.createCheckboxOption(option, monastery, fieldset);
+    }
+  }
+
+  createEditFormHandler(e) {
+    e.preventDefault();
+    const nameInput = document.querySelector("#input-name").value;
+    const lifespanInput = document.querySelector("#input-lifespan").value;
+    const religiousTraditionInput = document.querySelector(
+      "#input-religious-tradition"
+    ).value;
+    const checkboxes = document.getElementsByName("monastery");
+    const monasteryIds = BuddhistEntity.getIds(checkboxes);
+    this.patchMonastery(
+      nameInput,
+      lifespanInput,
+      religiousTraditionInput,
+      monasteryIds
+    );
+  }
+
   static postFigures(
     nameInput,
     lifespanInput,
@@ -122,6 +211,27 @@ class Figure extends BuddhistEntity {
         const contentContainer = document.querySelector("#content-container");
         contentContainer.textContent = "";
         figureObject.render(contentContainer);
+      });
+  }
+
+  patchFigure(nameInput, lifespanInput, religiousTraditionInput, monasteryIds) {
+    let bodyData = {
+      name: nameInput,
+      lifespan: lifespanInput,
+      religious_tradition: religiousTraditionInput,
+      monastery_ids: monasteryIds,
+    };
+    fetch(`${FIGURES_URL}/${this.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(bodyData),
+    })
+      .then((response) => response.json())
+      .then((figure) => {
+        const figureObject = Figure.createFromJson(figure.data);
+        const contentContainer = document.querySelector("#content-container");
+        contentContainer.textContent = "";
+        monasteryObject.render(contentContainer);
       });
   }
 
