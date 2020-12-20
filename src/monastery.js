@@ -90,7 +90,7 @@ class Monastery extends BuddhistEntity {
     editButton.textContent = "Edit monastery";
     contentContainer.appendChild(editButton);
     editButton.addEventListener("click", (e) =>
-      Monastery.showEditForm(e, contentContainer, this)
+      this.showEditForm(e, contentContainer, this)
     );
     let figures = document.createElement("h3");
     figures.textContent = "Associated Figures";
@@ -137,7 +137,7 @@ class Monastery extends BuddhistEntity {
     const figures = Figure.allInstances;
     this.createInputs(form);
     this.createCheckboxes(form, figures);
-    super.createSubmit(form, "monastery");
+    BuddhistEntity.createSubmit(form, "monastery");
     form.addEventListener("submit", (e) => this.createEditFormHandler(e));
   }
 
@@ -209,7 +209,7 @@ class Monastery extends BuddhistEntity {
       "#input-religious-tradition"
     ).value;
     const checkboxes = document.getElementsByName("figure");
-    const figureIds = super.getIds(checkboxes);
+    const figureIds = BuddhistEntity.getIds(checkboxes);
     this.patchMonastery(
       nameInput,
       locationInput,
