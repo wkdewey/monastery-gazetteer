@@ -70,13 +70,13 @@ class Monastery extends BuddhistEntity {
     const link = document.createElement("a");
     super.render(contentContainer, div, link);
     link.addEventListener("click", () => {
-      this.showAssociatedFigures(contentContainer);
+      this.showMonastery(contentContainer);
     });
     const location = div.querySelector("p");
     location.textContent = "Location: " + this.location;
   }
 
-  showAssociatedFigures(contentContainer) {
+  showMonastery(contentContainer) {
     contentContainer.textContent = "";
     contentContainer.classList.remove("row");
     this.render(contentContainer);
