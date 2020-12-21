@@ -49,12 +49,12 @@ class Figure extends BuddhistEntity {
     const link = document.createElement("a");
     super.render(contentContainer, div, link);
     link.addEventListener("click", () => {
-      this.showAssociatedMonasteries(contentContainer);
+      this.showFigure(contentContainer);
     });
     const lifespan = div.querySelector("p");
     lifespan.textContent = "Lifespan: " + this.lifespan;
   }
-  showAssociatedMonasteries(contentContainer) {
+  showFigure(contentContainer) {
     contentContainer.textContent = "";
     contentContainer.classList.remove("row");
     this.render(contentContainer);
@@ -63,6 +63,12 @@ class Figure extends BuddhistEntity {
     contentContainer.appendChild(deleteButton);
     deleteButton.addEventListener("click", (e) =>
       Figure.deleteFigure(e, this.id)
+    );
+    let editButton = document.createElement("button");
+    editButton.textContent = "Edit figure";
+    contentContainer.appendChild(editButton);
+    editButton.addEventListener("click", (e) =>
+      this.showEditForm(e, contentContainer, this)
     );
     let monasteries = document.createElement("h3");
     monasteries.textContent = "Associated Monasteries";
@@ -180,7 +186,7 @@ class Figure extends BuddhistEntity {
     ).value;
     const checkboxes = document.getElementsByName("monastery");
     const monasteryIds = BuddhistEntity.getIds(checkboxes);
-    this.patchMonastery(
+    this.patchFigure(
       nameInput,
       lifespanInput,
       religiousTraditionInput,
