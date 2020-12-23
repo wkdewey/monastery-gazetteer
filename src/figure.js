@@ -203,18 +203,24 @@ class Figure extends BuddhistEntity {
     imageInput,
     monasteryIds
   ) {
-    let bodyData = {
-      name: nameInput,
-      lifespan: lifespanInput,
-      religious_tradition: religiousTraditionInput,
-      image: imageInput,
-      monastery_ids: monasteryIds,
-    };
+    let bodyData = new FormData();
+    // bodyData = {
+    //   name: nameInput,
+    //   lifespan: lifespanInput,
+    //   religious_tradition: religiousTraditionInput,
+    //   image: imageInput,
+    //   monastery_ids: monasteryIds,
+    // };
+    bodyData.append("name", nameInput);
+    bodyData.append("lifespan", lifespanInput);
+    bodyData.append("religious_tradition", religiousTraditionInput);
+    bodyData.append("image", imageInput);
+    bodyData.append("monastery_ids", monasteryIds);
     debugger;
     fetch(FIGURES_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(bodyData),
+      body: bodyData,
     })
       .then((response) => response.json())
       .then((figure) => {
