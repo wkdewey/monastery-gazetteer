@@ -37,6 +37,7 @@ class BuddhistEntity {
     contentContainer.appendChild(form);
     BuddhistEntity.createInputs(form, model);
     BuddhistEntity.createCheckboxes(form, model, collection);
+    BuddhistEntity.createImageUpload(form);
     BuddhistEntity.createSubmit(form, model);
   }
 
@@ -101,6 +102,21 @@ class BuddhistEntity {
       BuddhistEntity.createCheckboxOption(option, element, fieldset);
     }
   }
+
+  static createImageUpload(form) {
+    const h3 = document.createElement("h3");
+    h3.textContent = "Upload image";
+    form.appendChild(h3);
+    const upload = BuddhistEntity.createInputElement(
+      "upload-image",
+      "file",
+      "filename"
+    );
+    upload.accept = "image/png, image/jpeg, image/gif";
+    form.appendChild(upload);
+    const br = document.createElement("br");
+    form.appendChild(br);
+  }
   static createSubmit(form, model) {
     const submit = BuddhistEntity.createInputElement(
       "create-button",
@@ -112,7 +128,7 @@ class BuddhistEntity {
     form.appendChild(submit);
   }
 
-  static createInputElement(id, type, name, value, placeholder) {
+  static createInputElement(id, type, name, value = "", placeholder) {
     const element = document.createElement("input");
     element.id = id;
     element.type = type;
