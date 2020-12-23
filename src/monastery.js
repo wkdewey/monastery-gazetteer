@@ -119,12 +119,14 @@ class Monastery extends BuddhistEntity {
     const religiousTraditionInput = document.querySelector(
       "#input-religious-tradition"
     ).value;
+    const imageInput = document.querySelector("#upload-image").files[0];
     const checkboxes = document.getElementsByName("figure");
     const figureIds = super.getIds(checkboxes);
     Monastery.postMonasteries(
       nameInput,
       locationInput,
       religiousTraditionInput,
+      imageInput,
       figureIds
     );
   }
@@ -222,14 +224,17 @@ class Monastery extends BuddhistEntity {
     nameInput,
     locationInput,
     religiousTraditionInput,
+    imageInput,
     figureIds
   ) {
     let bodyData = {
       name: nameInput,
       location: locationInput,
       religious_tradition: religiousTraditionInput,
+      image: imageInput,
       figure_ids: figureIds,
     };
+    debugger;
     fetch(MONASTERIES_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -244,13 +249,21 @@ class Monastery extends BuddhistEntity {
       });
   }
 
-  patchMonastery(nameInput, locationInput, religiousTraditionInput, figureIds) {
+  patchMonastery(
+    nameInput,
+    locationInput,
+    religiousTraditionInput,
+    imageInput,
+    figureIds
+  ) {
     let bodyData = {
       name: nameInput,
       location: locationInput,
       religious_tradition: religiousTraditionInput,
+      image: imageInput,
       figure_ids: figureIds,
     };
+    debugger;
     fetch(`${MONASTERIES_URL}/${this.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },

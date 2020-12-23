@@ -95,12 +95,14 @@ class Figure extends BuddhistEntity {
     const religiousTraditionInput = document.querySelector(
       "#input-religious-tradition"
     ).value;
+    const imageInput = document.querySelector("#upload-image").files[0];
     const checkboxes = document.getElementsByName("monastery");
     const monasteryIds = super.getIds(checkboxes);
     Figure.postFigures(
       nameInput,
       lifespanInput,
       religiousTraditionInput,
+      imageInput,
       monasteryIds
     );
   }
@@ -184,7 +186,7 @@ class Figure extends BuddhistEntity {
     const religiousTraditionInput = document.querySelector(
       "#input-religious-tradition"
     ).value;
-    const checkboxes = document.getElementsByName("monastery");
+    const checkboxes = document.getElementsByName("monastery").value;
     const monasteryIds = BuddhistEntity.getIds(checkboxes);
     this.patchFigure(
       nameInput,
@@ -198,14 +200,17 @@ class Figure extends BuddhistEntity {
     nameInput,
     lifespanInput,
     religiousTraditionInput,
+    imageInput,
     monasteryIds
   ) {
     let bodyData = {
       name: nameInput,
       lifespan: lifespanInput,
       religious_tradition: religiousTraditionInput,
+      image: imageInput,
       monastery_ids: monasteryIds,
     };
+    debugger;
     fetch(FIGURES_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
