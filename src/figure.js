@@ -219,7 +219,6 @@ class Figure extends BuddhistEntity {
     debugger;
     fetch(FIGURES_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
       body: bodyData,
     })
       .then((response) => response.json())
@@ -248,7 +247,7 @@ class Figure extends BuddhistEntity {
         const figureObject = Figure.createFromJson(figure.data);
         const contentContainer = document.querySelector("#content-container");
         contentContainer.textContent = "";
-        monasteryObject.render(contentContainer);
+        figureObject.render(contentContainer);
       });
   }
 
