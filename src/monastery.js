@@ -227,18 +227,15 @@ class Monastery extends BuddhistEntity {
     imageInput,
     figureIds
   ) {
-    let bodyData = {
-      name: nameInput,
-      location: locationInput,
-      religious_tradition: religiousTraditionInput,
-      image: imageInput,
-      figure_ids: figureIds,
-    };
-    debugger;
+    let bodyData = new FormData();
+    bodyData.append("name", nameInput);
+    bodyData.append("location", locationInput);
+    bodyData.append("religious_tradition", religiousTraditionInput);
+    bodyData.append("image", imageInput);
+    bodyData.append("figure_ids", figureIds);
     fetch(MONASTERIES_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(bodyData),
+      body: bodyData,
     })
       .then((response) => response.json())
       .then((monastery) => {
