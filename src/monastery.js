@@ -232,7 +232,8 @@ class Monastery extends BuddhistEntity {
     bodyData.append("location", locationInput);
     bodyData.append("religious_tradition", religiousTraditionInput);
     bodyData.append("image", imageInput);
-    bodyData.append("figure_ids", figureIds);
+    bodyData.append("figure_ids", JSON.stringify(figureIds));
+    debugger;
     fetch(MONASTERIES_URL, {
       method: "POST",
       body: bodyData,
