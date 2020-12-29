@@ -1,3 +1,4 @@
+import { DirectUpload } from "@rails/activestorage";
 class Monastery extends BuddhistEntity {
   constructor(id, name, location, religious_tradition, figures) {
     super(id, name, religious_tradition);
@@ -219,7 +220,18 @@ class Monastery extends BuddhistEntity {
       figureIds
     );
   }
+  uploadImage(image) {
+    const url = "/rails/active_storage/direct_uploads";
+    const upload = new DirectUpload(image, url);
 
+    upload.create((error, blob) => {
+      if (error) {
+        console.log(error);
+      } else {
+        this.imageBlob = blob;
+      }
+    });
+  }
   static postMonasteries(
     nameInput,
     locationInput,
@@ -227,16 +239,24 @@ class Monastery extends BuddhistEntity {
     imageInput,
     figureIds
   ) {
-    let bodyData = new FormData();
-    bodyData.append("name", nameInput);
-    bodyData.append("location", locationInput);
-    bodyData.append("religious_tradition", religiousTraditionInput);
-    bodyData.append("image", imageInput);
-    bodyData.append("figure_ids", JSON.stringify(figureIds));
+    let bodyData = {
+      name: nameInput,
+      location: locationInput,
+      religious_tradition: religiousTraditionInput,
+      figure_ids: figureIds,
+    };
+    if (imageInput) {
+      this.uploadImage(image);
+      bodyData["image"] = this.imageBlob;
+    }
+
     debugger;
     fetch(MONASTERIES_URL, {
       method: "POST",
-      body: bodyData,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bodyData),
     })
       .then((response) => response.json())
       .then((monastery) => {
