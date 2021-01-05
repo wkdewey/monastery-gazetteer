@@ -224,7 +224,7 @@ class Monastery extends BuddhistEntity {
     formData.append("image", imageInput);
     fetch(`${MONASTERIES_URL}/${id}`, {
       method: "PATCH",
-      body: bodyData,
+      body: formData,
     });
   }
   static postMonasteries(
