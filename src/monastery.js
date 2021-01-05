@@ -282,6 +282,9 @@ class Monastery extends BuddhistEntity {
     })
       .then((response) => response.json())
       .then((monastery) => {
+        if (imageInput) {
+          Monastery.uploadImage(imageInput, this.id);
+        }
         const monasteryObject = Monastery.createFromJson(monastery.data);
         const contentContainer = document.querySelector("#content-container");
         contentContainer.textContent = "";
