@@ -115,6 +115,7 @@ class Figure extends BuddhistEntity {
     const monasteries = Monastery.allInstances;
     this.createEditInputs(form);
     this.createEditCheckboxes(form, monasteries);
+    BuddhistEntity.createImageUpload(form);
     BuddhistEntity.createSubmit(form, "figure");
     form.addEventListener("submit", (e) => this.createEditFormHandler(e));
   }
@@ -218,13 +219,16 @@ class Figure extends BuddhistEntity {
     })
       .then((response) => response.json())
       .then((figure) => {
+        if (imageInput) {
+          Figure.uploadImage(imageInput, figure.data.id);
+        }
         const figureObject = Figure.createFromJson(figure.data);
         const contentContainer = document.querySelector("#content-container");
         contentContainer.textContent = "";
         figureObject.render(contentContainer);
       });
   }
-  static postImage;
+
   patchFigure(nameInput, lifespanInput, religiousTraditionInput, monasteryIds) {
     let bodyData = {
       name: nameInput,
@@ -239,6 +243,9 @@ class Figure extends BuddhistEntity {
     })
       .then((response) => response.json())
       .then((figure) => {
+        if (imageInput) {
+          Monastery.uploadImage(imageInput, this.id);
+        }
         const figureObject = Figure.createFromJson(figure.data);
         const contentContainer = document.querySelector("#content-container");
         contentContainer.textContent = "";
