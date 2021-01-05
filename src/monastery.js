@@ -260,21 +260,13 @@ class Monastery extends BuddhistEntity {
       });
   }
 
-  patchMonastery(
-    nameInput,
-    locationInput,
-    religiousTraditionInput,
-    imageInput,
-    figureIds
-  ) {
+  patchMonastery(nameInput, locationInput, religiousTraditionInput, figureIds) {
     let bodyData = {
       name: nameInput,
       location: locationInput,
       religious_tradition: religiousTraditionInput,
-      image: imageInput,
       figure_ids: figureIds,
     };
-    debugger;
     fetch(`${MONASTERIES_URL}/${this.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
