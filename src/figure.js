@@ -244,7 +244,7 @@ class Figure extends BuddhistEntity {
       .then((response) => response.json())
       .then((figure) => {
         if (imageInput) {
-          Monastery.uploadImage(imageInput, this.id);
+          Figure.uploadImage(imageInput, this.id);
         }
         const figureObject = Figure.createFromJson(figure.data);
         const contentContainer = document.querySelector("#content-container");
