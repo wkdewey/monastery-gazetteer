@@ -212,11 +212,13 @@ class Monastery extends BuddhistEntity {
       "#input-religious-tradition"
     ).value;
     const checkboxes = document.getElementsByName("figure");
+    const imageInput = document.querySelector("#upload-image").files[0];
     const figureIds = BuddhistEntity.getIds(checkboxes);
     this.patchMonastery(
       nameInput,
       locationInput,
       religiousTraditionInput,
+      imageInput,
       figureIds
     );
   }
@@ -260,7 +262,13 @@ class Monastery extends BuddhistEntity {
       });
   }
 
-  patchMonastery(nameInput, locationInput, religiousTraditionInput, figureIds) {
+  patchMonastery(
+    nameInput,
+    locationInput,
+    religiousTraditionInput,
+    imageInput,
+    figureIds
+  ) {
     let bodyData = {
       name: nameInput,
       location: locationInput,
