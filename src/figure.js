@@ -187,7 +187,7 @@ class Figure extends BuddhistEntity {
     const religiousTraditionInput = document.querySelector(
       "#input-religious-tradition"
     ).value;
-    const checkboxes = document.getElementsByName("monastery").value;
+    const checkboxes = document.getElementsByName("monastery");
     const imageInput = document.querySelector("#upload-image").files[0];
     const monasteryIds = BuddhistEntity.getIds(checkboxes);
     this.patchFigure(
@@ -198,7 +198,14 @@ class Figure extends BuddhistEntity {
       monasteryIds
     );
   }
-
+  static uploadImage(imageInput, id) {
+    const formData = new FormData();
+    formData.append("image", imageInput);
+    fetch(`${FIGURES_URL}/${id}`, {
+      method: "PATCH",
+      body: formData,
+    });
+  }
   static postFigures(
     nameInput,
     lifespanInput,
