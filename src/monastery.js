@@ -84,6 +84,7 @@ class Monastery extends BuddhistEntity {
     let image = document.createElement("img");
     image.src = this.image_url;
     image.alt = `image of ${this.name}`;
+    contentContainer.appendChild(image);
     let deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete monastery";
     contentContainer.appendChild(deleteButton);
