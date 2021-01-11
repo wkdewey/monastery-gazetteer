@@ -36,8 +36,8 @@ class BuddhistEntity {
       let image = document.createElement("img");
       image.src = this.image_url;
       image.alt = `image of ${this.name}`;
-      image.classList.add("card-img-bottom");
-      contentContainer.appendChild(image);
+      image.classList.add("card-img-bottom", "img-fluid");
+      cardDiv.appendChild(image);
     }
   }
   static showForm(model, form, collection, contentContainer) {
