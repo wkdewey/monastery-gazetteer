@@ -1,6 +1,6 @@
 class Figure extends BuddhistEntity {
-  constructor(id, name, lifespan, religious_tradition, monasteries) {
-    super(id, name, religious_tradition);
+  constructor(id, name, lifespan, religious_tradition, monasteries, image_url) {
+    super(id, name, religious_tradition, image_url);
     this.lifespan = lifespan;
     if (monasteries) {
       this.monasteries = [];
@@ -25,7 +25,8 @@ class Figure extends BuddhistEntity {
         data[key]["attributes"]["name"],
         data[key]["attributes"]["lifespan"],
         data[key]["attributes"]["religious_tradition"],
-        data[key]["attributes"]["monasteries"]
+        data[key]["attributes"]["monasteries"],
+        data[key]["attributes"]["image_url"]
       );
     }
   }

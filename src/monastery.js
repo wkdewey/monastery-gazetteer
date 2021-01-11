@@ -1,6 +1,6 @@
 class Monastery extends BuddhistEntity {
-  constructor(id, name, location, religious_tradition, figures) {
-    super(id, name, religious_tradition);
+  constructor(id, name, location, religious_tradition, figures, image_url) {
+    super(id, name, religious_tradition, image_url);
     this.location = location;
     if (figures) {
       this.figures = [];
@@ -25,7 +25,8 @@ class Monastery extends BuddhistEntity {
         data[key]["attributes"]["name"],
         data[key]["attributes"]["location"],
         data[key]["attributes"]["religious_tradition"],
-        data[key]["attributes"]["figures"]
+        data[key]["attributes"]["figures"],
+        data[key]["attributes"]["image_url"]
       );
     }
   }
