@@ -153,7 +153,7 @@ class Monastery extends BuddhistEntity {
     h2.textContent = `Edit monastery`;
     fieldset.appendChild(h2);
     fieldset.classList.add("d-flex", "flex-column", "align-items-left");
-    const inputName = BuddhistEntity.createInputElement(
+    const inputName = this.createInputElement(
       "input-name",
       "text",
       "name",
@@ -163,7 +163,7 @@ class Monastery extends BuddhistEntity {
     fieldset.appendChild(inputName);
     const br = document.createElement("br");
     fieldset.appendChild(br);
-    const inputLocation = BuddhistEntity.createInputElement(
+    const inputLocation = this.createInputElement(
       `input-location`,
       "text",
       "location",
@@ -172,7 +172,7 @@ class Monastery extends BuddhistEntity {
     );
     fieldset.appendChild(inputLocation);
     fieldset.appendChild(br.cloneNode());
-    const inputTradition = BuddhistEntity.createInputElement(
+    const inputTradition = this.createInputElement(
       "input-religious-tradition",
       "text",
       "religious-tradition",
@@ -195,7 +195,7 @@ class Monastery extends BuddhistEntity {
     fieldset.classList.add("row", "row-cols-3");
     for (const figure of figures) {
       const checked = this.figures.includes(figure.name);
-      const option = BuddhistEntity.createInputElement(
+      const option = this.createInputElement(
         `input-figure-` + figure.id,
         "checkbox",
         "figure",

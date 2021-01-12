@@ -55,7 +55,7 @@ class BuddhistEntity {
     h2.textContent = `New ${model}`;
     fieldset.appendChild(h2);
     fieldset.classList.add("d-flex", "flex-column", "align-items-left");
-    const inputName = BuddhistEntity.createInputElement(
+    const inputName = createInputElement(
       "input-name",
       "text",
       "name",
@@ -66,7 +66,7 @@ class BuddhistEntity {
     const br = document.createElement("br");
     fieldset.appendChild(br);
     const info = model === "monastery" ? "location" : "lifespan";
-    const inputInfo = BuddhistEntity.createInputElement(
+    const inputInfo = createInputElement(
       `input-${info}`,
       "text",
       info,
@@ -75,7 +75,7 @@ class BuddhistEntity {
     );
     fieldset.appendChild(inputInfo);
     fieldset.appendChild(br.cloneNode());
-    const inputTradition = BuddhistEntity.createInputElement(
+    const inputTradition = createInputElement(
       "input-religious-tradition",
       "text",
       "religious-tradition",
@@ -100,7 +100,7 @@ class BuddhistEntity {
     div.appendChild(fieldset);
     fieldset.classList.add("row", "row-cols-3");
     for (const element of collection) {
-      const option = BuddhistEntity.createInputElement(
+      const option = createInputElement(
         `input-${associatedModel}-` + element.id,
         "checkbox",
         associatedModel,
@@ -114,18 +114,21 @@ class BuddhistEntity {
     const h3 = document.createElement("h3");
     h3.textContent = "Upload image";
     form.appendChild(h3);
-    const upload = BuddhistEntity.createInputElement(
+    debugger;
+    const upload = createInputElement(
       "upload-image",
       "file",
-      "filename"
+      "filename",
+      this.image_url
     );
+    debugger;
     upload.accept = "image/png, image/jpeg, image/gif";
     form.appendChild(upload);
     const br = document.createElement("br");
     form.appendChild(br);
   }
   static createSubmit(form, model, mode) {
-    const submit = BuddhistEntity.createInputElement(
+    const submit = createInputElement(
       "create-button",
       "submit",
       "submit",
@@ -135,7 +138,7 @@ class BuddhistEntity {
     form.appendChild(submit);
   }
 
-  static createInputElement(id, type, name, value = "", placeholder) {
+  createInputElement(id, type, name, value = "", placeholder) {
     const element = document.createElement("input");
     element.id = id;
     element.type = type;
