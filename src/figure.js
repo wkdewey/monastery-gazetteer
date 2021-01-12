@@ -117,7 +117,7 @@ class Figure extends BuddhistEntity {
     this.createEditInputs(form);
     this.createEditCheckboxes(form, monasteries);
     BuddhistEntity.createImageUpload(form);
-    BuddhistEntity.createSubmit(form, "figure");
+    BuddhistEntity.createSubmit(form, "figure", "Create new");
     form.addEventListener("submit", (e) => this.createEditFormHandler(e));
   }
 

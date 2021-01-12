@@ -30,7 +30,6 @@ class BuddhistEntity {
     const tradition = document.createElement("p");
     tradition.textContent = "Religious tradition: " + this.religious_tradition;
     tradition.classList.add("card-text", "text-warning");
-
     cardDiv.appendChild(tradition);
     if (this.image_url) {
       let image = document.createElement("img");
@@ -46,7 +45,7 @@ class BuddhistEntity {
     BuddhistEntity.createInputs(form, model);
     BuddhistEntity.createCheckboxes(form, model, collection);
     BuddhistEntity.createImageUpload(form);
-    BuddhistEntity.createSubmit(form, model);
+    BuddhistEntity.createSubmit(form, model, "Create new");
   }
 
   static createInputs(form, model) {
@@ -125,12 +124,12 @@ class BuddhistEntity {
     const br = document.createElement("br");
     form.appendChild(br);
   }
-  static createSubmit(form, model) {
+  static createSubmit(form, model, mode) {
     const submit = BuddhistEntity.createInputElement(
       "create-button",
       "submit",
       "submit",
-      `Create new ${model}`
+      `${mode} ${model}`
     );
     submit.classList.add("btn", "btn-sm", "btn-outline-secondary");
     form.appendChild(submit);
