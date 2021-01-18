@@ -142,6 +142,7 @@ class Monastery extends BuddhistEntity {
     this.createEditInputs(form);
     this.createEditCheckboxes(form, figures);
     BuddhistEntity.createImageUpload(form);
+    debugger;
     BuddhistEntity.createSubmit(form, "monastery", "Edit");
     form.addEventListener("submit", (e) => this.createEditFormHandler(e));
   }
@@ -153,7 +154,7 @@ class Monastery extends BuddhistEntity {
     h2.textContent = `Edit monastery`;
     fieldset.appendChild(h2);
     fieldset.classList.add("d-flex", "flex-column", "align-items-left");
-    const inputName = this.createInputElement(
+    const inputName = BuddhistEntity.createInputElement(
       "input-name",
       "text",
       "name",
@@ -163,7 +164,7 @@ class Monastery extends BuddhistEntity {
     fieldset.appendChild(inputName);
     const br = document.createElement("br");
     fieldset.appendChild(br);
-    const inputLocation = this.createInputElement(
+    const inputLocation = BuddhistEntity.createInputElement(
       `input-location`,
       "text",
       "location",
@@ -172,7 +173,7 @@ class Monastery extends BuddhistEntity {
     );
     fieldset.appendChild(inputLocation);
     fieldset.appendChild(br.cloneNode());
-    const inputTradition = this.createInputElement(
+    const inputTradition = BuddhistEntity.createInputElement(
       "input-religious-tradition",
       "text",
       "religious-tradition",
@@ -195,7 +196,7 @@ class Monastery extends BuddhistEntity {
     fieldset.classList.add("row", "row-cols-3");
     for (const figure of figures) {
       const checked = this.figures.includes(figure.name);
-      const option = this.createInputElement(
+      const option = BuddhistEntity.createInputElement(
         `input-figure-` + figure.id,
         "checkbox",
         "figure",
@@ -215,7 +216,6 @@ class Monastery extends BuddhistEntity {
     ).value;
     const checkboxes = document.getElementsByName("figure");
     const imageInput = document.querySelector("#upload-image").files[0];
-    debugger;
     const figureIds = BuddhistEntity.getIds(checkboxes);
     this.patchMonastery(
       nameInput,

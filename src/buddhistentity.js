@@ -55,7 +55,7 @@ class BuddhistEntity {
     h2.textContent = `New ${model}`;
     fieldset.appendChild(h2);
     fieldset.classList.add("d-flex", "flex-column", "align-items-left");
-    const inputName = this.createInputElement(
+    const inputName = BuddhistEntity.createInputElement(
       "input-name",
       "text",
       "name",
@@ -66,7 +66,7 @@ class BuddhistEntity {
     const br = document.createElement("br");
     fieldset.appendChild(br);
     const info = model === "monastery" ? "location" : "lifespan";
-    const inputInfo = this.createInputElement(
+    const inputInfo = BuddhistEntity.createInputElement(
       `input-${info}`,
       "text",
       info,
@@ -75,7 +75,7 @@ class BuddhistEntity {
     );
     fieldset.appendChild(inputInfo);
     fieldset.appendChild(br.cloneNode());
-    const inputTradition = this.createInputElement(
+    const inputTradition = BuddhistEntity.createInputElement(
       "input-religious-tradition",
       "text",
       "religious-tradition",
@@ -100,7 +100,7 @@ class BuddhistEntity {
     div.appendChild(fieldset);
     fieldset.classList.add("row", "row-cols-3");
     for (const element of collection) {
-      const option = this.createInputElement(
+      const option = BuddhistEntity.createInputElement(
         `input-${associatedModel}-` + element.id,
         "checkbox",
         associatedModel,
@@ -115,13 +115,14 @@ class BuddhistEntity {
     h3.textContent = "Upload image";
     form.appendChild(h3);
     debugger;
-    const upload = this.createInputElement(
+    const upload = BuddhistEntity.createInputElement(
       "upload-image",
       "file",
       "filename",
       this.image_url
     );
     upload.accept = "image/png, image/jpeg, image/gif";
+    debugger;
     form.appendChild(upload);
     const br = document.createElement("br");
     form.appendChild(br);
@@ -137,7 +138,7 @@ class BuddhistEntity {
     form.appendChild(submit);
   }
 
-  createInputElement(id, type, name, value = "", placeholder) {
+  static createInputElement(id, type, name, value = "", placeholder) {
     const element = document.createElement("input");
     element.id = id;
     element.type = type;
