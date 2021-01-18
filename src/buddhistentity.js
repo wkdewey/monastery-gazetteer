@@ -55,7 +55,7 @@ class BuddhistEntity {
     h2.textContent = `New ${model}`;
     fieldset.appendChild(h2);
     fieldset.classList.add("d-flex", "flex-column", "align-items-left");
-    const inputName = createInputElement(
+    const inputName = this.createInputElement(
       "input-name",
       "text",
       "name",
@@ -66,7 +66,7 @@ class BuddhistEntity {
     const br = document.createElement("br");
     fieldset.appendChild(br);
     const info = model === "monastery" ? "location" : "lifespan";
-    const inputInfo = createInputElement(
+    const inputInfo = this.createInputElement(
       `input-${info}`,
       "text",
       info,
@@ -75,7 +75,7 @@ class BuddhistEntity {
     );
     fieldset.appendChild(inputInfo);
     fieldset.appendChild(br.cloneNode());
-    const inputTradition = createInputElement(
+    const inputTradition = this.createInputElement(
       "input-religious-tradition",
       "text",
       "religious-tradition",
@@ -100,7 +100,7 @@ class BuddhistEntity {
     div.appendChild(fieldset);
     fieldset.classList.add("row", "row-cols-3");
     for (const element of collection) {
-      const option = createInputElement(
+      const option = this.createInputElement(
         `input-${associatedModel}-` + element.id,
         "checkbox",
         associatedModel,
@@ -115,20 +115,19 @@ class BuddhistEntity {
     h3.textContent = "Upload image";
     form.appendChild(h3);
     debugger;
-    const upload = createInputElement(
+    const upload = this.createInputElement(
       "upload-image",
       "file",
       "filename",
       this.image_url
     );
-    debugger;
     upload.accept = "image/png, image/jpeg, image/gif";
     form.appendChild(upload);
     const br = document.createElement("br");
     form.appendChild(br);
   }
   static createSubmit(form, model, mode) {
-    const submit = createInputElement(
+    const submit = this.createInputElement(
       "create-button",
       "submit",
       "submit",

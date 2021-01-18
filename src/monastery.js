@@ -215,6 +215,7 @@ class Monastery extends BuddhistEntity {
     ).value;
     const checkboxes = document.getElementsByName("figure");
     const imageInput = document.querySelector("#upload-image").files[0];
+    debugger;
     const figureIds = BuddhistEntity.getIds(checkboxes);
     this.patchMonastery(
       nameInput,
