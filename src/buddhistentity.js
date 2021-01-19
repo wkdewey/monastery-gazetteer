@@ -110,16 +110,24 @@ class BuddhistEntity {
     }
   }
 
-  static createImageUpload(form) {
+  static createImageUpload(form, image_url = null) {
     const h3 = document.createElement("h3");
-    h3.textContent = "Upload image";
-    form.appendChild(h3);
+    if (image_url) {
+      h3.textContent = "Upload new image";
+      const caption = document.createElement("caption");
+      caption.textContent = `(current image is ${image_url})`;
+      form.appendChild(h3);
+      form.appendChild(caption);
+    } else {
+      h3.textContent = "Upload image";
+      form.appendChild(h3);
+    }
+
     debugger;
     const upload = BuddhistEntity.createInputElement(
       "upload-image",
       "file",
-      "filename",
-      this.image_url
+      "filename"
     );
     upload.accept = "image/png, image/jpeg, image/gif";
     debugger;
@@ -138,7 +146,7 @@ class BuddhistEntity {
     form.appendChild(submit);
   }
 
-  static createInputElement(id, type, name, value = "", placeholder) {
+  static createInputElement(id, type, name, value = null, placeholder) {
     const element = document.createElement("input");
     element.id = id;
     element.type = type;

@@ -141,8 +141,7 @@ class Monastery extends BuddhistEntity {
     const figures = Figure.allInstances;
     this.createEditInputs(form);
     this.createEditCheckboxes(form, figures);
-    BuddhistEntity.createImageUpload(form);
-    debugger;
+    BuddhistEntity.createImageUpload(form, this.image_url);
     BuddhistEntity.createSubmit(form, "monastery", "Edit");
     form.addEventListener("submit", (e) => this.createEditFormHandler(e));
   }
