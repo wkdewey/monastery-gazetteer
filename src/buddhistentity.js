@@ -114,10 +114,12 @@ class BuddhistEntity {
     const h3 = document.createElement("h3");
     if (image_url) {
       h3.textContent = "Upload new image";
-      const caption = document.createElement("caption");
-      caption.textContent = `(current image is ${image_url})`;
+      const img = document.createElement("img");
+      img.src = image_url;
+      img.alt = `existing image at ${image_url}`;
+      img.width = "150";
+      form.appendChild(img);
       form.appendChild(h3);
-      form.appendChild(caption);
     } else {
       h3.textContent = "Upload image";
       form.appendChild(h3);
