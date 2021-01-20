@@ -124,15 +124,12 @@ class BuddhistEntity {
       h3.textContent = "Upload image";
       form.appendChild(h3);
     }
-
-    debugger;
     const upload = BuddhistEntity.createInputElement(
       "upload-image",
       "file",
       "filename"
     );
     upload.accept = "image/png, image/jpeg, image/gif";
-    debugger;
     form.appendChild(upload);
     const br = document.createElement("br");
     form.appendChild(br);
