@@ -116,7 +116,7 @@ class Figure extends BuddhistEntity {
     const monasteries = Monastery.allInstances;
     this.createEditInputs(form);
     this.createEditCheckboxes(form, monasteries);
-    BuddhistEntity.createImageUpload(form);
+    BuddhistEntity.createImageUpload(form, this.image_url);
     BuddhistEntity.createSubmit(form, "figure", "Create new");
     form.addEventListener("submit", (e) => this.createEditFormHandler(e));
   }
@@ -125,10 +125,10 @@ class Figure extends BuddhistEntity {
     const fieldset = document.createElement("fieldset");
     form.appendChild(fieldset);
     const h2 = document.createElement("h2");
-    h2.textContent = `Edit monastery`;
+    h2.textContent = `Edit figure`;
     fieldset.appendChild(h2);
     fieldset.classList.add("d-flex", "flex-column", "align-items-left");
-    const inputName = this.createInputElement(
+    const inputName = BuddhistEntity.createInputElement(
       "input-name",
       "text",
       "name",
@@ -138,7 +138,7 @@ class Figure extends BuddhistEntity {
     fieldset.appendChild(inputName);
     const br = document.createElement("br");
     fieldset.appendChild(br);
-    const inputLifespan = this.createInputElement(
+    const inputLifespan = BuddhistEntity.createInputElement(
       `input-lifespan`,
       "text",
       "lifespan",
@@ -147,7 +147,7 @@ class Figure extends BuddhistEntity {
     );
     fieldset.appendChild(inputLifespan);
     fieldset.appendChild(br.cloneNode());
-    const inputTradition = this.createInputElement(
+    const inputTradition = BuddhistEntity.createInputElement(
       "input-religious-tradition",
       "text",
       "religious-tradition",
@@ -170,7 +170,7 @@ class Figure extends BuddhistEntity {
     fieldset.classList.add("row", "row-cols-3");
     for (const monastery of monasteries) {
       const checked = this.monasteries.includes(monastery.name);
-      const option = this.createInputElement(
+      const option = BuddhistEntity.createInputElement(
         `input-monastery-` + monastery.id,
         "checkbox",
         "monastery",
