@@ -107,6 +107,7 @@ class Monastery extends BuddhistEntity {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.classList.remove("row");
     const form = document.createElement("form");
+    form.autocomplete = "on";
     const figures = Figure.allInstances;
     super.showForm("monastery", form, figures, contentContainer);
     form.addEventListener("submit", (e) =>

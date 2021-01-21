@@ -84,6 +84,7 @@ class Figure extends BuddhistEntity {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.classList.remove("row");
     const form = document.createElement("form");
+    form.autocomplete = "on";
     const monasteries = Monastery.allInstances;
     super.showForm("figure", form, monasteries, contentContainer);
     form.addEventListener("submit", (e) => Figure.createFigureFormHandler(e));
