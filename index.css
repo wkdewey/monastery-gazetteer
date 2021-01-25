@@ -3,8 +3,7 @@
   padding-bottom: 3rem;
   margin-bottom: 0;
   background-image: url("src/thiksay.jpeg");
-  background-size: cover;
-  background-color: #fff;
+  background-size: 150%;
 }
 @media (min-width: 768px) {
   .jumbotron {
