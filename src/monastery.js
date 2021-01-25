@@ -31,6 +31,13 @@ class Monastery extends BuddhistEntity {
     }
   }
 
+  static find(name) {
+    const found = Monastery.allInstances.find(
+      (monastery) => monastery.name === name
+    );
+    return found;
+  }
+
   static showMonasteries() {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
@@ -59,29 +66,21 @@ class Monastery extends BuddhistEntity {
     return sorted;
   }
 
-  static find(name) {
-    const found = Monastery.allInstances.find(
-      (monastery) => monastery.name === name
-    );
-    return found;
-  }
-
   render(contentContainer) {
     const div = document.createElement("div");
     const link = document.createElement("a");
     super.render(contentContainer, div, link);
     link.addEventListener("click", () => {
-      this.showMonastery(contentContainer);
+      this.renderMonastery(contentContainer);
     });
     const location = div.querySelector("p");
     location.textContent = "Location: " + this.location;
   }
 
-  showMonastery(contentContainer) {
+  renderMonastery(contentContainer) {
     contentContainer.textContent = "";
     contentContainer.classList.remove("row");
     this.render(contentContainer);
-
     let deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete monastery";
     contentContainer.appendChild(deleteButton);
@@ -103,13 +102,11 @@ class Monastery extends BuddhistEntity {
     }
   }
 
-  static showMonasteryForm() {
+  static renderForm() {
     const contentContainer = document.querySelector("#content-container");
-    contentContainer.classList.remove("row");
     const form = document.createElement("form");
-    form.autocomplete = "on";
     const figures = Figure.allInstances;
-    super.showForm("monastery", form, figures, contentContainer);
+    super.renderForm("monastery", form, figures, contentContainer);
     form.addEventListener("submit", (e) =>
       Monastery.createMonasteryFormHandler(e)
     );
@@ -134,7 +131,7 @@ class Monastery extends BuddhistEntity {
     );
   }
 
-  showEditForm(e, contentContainer) {
+  renderEditForm(e, contentContainer) {
     contentContainer.textContent = "";
     contentContainer.classList.remove("row");
     const form = document.createElement("form");

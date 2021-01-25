@@ -39,9 +39,11 @@ class BuddhistEntity {
       cardDiv.appendChild(image);
     }
   }
-  static showForm(model, form, collection, contentContainer) {
+  static renderForm(model, form, collection, contentContainer) {
     contentContainer.textContent = "";
+    contentContainer.classList.remove("row");
     contentContainer.appendChild(form);
+    form.autocomplete = "on";
     BuddhistEntity.createInputs(form, model);
     BuddhistEntity.createCheckboxes(form, model, collection);
     BuddhistEntity.createImageUpload(form);
@@ -175,42 +177,3 @@ class BuddhistEntity {
       .map((ch) => parseInt(ch.value));
   }
 }
-//   createEditInputs(form, model) {
-//     const fieldset = document.createElement("fieldset");
-//     form.appendChild(fieldset);
-//     const h2 = document.createElement("h2");
-//     //this line would be different
-//     h2.textContent = `Edit ${model}`;
-//     fieldset.appendChild(h2);
-//     fieldset.classList.add("d-flex", "flex-column", "align-items-left");
-//     //this line would be different
-//     const inputName = BuddhistEntity.createInputElement(
-//       "input-name",
-//       "text",
-//       "name",
-//       this.name,
-//       `Enter ${model} name`
-//     );
-//     fieldset.appendChild(inputName);
-//     const br = document.createElement("br");
-//     fieldset.appendChild(br);
-//     const info = model === "monastery" ? "location" : "lifespan";
-//     const inputInfo = BuddhistEntity.createInputElement(
-//       `input-${info}`,
-//       "text",
-//       info,
-//       "",
-//       `Enter ${info}`
-//     );
-//     fieldset.appendChild(inputLocation);
-//     fieldset.appendChild(br.cloneNode());
-//     const inputTradition = BuddhistEntity.createInputElement(
-//       "input-religious-tradition",
-//       "text",
-//       "religious-tradition",
-//       this.religious_tradition,
-//       "Enter religious tradition"
-//     );
-//     fieldset.appendChild(inputTradition);
-//     fieldset.appendChild(br.cloneNode());
-//   }

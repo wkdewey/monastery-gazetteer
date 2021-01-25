@@ -55,7 +55,7 @@ class Figure extends BuddhistEntity {
     const lifespan = div.querySelector("p");
     lifespan.textContent = "Lifespan: " + this.lifespan;
   }
-  showFigure(contentContainer) {
+  renderFigure(contentContainer) {
     contentContainer.textContent = "";
     contentContainer.classList.remove("row");
     this.render(contentContainer);
@@ -80,13 +80,11 @@ class Figure extends BuddhistEntity {
     }
   }
 
-  static showFigureForm() {
+  static renderForm() {
     const contentContainer = document.querySelector("#content-container");
-    contentContainer.classList.remove("row");
     const form = document.createElement("form");
-    form.autocomplete = "on";
     const monasteries = Monastery.allInstances;
-    super.showForm("figure", form, monasteries, contentContainer);
+    super.renderForm("figure", form, monasteries, contentContainer);
     form.addEventListener("submit", (e) => Figure.createFigureFormHandler(e));
   }
 
@@ -109,7 +107,7 @@ class Figure extends BuddhistEntity {
     );
   }
 
-  showEditForm(e, contentContainer) {
+  renderEditForm(e, contentContainer) {
     contentContainer.textContent = "";
     contentContainer.classList.remove("row");
     const form = document.createElement("form");
