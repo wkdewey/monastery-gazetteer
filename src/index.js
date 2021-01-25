@@ -14,18 +14,18 @@ document.addEventListener("DOMContentLoaded", function () {
   Figure.fetchFigures();
   addClickListener(
     document.querySelector("#monasteries_index"),
-    Monastery.showMonasteries
+    Monastery.renderMonasteries
   );
   addClickListener(
     document.querySelector("#figures_index"),
-    Figure.showFigures
+    Figure.renderFigures
   );
   addClickListener(
     document.querySelector("#monasteries_create"),
-    Monastery.showMonasteryForm
+    Monastery.renderForm
   );
   addClickListener(
     document.querySelector("#figures_create"),
-    Figure.showFigureForm
+    Figure.renderForm
   );
 });

@@ -38,7 +38,7 @@ class Monastery extends BuddhistEntity {
     return found;
   }
 
-  static showMonasteries() {
+  static renderMonasteries() {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
     contentContainer.classList.add("row");
@@ -91,7 +91,7 @@ class Monastery extends BuddhistEntity {
     editButton.textContent = "Edit monastery";
     contentContainer.appendChild(editButton);
     editButton.addEventListener("click", (e) =>
-      this.showEditForm(e, contentContainer, this)
+      this.renderEditForm(e, contentContainer, this)
     );
     let figures = document.createElement("h3");
     figures.textContent = "Associated Figures";

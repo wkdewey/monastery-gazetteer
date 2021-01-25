@@ -36,7 +36,7 @@ class Figure extends BuddhistEntity {
     return found;
   }
 
-  static showFigures() {
+  static renderFigures() {
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
     contentContainer.classList.add("row");
@@ -50,7 +50,7 @@ class Figure extends BuddhistEntity {
     const link = document.createElement("a");
     super.render(contentContainer, div, link);
     link.addEventListener("click", () => {
-      this.showFigure(contentContainer);
+      this.renderFigure(contentContainer);
     });
     const lifespan = div.querySelector("p");
     lifespan.textContent = "Lifespan: " + this.lifespan;
@@ -69,7 +69,7 @@ class Figure extends BuddhistEntity {
     editButton.textContent = "Edit figure";
     contentContainer.appendChild(editButton);
     editButton.addEventListener("click", (e) =>
-      this.showEditForm(e, contentContainer, this)
+      this.renderEditForm(e, contentContainer, this)
     );
     let monasteries = document.createElement("h3");
     monasteries.textContent = "Associated Monasteries";
