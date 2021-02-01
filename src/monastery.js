@@ -212,29 +212,29 @@ class Monastery extends BuddhistEntity {
       "#input-religious-tradition"
     ).value;
     const checkboxes = document.getElementsByName("figure");
-    const imageInput = document.querySelector("#upload-image").files[0];
+    // const imageInput = document.querySelector("#upload-image").files[0];
     const figureIds = BuddhistEntity.getIds(checkboxes);
     this.patchMonastery(
       nameInput,
       locationInput,
       religiousTraditionInput,
-      imageInput,
+      // imageInput,
       figureIds
     );
   }
-  static uploadImage(imageInput, id) {
-    const formData = new FormData();
-    formData.append("image", imageInput);
-    fetch(`${MONASTERIES_URL}/${id}`, {
-      method: "PATCH",
-      body: formData,
-    });
-  }
+  // static uploadImage(imageInput, id) {
+  //   const formData = new FormData();
+  //   formData.append("image", imageInput);
+  //   fetch(`${MONASTERIES_URL}/${id}`, {
+  //     method: "PATCH",
+  //     body: formData,
+  //   });
+  // }
   static postMonasteries(
     nameInput,
     locationInput,
     religiousTraditionInput,
-    imageInput,
+    // imageInput,
     figureIds
   ) {
     const bodyData = {
@@ -252,9 +252,9 @@ class Monastery extends BuddhistEntity {
     })
       .then((response) => response.json())
       .then((monastery) => {
-        if (imageInput) {
-          Monastery.uploadImage(imageInput, monastery.data.id);
-        }
+        // if (imageInput) {
+        //   Monastery.uploadImage(imageInput, monastery.data.id);
+        // }
         const monasteryObject = Monastery.createFromJson(monastery.data);
         const contentContainer = document.querySelector("#content-container");
         contentContainer.textContent = "";
@@ -266,7 +266,7 @@ class Monastery extends BuddhistEntity {
     nameInput,
     locationInput,
     religiousTraditionInput,
-    imageInput,
+    // imageInput,
     figureIds
   ) {
     let bodyData = {
@@ -282,9 +282,9 @@ class Monastery extends BuddhistEntity {
     })
       .then((response) => response.json())
       .then((monastery) => {
-        if (imageInput) {
-          Monastery.uploadImage(imageInput, this.id);
-        }
+        // if (imageInput) {
+        //   Monastery.uploadImage(imageInput, this.id);
+        // }
         const monasteryObject = Monastery.createFromJson(monastery.data);
         const contentContainer = document.querySelector("#content-container");
         contentContainer.textContent = "";

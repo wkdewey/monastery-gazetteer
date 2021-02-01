@@ -31,13 +31,13 @@ class BuddhistEntity {
     tradition.textContent = "Religious tradition: " + this.religious_tradition;
     tradition.classList.add("card-text", "text-warning");
     cardDiv.appendChild(tradition);
-    if (this.image_url) {
-      let image = document.createElement("img");
-      image.src = this.image_url;
-      image.alt = `image of ${this.name}`;
-      image.classList.add("card-img-bottom", "img-fluid");
-      cardDiv.appendChild(image);
-    }
+    // if (this.image_url) {
+    //   let image = document.createElement("img");
+    //   image.src = this.image_url;
+    //   image.alt = `image of ${this.name}`;
+    //   image.classList.add("card-img-bottom", "img-fluid");
+    //   cardDiv.appendChild(image);
+    // }
   }
   static renderForm(model, form, collection, contentContainer) {
     contentContainer.textContent = "";
@@ -46,7 +46,7 @@ class BuddhistEntity {
     form.autocomplete = "on";
     BuddhistEntity.createInputs(form, model);
     BuddhistEntity.createCheckboxes(form, model, collection);
-    BuddhistEntity.createImageUpload(form);
+    // BuddhistEntity.createImageUpload(form);
     BuddhistEntity.createSubmit(form, model, "Create new");
   }
 
@@ -112,30 +112,30 @@ class BuddhistEntity {
     }
   }
 
-  static createImageUpload(form, image_url = null) {
-    const h3 = document.createElement("h3");
-    if (image_url) {
-      h3.textContent = "Upload new image";
-      const img = document.createElement("img");
-      img.src = image_url;
-      img.alt = `existing image at ${image_url}`;
-      img.width = "150";
-      form.appendChild(img);
-      form.appendChild(h3);
-    } else {
-      h3.textContent = "Upload image";
-      form.appendChild(h3);
-    }
-    const upload = BuddhistEntity.createInputElement(
-      "upload-image",
-      "file",
-      "filename"
-    );
-    upload.accept = "image/png, image/jpeg, image/gif";
-    form.appendChild(upload);
-    const br = document.createElement("br");
-    form.appendChild(br);
-  }
+  // static createImageUpload(form, image_url = null) {
+  //   const h3 = document.createElement("h3");
+  //   if (image_url) {
+  //     h3.textContent = "Upload new image";
+  //     const img = document.createElement("img");
+  //     img.src = image_url;
+  //     img.alt = `existing image at ${image_url}`;
+  //     img.width = "150";
+  //     form.appendChild(img);
+  //     form.appendChild(h3);
+  //   } else {
+  //     h3.textContent = "Upload image";
+  //     form.appendChild(h3);
+  //   }
+  //   const upload = BuddhistEntity.createInputElement(
+  //     "upload-image",
+  //     "file",
+  //     "filename"
+  //   );
+  //   upload.accept = "image/png, image/jpeg, image/gif";
+  //   form.appendChild(upload);
+  //   const br = document.createElement("br");
+  //   form.appendChild(br);
+  // }
   static createSubmit(form, model, mode) {
     const submit = this.createInputElement(
       "create-button",
