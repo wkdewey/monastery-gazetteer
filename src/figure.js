@@ -37,6 +37,7 @@ class Figure extends BuddhistEntity {
   }
 
   static renderFigures() {
+    Figure.fetchFigures();
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
     contentContainer.classList.add("row");
@@ -194,7 +195,7 @@ class Figure extends BuddhistEntity {
       nameInput,
       lifespanInput,
       religiousTraditionInput,
-      // imageInput,
+      imageInput,
       monasteryIds
     );
   }
@@ -283,6 +284,8 @@ class Figure extends BuddhistEntity {
     fetch(figureUrl, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
+    }).then(() => {
+      Figure.renderFigures;
     });
   }
 }
