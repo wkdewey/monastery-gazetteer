@@ -19,6 +19,7 @@ class Monastery extends BuddhistEntity {
   }
 
   static fetchAndRenderMonasteries() {
+    Monastery.allInstances = [];
     return super
       .fetchEntries(MONASTERIES_URL)
       .then((data) => Monastery.initialize(data))
@@ -314,6 +315,8 @@ class Monastery extends BuddhistEntity {
     fetch(monasteryUrl, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
+    }).then(() => {
+      Monastery.fetchAndRenderMonasteries();
     });
   }
 }

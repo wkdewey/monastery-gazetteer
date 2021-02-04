@@ -20,6 +20,7 @@ class Figure extends BuddhistEntity {
   }
 
   static fetchAndRenderFigures() {
+    Figure.allInstances = [];
     console.log;
     return super
       .fetchEntries(FIGURES_URL)
@@ -293,8 +294,7 @@ class Figure extends BuddhistEntity {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     }).then(() => {
-      console.log("delete completed");
-      Figure.renderFigures();
+      Figure.fetchAndRenderFigures();
     });
   }
 }
