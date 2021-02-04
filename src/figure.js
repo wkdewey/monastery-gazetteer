@@ -13,9 +13,18 @@ class Figure extends BuddhistEntity {
   }
 
   static fetchFigures() {
+    console.log;
     return super
       .fetchEntries(FIGURES_URL)
       .then((data) => Figure.initialize(data));
+  }
+
+  static fetchFigures() {
+    console.log;
+    return super
+      .fetchEntries(FIGURES_URL)
+      .then((data) => Figure.initialize(data))
+      .then(() => Figure.renderFigures());
   }
 
   static initialize(data) {
@@ -37,7 +46,6 @@ class Figure extends BuddhistEntity {
   }
 
   static renderFigures() {
-    Figure.fetchFigures();
     const contentContainer = document.querySelector("#content-container");
     contentContainer.textContent = "";
     contentContainer.classList.add("row");
@@ -285,7 +293,8 @@ class Figure extends BuddhistEntity {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     }).then(() => {
-      Figure.renderFigures;
+      console.log("delete completed");
+      Figure.renderFigures();
     });
   }
 }

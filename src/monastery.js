@@ -13,9 +13,18 @@ class Monastery extends BuddhistEntity {
   }
 
   static fetchMonasteries() {
+    console.log("fetchMonasteries called");
     return super
       .fetchEntries(MONASTERIES_URL)
       .then((data) => Monastery.initialize(data));
+  }
+
+  static fetchAndRenderMonasteries() {
+    console.log("fetchMonasteries called");
+    return super
+      .fetchEntries(MONASTERIES_URL)
+      .then((data) => Monastery.initialize(data))
+      .then(() => Monastery.renderMonasteries());
   }
 
   static initialize(data) {
