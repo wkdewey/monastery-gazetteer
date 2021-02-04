@@ -10,7 +10,8 @@ function addClickListener(element, callback) {
 document.addEventListener("DOMContentLoaded", function () {
   Monastery.allInstances = [];
   Figure.allInstances = [];
-
+  Monastery.fetchMonasteries();
+  Figure.fetchFigures();
   addClickListener(
     document.querySelector("#monasteries_index"),
     Monastery.fetchAndRenderMonasteries
