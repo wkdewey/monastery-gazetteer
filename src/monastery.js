@@ -258,15 +258,13 @@ class Monastery extends BuddhistEntity {
       },
       body: JSON.stringify(bodyData),
     })
-      .then((response) => response.json())
-      .then((monastery) => {
+      .then(() => {
         if (imageInput) {
-          Monastery.uploadImage(imageInput, monastery.data.id);
+          Monastery.uploadImage(imageInput, this.id);
         }
-        const monasteryObject = Monastery.createFromJson(monastery.data);
-        const contentContainer = document.querySelector("#content-container");
-        contentContainer.textContent = "";
-        monasteryObject.render(contentContainer);
+      })
+      .then(() => {
+        Monastery.fetchAndRenderMonasteries();
       });
   }
 
@@ -288,15 +286,13 @@ class Monastery extends BuddhistEntity {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(bodyData),
     })
-      .then((response) => response.json())
-      .then((monastery) => {
+      .then(() => {
         if (imageInput) {
           Monastery.uploadImage(imageInput, this.id);
         }
-        const monasteryObject = Monastery.createFromJson(monastery.data);
-        const contentContainer = document.querySelector("#content-container");
-        contentContainer.textContent = "";
-        monasteryObject.render(contentContainer);
+      })
+      .then(() => {
+        Monastery.fetchAndRenderMonasteries();
       });
   }
 
