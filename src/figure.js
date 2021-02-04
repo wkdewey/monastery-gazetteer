@@ -19,7 +19,7 @@ class Figure extends BuddhistEntity {
       .then((data) => Figure.initialize(data));
   }
 
-  static fetchFigures() {
+  static fetchAndRenderFigures() {
     console.log;
     return super
       .fetchEntries(FIGURES_URL)
