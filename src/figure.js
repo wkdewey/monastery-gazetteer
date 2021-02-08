@@ -13,9 +13,19 @@ class Figure extends BuddhistEntity {
   }
 
   static fetchFigures() {
+    console.log;
     return super
       .fetchEntries(FIGURES_URL)
       .then((data) => Figure.initialize(data));
+  }
+
+  static fetchAndRenderFigures() {
+    Figure.allInstances = [];
+    console.log;
+    return super
+      .fetchEntries(FIGURES_URL)
+      .then((data) => Figure.initialize(data))
+      .then(() => Figure.renderFigures());
   }
 
   static initialize(data) {
@@ -226,15 +236,13 @@ class Figure extends BuddhistEntity {
       },
       body: JSON.stringify(bodyData),
     })
-      .then((response) => response.json())
-      .then((figure) => {
+      .then(() => {
         if (imageInput) {
-          Figure.uploadImage(imageInput, figure.data.id);
+          Figure.uploadImage(imageInput, this.id);
         }
-        const figureObject = Figure.createFromJson(figure.data);
-        const contentContainer = document.querySelector("#content-container");
-        contentContainer.textContent = "";
-        figureObject.render(contentContainer);
+      })
+      .then(() => {
+        Figure.fetchAndRenderFigures();
       });
   }
 
@@ -256,15 +264,13 @@ class Figure extends BuddhistEntity {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(bodyData),
     })
-      .then((response) => response.json())
-      .then((figure) => {
+      .then(() => {
         if (imageInput) {
           Figure.uploadImage(imageInput, this.id);
         }
-        const figureObject = Figure.createFromJson(figure.data);
-        const contentContainer = document.querySelector("#content-container");
-        contentContainer.textContent = "";
-        figureObject.render(contentContainer);
+      })
+      .then(() => {
+        Figure.fetchAndRenderFigures();
       });
   }
 
@@ -283,6 +289,8 @@ class Figure extends BuddhistEntity {
     fetch(figureUrl, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
+    }).then(() => {
+      Figure.fetchAndRenderFigures();
     });
   }
 }

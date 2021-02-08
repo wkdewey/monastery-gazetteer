@@ -18,6 +18,14 @@ class Monastery extends BuddhistEntity {
       .then((data) => Monastery.initialize(data));
   }
 
+  static fetchAndRenderMonasteries() {
+    Monastery.allInstances = [];
+    return super
+      .fetchEntries(MONASTERIES_URL)
+      .then((data) => Monastery.initialize(data))
+      .then(() => Monastery.renderMonasteries());
+  }
+
   static initialize(data) {
     for (const key in data) {
       new Monastery(
@@ -250,15 +258,13 @@ class Monastery extends BuddhistEntity {
       },
       body: JSON.stringify(bodyData),
     })
-      .then((response) => response.json())
-      .then((monastery) => {
+      .then(() => {
         if (imageInput) {
-          Monastery.uploadImage(imageInput, monastery.data.id);
+          Monastery.uploadImage(imageInput, this.id);
         }
-        const monasteryObject = Monastery.createFromJson(monastery.data);
-        const contentContainer = document.querySelector("#content-container");
-        contentContainer.textContent = "";
-        monasteryObject.render(contentContainer);
+      })
+      .then(() => {
+        Monastery.fetchAndRenderMonasteries();
       });
   }
 
@@ -280,15 +286,13 @@ class Monastery extends BuddhistEntity {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(bodyData),
     })
-      .then((response) => response.json())
-      .then((monastery) => {
+      .then(() => {
         if (imageInput) {
           Monastery.uploadImage(imageInput, this.id);
         }
-        const monasteryObject = Monastery.createFromJson(monastery.data);
-        const contentContainer = document.querySelector("#content-container");
-        contentContainer.textContent = "";
-        monasteryObject.render(contentContainer);
+      })
+      .then(() => {
+        Monastery.fetchAndRenderMonasteries();
       });
   }
 
@@ -307,6 +311,8 @@ class Monastery extends BuddhistEntity {
     fetch(monasteryUrl, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
+    }).then(() => {
+      Monastery.fetchAndRenderMonasteries();
     });
   }
 }
