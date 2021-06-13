@@ -3,6 +3,13 @@
     "test": "mocha"
   },
   "dependencies": {
-    "chai": "^4.3.4"
+    "chai": "^4.3.4",
+    "es6-promise": "^4.2.8",
+    "isomorphic-fetch": "^3.0.0",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "jsdom": "16.6.0",
+    "jsdom-global": "3.0.2"
   }
 }

@@ -1,12 +1,17 @@
 var assert = require("chai").assert;
 BuddhistEntity = require("../src/buddhistentity");
+require("jsdom-global")();
+require("isomorphic-fetch");
+// require("../src/index.js");
 describe("BuddhistEntity", function () {
-  testEntity = new BuddhistEntity(
+  const testEntity = new BuddhistEntity(
     "1",
     "Buddha",
     "Buddhism",
     "https://example.com/buddha.jpg"
   );
+  const BACKEND_URL = "https://young-forest-03120.herokuapp.com";
+  const MONASTERIES_URL = `${BACKEND_URL}/api/v1/monasteries`;
   describe("#constructor()", function () {
     it("returns an instance of class BuddhistEntity", function () {
       assert.typeOf(testEntity, "Object");
@@ -23,6 +28,12 @@ describe("BuddhistEntity", function () {
     });
     it("has property image_url", function () {
       assert.property(testEntity, "image_url");
+    });
+  });
+  describe("#fetchEntries()", function () {
+    it("returns a promise", function () {
+      const entries = BuddhistEntity.fetchEntries(MONASTERIES_URL);
+      assert.typeOf(entries, "Promise");
     });
   });
 });
