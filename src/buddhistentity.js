@@ -177,3 +177,4 @@ class BuddhistEntity {
       .map((ch) => parseInt(ch.value));
   }
 }
+module.exports = BuddhistEntity;
