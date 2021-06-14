@@ -1,8 +1,10 @@
 var assert = require("chai").assert;
 BuddhistEntity = require("../src/buddhistentity");
-require("jsdom-global")();
+const jsdom = require("jsdom-global")();
+const { JSDOM } = jsdom;
 require("isomorphic-fetch");
-// require("../src/index.js");
+
+beforeEach(function (done) {});
 describe("BuddhistEntity", function () {
   const testEntity = new BuddhistEntity(
     "1",
@@ -33,7 +35,22 @@ describe("BuddhistEntity", function () {
   describe("#fetchEntries()", function () {
     it("returns a promise", function () {
       const entries = BuddhistEntity.fetchEntries(MONASTERIES_URL);
+
       assert.typeOf(entries, "Promise");
     });
+  });
+  describe(".render()", function () {
+    const div = document.createElement("div");
+    const link = document.createElement("a");
+    it("displays the entity", function () {
+      assert.include(contentContainer, div);
+    });
+    JSDOM.fromFile(myFile)
+      .then((dom) => {
+        const { document } = dom.window;
+        const contentContainer = document.querySelector("#content-container");
+      })
+      .then(done, done);
+    BuddhistEntity.render(contentContainer, div, link);
   });
 });
