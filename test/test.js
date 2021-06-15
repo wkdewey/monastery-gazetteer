@@ -40,19 +40,19 @@ describe("BuddhistEntity", function () {
   describe(".render()", function () {
     let contentContainer;
     let div;
+    let link;
     beforeEach(function (done) {
       JSDOM.fromFile("./index.html")
         .then((dom) => {
           global.document = dom.window.document;
           contentContainer = document.querySelector("#content-container");
           div = document.createElement("div");
-          const link = document.createElement("a");
-          console.log(contentContainer);
-          testEntity.render(contentContainer, div, link);
+          link = document.createElement("a");
         })
         .then(done, done);
     });
     it("displays the entity", function () {
+      testEntity.render(contentContainer, div, link);
       assert.include(contentContainer, div);
     });
   });
