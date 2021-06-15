@@ -1,10 +1,8 @@
 var assert = require("chai").assert;
 BuddhistEntity = require("../src/buddhistentity");
-const jsdom = require("jsdom-global")();
-const { JSDOM } = jsdom;
+const { JSDOM } = require("jsdom");
 require("isomorphic-fetch");
 
-beforeEach(function (done) {});
 describe("BuddhistEntity", function () {
   const testEntity = new BuddhistEntity(
     "1",
@@ -40,17 +38,22 @@ describe("BuddhistEntity", function () {
     });
   });
   describe(".render()", function () {
-    const div = document.createElement("div");
-    const link = document.createElement("a");
+    let contentContainer;
+    let div;
+    beforeEach(function (done) {
+      JSDOM.fromFile("./index.html")
+        .then((dom) => {
+          global.document = dom.window.document;
+          contentContainer = document.querySelector("#content-container");
+          div = document.createElement("div");
+          const link = document.createElement("a");
+          console.log(contentContainer);
+          testEntity.render(contentContainer, div, link);
+        })
+        .then(done, done);
+    });
     it("displays the entity", function () {
       assert.include(contentContainer, div);
     });
-    JSDOM.fromFile(myFile)
-      .then((dom) => {
-        const { document } = dom.window;
-        const contentContainer = document.querySelector("#content-container");
-      })
-      .then(done, done);
-    BuddhistEntity.render(contentContainer, div, link);
   });
 });
