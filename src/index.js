@@ -1,7 +1,6 @@
 const BACKEND_URL = "https://young-forest-03120.herokuapp.com";
 const MONASTERIES_URL = `${BACKEND_URL}/api/v1/monasteries`;
 const FIGURES_URL = `${BACKEND_URL}/api/v1/figures`;
-require("isomorphic-fetch");
 
 function addClickListener(element, callback) {
   const button = element;
