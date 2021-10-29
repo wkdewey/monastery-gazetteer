@@ -114,7 +114,8 @@ class Monastery extends BuddhistEntity {
     const contentContainer = document.querySelector("#content-container");
     const form = document.createElement("form");
     const figures = Figure.allInstances;
-    super.renderForm("monastery", form, figures, contentContainer);
+    super.createForm("monastery", form, contentContainer);
+    super.completeForm("monastery", form, figures);
     form.addEventListener("submit", (e) =>
       Monastery.createMonasteryFormHandler(e)
     );

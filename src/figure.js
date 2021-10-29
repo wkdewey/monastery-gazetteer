@@ -1,7 +1,16 @@
 class Figure extends BuddhistEntity {
-  constructor(id, name, lifespan, religious_tradition, monasteries, image_url) {
+  constructor(
+    id,
+    name,
+    lifespan,
+    religious_tradition,
+    monasteries,
+    biography,
+    image_url
+  ) {
     super(id, name, religious_tradition, image_url);
     this.lifespan = lifespan;
+    this.biography = biography;
     if (monasteries) {
       this.monasteries = [];
       for (const monastery of monasteries) {
@@ -13,7 +22,6 @@ class Figure extends BuddhistEntity {
   }
 
   static fetchFigures() {
-    console.log;
     return super
       .fetchEntries(FIGURES_URL)
       .then((data) => Figure.initialize(data));
@@ -21,7 +29,6 @@ class Figure extends BuddhistEntity {
 
   static fetchAndRenderFigures() {
     Figure.allInstances = [];
-    console.log;
     return super
       .fetchEntries(FIGURES_URL)
       .then((data) => Figure.initialize(data))
@@ -36,7 +43,8 @@ class Figure extends BuddhistEntity {
         data[key]["attributes"]["lifespan"],
         data[key]["attributes"]["religious_tradition"],
         data[key]["attributes"]["monasteries"],
-        data[key]["attributes"]["image_url"]
+        data[key]["attributes"]["image_url"],
+        data[key]["attributes"]["biography"]
       );
     }
   }
@@ -78,6 +86,7 @@ class Figure extends BuddhistEntity {
     let editButton = document.createElement("button");
     editButton.textContent = "Edit figure";
     contentContainer.appendChild(editButton);
+    debugger;
     editButton.addEventListener("click", (e) =>
       this.renderEditForm(e, contentContainer, this)
     );
@@ -94,7 +103,19 @@ class Figure extends BuddhistEntity {
     const contentContainer = document.querySelector("#content-container");
     const form = document.createElement("form");
     const monasteries = Monastery.allInstances;
-    super.renderForm("figure", form, monasteries, contentContainer);
+    super.createForm("figure", form, contentContainer);
+    const fieldset = document.querySelector("fieldset");
+    const br = document.createElement("br");
+    const inputBiography = BuddhistEntity.createInputElement(
+      "input-biography",
+      "text-area",
+      "biography",
+      this.biography,
+      "Enter a short biography"
+    );
+    fieldset.appendChild(inputBiography);
+    fieldset.appendChild(br.cloneNode());
+    super.completeForm("figure", form, monasteries);
     form.addEventListener("submit", (e) => Figure.createFigureFormHandler(e));
   }
 
@@ -105,6 +126,7 @@ class Figure extends BuddhistEntity {
     const religiousTraditionInput = document.querySelector(
       "#input-religious-tradition"
     ).value;
+    const biographyInput = document.querySelection("#input-biography").value;
     const imageInput = document.querySelector("#upload-image").files[0];
     const checkboxes = document.getElementsByName("monastery");
     const monasteryIds = super.getIds(checkboxes);
@@ -112,6 +134,7 @@ class Figure extends BuddhistEntity {
       nameInput,
       lifespanInput,
       religiousTraditionInput,
+      biographyInput,
       imageInput,
       monasteryIds
     );
@@ -165,6 +188,15 @@ class Figure extends BuddhistEntity {
     );
     fieldset.appendChild(inputTradition);
     fieldset.appendChild(br.cloneNode());
+    const inputBiography = BuddhistEntity.createInputElement(
+      "input-biography",
+      "text-area",
+      "biography",
+      this.biography,
+      "Enter a short biography"
+    );
+    fieldset.appendChild(inputBiography);
+    fieldset.appendChild(br.cloneNode());
   }
 
   createEditCheckboxes(form, monasteries) {
@@ -197,6 +229,7 @@ class Figure extends BuddhistEntity {
     const religiousTraditionInput = document.querySelector(
       "#input-religious-tradition"
     ).value;
+    const biographyInput = document.querySelector("#input-biographty").value;
     const checkboxes = document.getElementsByName("monastery");
     const imageInput = document.querySelector("#upload-image").files[0];
     const monasteryIds = BuddhistEntity.getIds(checkboxes);
@@ -204,6 +237,7 @@ class Figure extends BuddhistEntity {
       nameInput,
       lifespanInput,
       religiousTraditionInput,
+      biographyInput,
       imageInput,
       monasteryIds
     );
@@ -220,6 +254,7 @@ class Figure extends BuddhistEntity {
     nameInput,
     lifespanInput,
     religiousTraditionInput,
+    biographyInput,
     imageInput,
     monasteryIds
   ) {
@@ -228,6 +263,7 @@ class Figure extends BuddhistEntity {
       lifespan: lifespanInput,
       religious_tradition: religiousTraditionInput,
       monastery_ids: monasteryIds,
+      biography: biographyInput,
     };
     fetch(FIGURES_URL, {
       method: "POST",
@@ -250,6 +286,7 @@ class Figure extends BuddhistEntity {
     nameInput,
     lifespanInput,
     religiousTraditionInput,
+    biographyInput,
     imageInput,
     monasteryIds
   ) {
@@ -257,6 +294,7 @@ class Figure extends BuddhistEntity {
       name: nameInput,
       lifespan: lifespanInput,
       religious_tradition: religiousTraditionInput,
+      biography: biographyInput,
       monastery_ids: monasteryIds,
     };
     fetch(`${FIGURES_URL}/${this.id}`, {
@@ -280,6 +318,7 @@ class Figure extends BuddhistEntity {
       data.attributes.name,
       data.attributes.lifespan,
       data.attributes.religious_tradition,
+      data.attributes.biography,
       data.attributes.monasteries
     );
     return figure;

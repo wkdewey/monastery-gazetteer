@@ -39,12 +39,14 @@ class BuddhistEntity {
       cardDiv.appendChild(image);
     }
   }
-  static renderForm(model, form, collection, contentContainer) {
+  static createForm(model, form, contentContainer) {
     contentContainer.textContent = "";
     contentContainer.classList.remove("row");
     contentContainer.appendChild(form);
     form.autocomplete = "on";
     BuddhistEntity.createInputs(form, model);
+  }
+  static completeForm(model, form, collection) {
     BuddhistEntity.createCheckboxes(form, model, collection);
     BuddhistEntity.createImageUpload(form);
     BuddhistEntity.createSubmit(form, model, "Create new");
@@ -177,4 +179,3 @@ class BuddhistEntity {
       .map((ch) => parseInt(ch.value));
   }
 }
-module.exports = BuddhistEntity;
