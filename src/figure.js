@@ -106,13 +106,11 @@ class Figure extends BuddhistEntity {
     super.createForm("figure", form, contentContainer);
     const fieldset = document.querySelector("fieldset");
     const br = document.createElement("br");
-    const inputBiography = BuddhistEntity.createInputElement(
-      "input-biography",
-      "text-area",
-      "biography",
-      this.biography,
-      "Enter a short biography"
-    );
+    const inputBiography = document.createElement("textarea");
+    inputBiography.id = "input-biography";
+    inputBiography.name = "biography";
+    // inputBiography.value = this.biography;
+    inputBiography.placeholder = "Enter a short biography, if desired";
     fieldset.appendChild(inputBiography);
     fieldset.appendChild(br.cloneNode());
     super.completeForm("figure", form, monasteries);
@@ -229,7 +227,7 @@ class Figure extends BuddhistEntity {
     const religiousTraditionInput = document.querySelector(
       "#input-religious-tradition"
     ).value;
-    const biographyInput = document.querySelector("#input-biographty").value;
+    const biographyInput = document.querySelector("#input-biography").value;
     const checkboxes = document.getElementsByName("monastery");
     const imageInput = document.querySelector("#upload-image").files[0];
     const monasteryIds = BuddhistEntity.getIds(checkboxes);
