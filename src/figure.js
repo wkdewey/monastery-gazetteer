@@ -186,13 +186,11 @@ class Figure extends BuddhistEntity {
     );
     fieldset.appendChild(inputTradition);
     fieldset.appendChild(br.cloneNode());
-    const inputBiography = BuddhistEntity.createInputElement(
-      "input-biography",
-      "text-area",
-      "biography",
-      this.biography,
-      "Enter a short biography"
-    );
+    const inputBiography = document.createElement("textarea");
+    inputBiography.id = "input-biography";
+    inputBiography.name = "biography";
+    inputBiography.value = this.biography;
+    inputBiography.placeholder = "Enter a short biography, if desired";
     fieldset.appendChild(inputBiography);
     fieldset.appendChild(br.cloneNode());
   }
