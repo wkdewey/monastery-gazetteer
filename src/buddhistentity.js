@@ -69,16 +69,37 @@ class BuddhistEntity {
     fieldset.appendChild(inputName);
     const br = document.createElement("br");
     fieldset.appendChild(br);
-    const info = model === "monastery" ? "location" : "lifespan";
-    const inputInfo = BuddhistEntity.createInputElement(
-      `input-${info}`,
-      "text",
-      info,
-      "",
-      `Enter ${info}`
-    );
-    fieldset.appendChild(inputInfo);
-    fieldset.appendChild(br.cloneNode());
+    if (model === "monastery") {
+      const inputLocation = BuddhistEntity.createInputElement(
+        `input-location`,
+        "text",
+        "location",
+        "",
+        `Enter location}`
+      );
+      fieldset.appendChild(inputLocation);
+      fieldset.appendChild(br.cloneNode());
+    }
+    if (model === "figure") {
+      const inputBirthDate = BuddhistEntity.createInputElement(
+        `input-birth-date`,
+        "text",
+        "birth_date",
+        this.birth_date,
+        `Enter birth date`
+      );
+      fieldset.appendChild(inputBirthDate);
+      fieldset.appendChild(br.cloneNode());
+      const inputDeathDate = BuddhistEntity.createInputElement(
+        `input-death-date`,
+        "text",
+        "death_date",
+        this.death_date,
+        `Enter death date`
+      );
+      fieldset.appendChild(inputDeathDate);
+      fieldset.appendChild(br.cloneNode());
+    }
     const inputTradition = BuddhistEntity.createInputElement(
       "input-religious-tradition",
       "text",

@@ -2,14 +2,16 @@ class Figure extends BuddhistEntity {
   constructor(
     id,
     name,
-    lifespan,
+    birth_date,
+    death_date,
     religious_tradition,
     monasteries,
     biography,
     image_url
   ) {
     super(id, name, religious_tradition, image_url);
-    this.lifespan = lifespan;
+    this.birth_date = birth_date;
+    this.death_date = death_date;
     this.biography = biography;
     if (monasteries) {
       this.monasteries = [];
@@ -40,11 +42,12 @@ class Figure extends BuddhistEntity {
       new Figure(
         data[key]["id"],
         data[key]["attributes"]["name"],
-        data[key]["attributes"]["lifespan"],
+        data[key]["attributes"]["birth_date"],
+        data[key]["attributes"]["death_date"],
         data[key]["attributes"]["religious_tradition"],
         data[key]["attributes"]["monasteries"],
-        data[key]["attributes"]["image_url"],
-        data[key]["attributes"]["biography"]
+        data[key]["attributes"]["biography"],
+        data[key]["attributes"]["image_url"]
       );
     }
   }
@@ -67,16 +70,25 @@ class Figure extends BuddhistEntity {
     const div = document.createElement("div");
     const link = document.createElement("a");
     super.render(contentContainer, div, link);
+    const card = div.querySelector("div");
     link.addEventListener("click", () => {
       this.renderFigure(contentContainer);
     });
     const lifespan = div.querySelector("p");
-    lifespan.textContent = "Lifespan: " + this.lifespan;
+    lifespan.textContent =
+      "Lifespan: " + this.birth_date + "-" + this.death_date;
   }
   renderFigure(contentContainer) {
     contentContainer.textContent = "";
     contentContainer.classList.remove("row");
+
     this.render(contentContainer);
+    const card = contentContainer.querySelector("div div");
+    const column = contentContainer.querySelector("div");
+    column.classList.remove("col-md-4");
+    const bio = document.createElement("p");
+    bio.textContent = this.biography;
+    card.appendChild(bio);
     let deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete figure";
     contentContainer.appendChild(deleteButton);
@@ -86,7 +98,6 @@ class Figure extends BuddhistEntity {
     let editButton = document.createElement("button");
     editButton.textContent = "Edit figure";
     contentContainer.appendChild(editButton);
-    debugger;
     editButton.addEventListener("click", (e) =>
       this.renderEditForm(e, contentContainer, this)
     );
@@ -120,17 +131,19 @@ class Figure extends BuddhistEntity {
   static createFigureFormHandler(e) {
     e.preventDefault();
     const nameInput = document.querySelector("#input-name").value;
-    const lifespanInput = document.querySelector("#input-lifespan").value;
+    const birthDateInput = document.querySelector("#input-birth-date").value;
+    const deathDateInput = document.querySelector("#input-death-date").value;
     const religiousTraditionInput = document.querySelector(
       "#input-religious-tradition"
     ).value;
-    const biographyInput = document.querySelection("#input-biography").value;
+    const biographyInput = document.querySelector("#input-biography").value;
     const imageInput = document.querySelector("#upload-image").files[0];
     const checkboxes = document.getElementsByName("monastery");
     const monasteryIds = super.getIds(checkboxes);
     Figure.postFigures(
       nameInput,
-      lifespanInput,
+      birthDateInput,
+      deathDateInput,
       religiousTraditionInput,
       biographyInput,
       imageInput,
@@ -168,14 +181,23 @@ class Figure extends BuddhistEntity {
     fieldset.appendChild(inputName);
     const br = document.createElement("br");
     fieldset.appendChild(br);
-    const inputLifespan = BuddhistEntity.createInputElement(
-      `input-lifespan`,
+    const inputBirthDate = BuddhistEntity.createInputElement(
+      `input-birth-date`,
       "text",
-      "lifespan",
-      this.lifespan,
-      `Enter lifespan`
+      "birth_date",
+      this.birth_date,
+      `Enter birth date`
     );
-    fieldset.appendChild(inputLifespan);
+    fieldset.appendChild(inputBirthDate);
+    fieldset.appendChild(br.cloneNode());
+    const inputDeathDate = BuddhistEntity.createInputElement(
+      `input-death-date`,
+      "text",
+      "death_date",
+      this.death_date,
+      `Enter death date`
+    );
+    fieldset.appendChild(inputDeathDate);
     fieldset.appendChild(br.cloneNode());
     const inputTradition = BuddhistEntity.createInputElement(
       "input-religious-tradition",
@@ -221,7 +243,8 @@ class Figure extends BuddhistEntity {
   createEditFormHandler(e) {
     e.preventDefault();
     const nameInput = document.querySelector("#input-name").value;
-    const lifespanInput = document.querySelector("#input-lifespan").value;
+    const birthDateInput = document.querySelector("#input-birth-date").value;
+    const deathDateInput = document.querySelector("#input-death-date").value;
     const religiousTraditionInput = document.querySelector(
       "#input-religious-tradition"
     ).value;
@@ -231,7 +254,8 @@ class Figure extends BuddhistEntity {
     const monasteryIds = BuddhistEntity.getIds(checkboxes);
     this.patchFigure(
       nameInput,
-      lifespanInput,
+      birthDateInput,
+      deathDateInput,
       religiousTraditionInput,
       biographyInput,
       imageInput,
@@ -248,7 +272,8 @@ class Figure extends BuddhistEntity {
   }
   static postFigures(
     nameInput,
-    lifespanInput,
+    birthDateInput,
+    deathDateInput,
     religiousTraditionInput,
     biographyInput,
     imageInput,
@@ -256,7 +281,8 @@ class Figure extends BuddhistEntity {
   ) {
     const bodyData = {
       name: nameInput,
-      lifespan: lifespanInput,
+      birth_date: birthDateInput,
+      death_date: deathDateInput,
       religious_tradition: religiousTraditionInput,
       monastery_ids: monasteryIds,
       biography: biographyInput,
@@ -280,7 +306,8 @@ class Figure extends BuddhistEntity {
 
   patchFigure(
     nameInput,
-    lifespanInput,
+    birthDateInput,
+    deathDateInput,
     religiousTraditionInput,
     biographyInput,
     imageInput,
@@ -288,7 +315,8 @@ class Figure extends BuddhistEntity {
   ) {
     let bodyData = {
       name: nameInput,
-      lifespan: lifespanInput,
+      birth_date: birthDateInput,
+      death_date: deathDateInput,
       religious_tradition: religiousTraditionInput,
       biography: biographyInput,
       monastery_ids: monasteryIds,
@@ -312,7 +340,8 @@ class Figure extends BuddhistEntity {
     const figure = new Figure(
       data.id,
       data.attributes.name,
-      data.attributes.lifespan,
+      data.attributes.birth_date,
+      data.attributes.death_date,
       data.attributes.religious_tradition,
       data.attributes.biography,
       data.attributes.monasteries
