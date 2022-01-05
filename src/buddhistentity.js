@@ -1,6 +1,6 @@
 class BuddhistEntity {
   constructor(id, name, religious_tradition, image_url) {
-    this.id = id;
+    this.id = parseInt(id);
     this.name = name;
     this.religious_tradition = religious_tradition;
     this.image_url = image_url;
