@@ -7,7 +7,8 @@ class Figure extends BuddhistEntity {
     religious_tradition,
     monasteries,
     biography,
-    image_url
+    image_url,
+    monastery_figures
   ) {
     super(id, name, religious_tradition, image_url);
     this.birth_date = birth_date;
@@ -18,6 +19,12 @@ class Figure extends BuddhistEntity {
       for (const monastery of monasteries) {
         const monasteryName = monastery["name"];
         this.monasteries.push(monasteryName);
+      }
+    }
+    if (monastery_figures) {
+      this.monastery_figures = [];
+      for (const monastery_figure of monastery_figures) {
+        this.monastery_figures.push(monastery_figure);
       }
     }
     Figure.allInstances.push(this);
@@ -47,7 +54,8 @@ class Figure extends BuddhistEntity {
         data[key]["attributes"]["religious_tradition"],
         data[key]["attributes"]["monasteries"],
         data[key]["attributes"]["biography"],
-        data[key]["attributes"]["image_url"]
+        data[key]["attributes"]["image_url"],
+        data[key]["attributes"]["monastery_figures"]
       );
     }
   }
@@ -70,7 +78,6 @@ class Figure extends BuddhistEntity {
     const div = document.createElement("div");
     const link = document.createElement("a");
     super.render(contentContainer, div, link);
-    const card = div.querySelector("div");
     link.addEventListener("click", () => {
       this.renderFigure(contentContainer);
     });
@@ -101,12 +108,21 @@ class Figure extends BuddhistEntity {
     editButton.addEventListener("click", (e) =>
       this.renderEditForm(e, contentContainer, this)
     );
+    let editAssociatedButton = document.createElement("button");
+    editAssociatedButton.textContent = "Edit relationships"; // How do I want to change this language
+    contentContainer.appendChild(editAssociatedButton);
+    editAssociatedButton.addEventListener("click", (e) =>
+      this.renderAssociatedForm(e, contentContainer, this)
+    );
     let monasteries = document.createElement("h3");
     monasteries.textContent = "Associated Monasteries";
     contentContainer.appendChild(monasteries);
     for (const monastery of this.monasteries) {
       const monasteryObject = Monastery.find(monastery);
-      monasteryObject.render(contentContainer);
+      const monasteryFigureObject = this.monastery_figures.find(
+        ({ monastery_id }) => monastery_id === monasteryObject.id
+      );
+      monasteryObject.render(contentContainer, monasteryFigureObject);
     }
   }
 
@@ -262,6 +278,76 @@ class Figure extends BuddhistEntity {
       monasteryIds
     );
   }
+
+  renderAssociatedForm(e, contentContainer) {
+    contentContainer.textContent = "";
+    contentContainer.classList.remove("row");
+    const monasteryFigures = this.monastery_figures;
+    const h2 = document.createElement("h2");
+    h2.textContent = `Edit figure's relationships with monasteries`;
+    contentContainer.appendChild(h2);
+    monasteryFigures.forEach((monasteryFigure) => {
+      const form = document.createElement("form");
+      const fieldset = document.createElement("fieldset");
+      contentContainer.appendChild(form);
+      this.createAssociatedInputs(form, fieldset, monasteryFigure);
+      fieldset.classList.add("d-flex", "flex-column", "align-items-left");
+      BuddhistEntity.createSubmit(form, "figure", "Edit");
+      form.addEventListener("submit", (e) =>
+        this.createAssociatedFormHandler(e, monasteryFigure, this)
+      );
+    });
+  }
+
+  createAssociatedInputs(form, fieldset, monasteryFigure) {
+    form.appendChild(fieldset);
+    const h3 = document.createElement("h3");
+    const monastery = Monastery.allInstances.find(
+      (monastery) => monastery.id === monasteryFigure.monastery_id
+    );
+    h3.textContent = monastery.name;
+    fieldset.appendChild(h3);
+    //create input element takes in id, type, name, value, placeholder
+    //id should be unique to the monastery-figure; value should be what's already ther
+    const inputRole = BuddhistEntity.createInputElement(
+      "input-role",
+      "text",
+      "role",
+      monasteryFigure.role,
+      "What role did this figure play at this monastery?"
+    );
+    fieldset.appendChild(inputRole);
+    const inputStory = document.createElement("textarea");
+    fieldset.appendChild(inputStory);
+    inputStory.id = "input-story";
+    inputStory.name = "story";
+    inputStory.value = monasteryFigure.story;
+    inputStory.placeholder = "Describe the figure's sojourn at this monastery";
+    const inputTeachings = BuddhistEntity.createInputElement(
+      "input-teachings",
+      "text",
+      "teachings",
+      monasteryFigure.associatedTeachings,
+      "What teaching are associated with this monastery?"
+    );
+    fieldset.appendChild(inputTeachings);
+  }
+
+  createAssociatedFormHandler(e, monasteryFigure) {
+    e.preventDefault();
+    const roleInput = document.querySelector("#input-role").value;
+    const storyInput = document.querySelector("#input-story").value;
+    const teachingsInput = document.querySelector("#input-teachings").value;
+    //how do I get the monasteryID?
+    const monasteryId = monasteryFigure.id;
+    this.patchMonasteryFigure(
+      roleInput,
+      storyInput,
+      teachingsInput,
+      monasteryId
+    );
+  }
+
   static uploadImage(imageInput, id) {
     const formData = new FormData();
     formData.append("image", imageInput);
@@ -334,6 +420,24 @@ class Figure extends BuddhistEntity {
       .then(() => {
         Figure.fetchAndRenderFigures();
       });
+  }
+
+  patchMonasteryFigure(roleInput, storyInput, teachingsInput, monasteryId) {
+    let bodyData = {
+      role: roleInput,
+      story: storyInput,
+      teachings: teachingsInput,
+      monastery_id: monasteryId,
+      figure_id: this.id,
+    };
+    debugger;
+    fetch(`${MONASTERY_FIGURES_URL}/${this.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(bodyData),
+    }).then(() => {
+      Figure.fetchAndRenderFigures();
+    });
   }
 
   static createFromJson(data) {
