@@ -74,7 +74,7 @@ class Monastery extends BuddhistEntity {
     return sorted;
   }
 
-  render(contentContainer) {
+  render(contentContainer, monasteryFigureObject = null) {
     const div = document.createElement("div");
     const link = document.createElement("a");
     super.render(contentContainer, div, link);
@@ -83,6 +83,10 @@ class Monastery extends BuddhistEntity {
     });
     const location = div.querySelector("p");
     location.textContent = "Location: " + this.location;
+    const card = div.querySelector("div.card");
+    if (monasteryFigureObject) {
+      this.renderMonasteryFigure(card, monasteryFigureObject);
+    }
   }
 
   renderMonastery(contentContainer) {
@@ -108,6 +112,19 @@ class Monastery extends BuddhistEntity {
       const figureObject = Figure.find(figure);
       figureObject.render(contentContainer);
     }
+  }
+
+  renderMonasteryFigure(contentContainer, monasteryFigure) {
+    let role = document.createElement("p");
+    role.textContent = "Role played at monastery: " + monasteryFigure.role;
+    contentContainer.appendChild(role);
+    let story = document.createElement("p");
+    story.textContent = monasteryFigure.story;
+    contentContainer.appendChild(story);
+    let associated_teaching = document.createElement("p");
+    associated_teaching.textContent =
+      "Associated teachings: " + monasteryFigure.associated_teaching;
+    contentContainer.appendChild(associated_teaching);
   }
 
   static renderForm() {
