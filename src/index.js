@@ -2,7 +2,7 @@
 const BACKEND_URL = "http://localhost:3000";
 const MONASTERIES_URL = `${BACKEND_URL}/api/v1/monasteries`;
 const FIGURES_URL = `${BACKEND_URL}/api/v1/figures`;
-const MONASTERY_FIGURES_URL = `${BACKEND_URL}/api/v1/figures`;
+const MONASTERY_FIGURES_URL = `${BACKEND_URL}/api/v1/monastery_figures`;
 
 function addClickListener(element, callback) {
   const button = element;

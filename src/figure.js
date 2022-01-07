@@ -286,20 +286,20 @@ class Figure extends BuddhistEntity {
     const h2 = document.createElement("h2");
     h2.textContent = `Edit figure's relationships with monasteries`;
     contentContainer.appendChild(h2);
-    monasteryFigures.forEach((monasteryFigure) => {
+    monasteryFigures.forEach((monasteryFigure, index) => {
       const form = document.createElement("form");
       const fieldset = document.createElement("fieldset");
       contentContainer.appendChild(form);
-      this.createAssociatedInputs(form, fieldset, monasteryFigure);
+      this.createAssociatedInputs(form, fieldset, monasteryFigure, index);
       fieldset.classList.add("d-flex", "flex-column", "align-items-left");
       BuddhistEntity.createSubmit(form, "figure", "Edit");
       form.addEventListener("submit", (e) =>
-        this.createAssociatedFormHandler(e, monasteryFigure, this)
+        this.createAssociatedFormHandler(e, monasteryFigure, index, this)
       );
     });
   }
 
-  createAssociatedInputs(form, fieldset, monasteryFigure) {
+  createAssociatedInputs(form, fieldset, monasteryFigure, index) {
     form.appendChild(fieldset);
     const h3 = document.createElement("h3");
     const monastery = Monastery.allInstances.find(
@@ -310,7 +310,7 @@ class Figure extends BuddhistEntity {
     //create input element takes in id, type, name, value, placeholder
     //id should be unique to the monastery-figure; value should be what's already ther
     const inputRole = BuddhistEntity.createInputElement(
-      "input-role",
+      `input-role-${index}`,
       "text",
       "role",
       monasteryFigure.role,
@@ -319,32 +319,34 @@ class Figure extends BuddhistEntity {
     fieldset.appendChild(inputRole);
     const inputStory = document.createElement("textarea");
     fieldset.appendChild(inputStory);
-    inputStory.id = "input-story";
+    inputStory.id = `input-story-${index}`;
     inputStory.name = "story";
     inputStory.value = monasteryFigure.story;
     inputStory.placeholder = "Describe the figure's sojourn at this monastery";
     const inputTeachings = BuddhistEntity.createInputElement(
-      "input-teachings",
+      `input-teachings-${index}`,
       "text",
       "teachings",
-      monasteryFigure.associatedTeachings,
+      monasteryFigure.associated_teaching,
       "What teaching are associated with this monastery?"
     );
     fieldset.appendChild(inputTeachings);
   }
 
-  createAssociatedFormHandler(e, monasteryFigure) {
+  createAssociatedFormHandler(e, monasteryFigure, index) {
     e.preventDefault();
-    const roleInput = document.querySelector("#input-role").value;
-    const storyInput = document.querySelector("#input-story").value;
-    const teachingsInput = document.querySelector("#input-teachings").value;
+    const roleInput = document.querySelector(`#input-role-${index}`).value;
+    const storyInput = document.querySelector(`#input-story-${index}`).value;
+    const teachingsInput = document.querySelector(
+      `#input-teachings-${index}`
+    ).value;
     //how do I get the monasteryID?
-    const monasteryId = monasteryFigure.id;
+    const monasteryFigureId = monasteryFigure.id;
     this.patchMonasteryFigure(
       roleInput,
       storyInput,
       teachingsInput,
-      monasteryId
+      monasteryFigureId
     );
   }
 
@@ -422,16 +424,18 @@ class Figure extends BuddhistEntity {
       });
   }
 
-  patchMonasteryFigure(roleInput, storyInput, teachingsInput, monasteryId) {
+  patchMonasteryFigure(
+    roleInput,
+    storyInput,
+    teachingsInput,
+    monasteryFigureId
+  ) {
     let bodyData = {
       role: roleInput,
       story: storyInput,
-      teachings: teachingsInput,
-      monastery_id: monasteryId,
-      figure_id: this.id,
+      associated_teaching: teachingsInput,
     };
-    debugger;
-    fetch(`${MONASTERY_FIGURES_URL}/${this.id}`, {
+    fetch(`${MONASTERY_FIGURES_URL}/${monasteryFigureId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(bodyData),
