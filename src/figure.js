@@ -74,7 +74,7 @@ class Figure extends BuddhistEntity {
     }
   }
 
-  render(contentContainer) {
+  render(contentContainer, monasteryFigureObject = null) {
     const div = document.createElement("div");
     const link = document.createElement("a");
     super.render(contentContainer, div, link);
@@ -84,11 +84,14 @@ class Figure extends BuddhistEntity {
     const lifespan = div.querySelector("p");
     lifespan.textContent =
       "Lifespan: " + this.birth_date + "-" + this.death_date;
+    const card = div.querySelector("div.card");
+    if (monasteryFigureObject) {
+      this.renderMonasteryFigure(card, monasteryFigureObject);
+    }
   }
   renderFigure(contentContainer) {
     contentContainer.textContent = "";
     contentContainer.classList.remove("row");
-
     this.render(contentContainer);
     const card = contentContainer.querySelector("div div");
     const column = contentContainer.querySelector("div");
@@ -124,6 +127,19 @@ class Figure extends BuddhistEntity {
       );
       monasteryObject.render(contentContainer, monasteryFigureObject);
     }
+  }
+
+  renderMonasteryFigure(contentContainer, monasteryFigure) {
+    let role = document.createElement("p");
+    role.textContent = "Role played at monastery: " + monasteryFigure.role;
+    contentContainer.appendChild(role);
+    let story = document.createElement("p");
+    story.textContent = monasteryFigure.story;
+    contentContainer.appendChild(story);
+    let associated_teaching = document.createElement("p");
+    associated_teaching.textContent =
+      "Associated teachings: " + monasteryFigure.associated_teaching;
+    contentContainer.appendChild(associated_teaching);
   }
 
   static renderForm() {
@@ -278,7 +294,6 @@ class Figure extends BuddhistEntity {
       monasteryIds
     );
   }
-
   renderAssociatedForm(e, contentContainer) {
     contentContainer.textContent = "";
     contentContainer.classList.remove("row");

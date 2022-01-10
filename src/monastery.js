@@ -1,5 +1,13 @@
 class Monastery extends BuddhistEntity {
-  constructor(id, name, location, religious_tradition, figures, image_url) {
+  constructor(
+    id,
+    name,
+    location,
+    religious_tradition,
+    figures,
+    image_url,
+    monastery_figures
+  ) {
     super(id, name, religious_tradition, image_url);
     this.location = location;
     if (figures) {
@@ -8,7 +16,14 @@ class Monastery extends BuddhistEntity {
         const figureName = figure["name"];
         this.figures.push(figureName);
       }
+      if (monastery_figures) {
+        this.monastery_figures = [];
+        for (const monastery_figure of monastery_figures) {
+          this.monastery_figures.push(monastery_figure);
+        }
+      }
     }
+
     Monastery.allInstances.push(this);
   }
 
@@ -34,7 +49,8 @@ class Monastery extends BuddhistEntity {
         data[key]["attributes"]["location"],
         data[key]["attributes"]["religious_tradition"],
         data[key]["attributes"]["figures"],
-        data[key]["attributes"]["image_url"]
+        data[key]["attributes"]["image_url"],
+        data[key]["attributes"]["monastery_figures"]
       );
     }
   }
@@ -93,6 +109,9 @@ class Monastery extends BuddhistEntity {
     contentContainer.textContent = "";
     contentContainer.classList.remove("row");
     this.render(contentContainer);
+    const card = contentContainer.querySelector("div div");
+    const column = contentContainer.querySelector("div");
+    column.classList.remove("col-md-4");
     let deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete monastery";
     contentContainer.appendChild(deleteButton);
@@ -105,12 +124,21 @@ class Monastery extends BuddhistEntity {
     editButton.addEventListener("click", (e) =>
       this.renderEditForm(e, contentContainer, this)
     );
+    let editAssociatedButton = document.createElement("button");
+    editAssociatedButton.textContent = "Edit relationships"; // How do I want to change this language
+    contentContainer.appendChild(editAssociatedButton);
+    editAssociatedButton.addEventListener("click", (e) =>
+      this.renderAssociatedForm(e, contentContainer, this)
+    );
     let figures = document.createElement("h3");
     figures.textContent = "Associated Figures";
     contentContainer.appendChild(figures);
     for (const figure of this.figures) {
       const figureObject = Figure.find(figure);
-      figureObject.render(contentContainer);
+      const monasteryFigureObject = this.monastery_figures.find(
+        ({ monastery_id }) => monastery_id === figureObject.id
+      );
+      figureObject.render(contentContainer, monasteryFigureObject);
     }
   }
 
@@ -248,6 +276,59 @@ class Monastery extends BuddhistEntity {
       figureIds
     );
   }
+  renderAssociatedForm(e, contentContainer) {
+    contentContainer.textContent = "";
+    contentContainer.classList.remove("row");
+    const monasteryFigures = this.monastery_figures;
+    const h2 = document.createElement("h2");
+    h2.textContent = `Edit ${this.name} monastery's relationships with figures`;
+    contentContainer.appendChild(h2);
+    monasteryFigures.forEach((monasteryFigure, index) => {
+      const form = document.createElement("form");
+      const fieldset = document.createElement("fieldset");
+      contentContainer.appendChild(form);
+      this.createAssociatedInputs(form, fieldset, monasteryFigure, index);
+      fieldset.classList.add("d-flex", "flex-column", "align-items-left");
+      BuddhistEntity.createSubmit(form, "figure", "Edit");
+      form.addEventListener("submit", (e) =>
+        this.createAssociatedFormHandler(e, monasteryFigure, index, this)
+      );
+    });
+  }
+
+  createAssociatedInputs(form, fieldset, monasteryFigure, index) {
+    form.appendChild(fieldset);
+    const h3 = document.createElement("h3");
+    const figure = Figure.allInstances.find(
+      (figure) => figure.id === monasteryFigure.figure_id
+    );
+    h3.textContent = figure.name;
+    fieldset.appendChild(h3);
+    //create input element takes in id, type, name, value, placeholder
+    //id should be unique to the monastery-figure; value should be what's already ther
+    const inputRole = BuddhistEntity.createInputElement(
+      `input-role-${index}`,
+      "text",
+      "role",
+      monasteryFigure.role,
+      "What role did this figure play at this monastery?"
+    );
+    fieldset.appendChild(inputRole);
+    const inputStory = document.createElement("textarea");
+    fieldset.appendChild(inputStory);
+    inputStory.id = `input-story-${index}`;
+    inputStory.name = "story";
+    inputStory.value = monasteryFigure.story;
+    inputStory.placeholder = "Describe the figure's sojourn at this monastery";
+    const inputTeachings = BuddhistEntity.createInputElement(
+      `input-teachings-${index}`,
+      "text",
+      "teachings",
+      monasteryFigure.associated_teaching,
+      "What teaching are associated with this figure at this monastery?"
+    );
+    fieldset.appendChild(inputTeachings);
+  }
   static uploadImage(imageInput, id) {
     const formData = new FormData();
     formData.append("image", imageInput);
@@ -255,6 +336,23 @@ class Monastery extends BuddhistEntity {
       method: "PATCH",
       body: formData,
     });
+  }
+
+  createAssociatedFormHandler(e, monasteryFigure, index) {
+    e.preventDefault();
+    const roleInput = document.querySelector(`#input-role-${index}`).value;
+    const storyInput = document.querySelector(`#input-story-${index}`).value;
+    const teachingsInput = document.querySelector(
+      `#input-teachings-${index}`
+    ).value;
+    //how do I get the monasteryID?
+    const monasteryFigureId = monasteryFigure.id;
+    this.patchMonasteryFigure(
+      roleInput,
+      storyInput,
+      teachingsInput,
+      monasteryFigureId
+    );
   }
   static postMonasteries(
     nameInput,
@@ -312,6 +410,26 @@ class Monastery extends BuddhistEntity {
       .then(() => {
         Monastery.fetchAndRenderMonasteries();
       });
+  }
+
+  patchMonasteryFigure(
+    roleInput,
+    storyInput,
+    teachingsInput,
+    monasteryFigureId
+  ) {
+    let bodyData = {
+      role: roleInput,
+      story: storyInput,
+      associated_teaching: teachingsInput,
+    };
+    fetch(`${MONASTERY_FIGURES_URL}/${monasteryFigureId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(bodyData),
+    }).then(() => {
+      Figure.fetchAndRenderFigures();
+    });
   }
 
   static createFromJson(data) {
