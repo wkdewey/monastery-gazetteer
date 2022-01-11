@@ -1,5 +1,5 @@
-// const BACKEND_URL = "https://young-forest-03120.herokuapp.com";
-const BACKEND_URL = "http://localhost:3000";
+const BACKEND_URL = "https://young-forest-03120.herokuapp.com";
+// const BACKEND_URL = "http://localhost:3000";
 const MONASTERIES_URL = `${BACKEND_URL}/api/v1/monasteries`;
 const FIGURES_URL = `${BACKEND_URL}/api/v1/figures`;
 const MONASTERY_FIGURES_URL = `${BACKEND_URL}/api/v1/monastery_figures`;
