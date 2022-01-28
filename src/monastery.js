@@ -136,7 +136,7 @@ class Monastery extends BuddhistEntity {
     for (const figure of this.figures) {
       const figureObject = Figure.find(figure);
       const monasteryFigureObject = this.monastery_figures.find(
-        ({ monastery_id }) => monastery_id === figureObject.id
+        ({ figure_id }) => figure_id === figureObject.id
       );
       figureObject.render(contentContainer, monasteryFigureObject);
     }
