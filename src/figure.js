@@ -299,7 +299,7 @@ class Figure extends BuddhistEntity {
     contentContainer.classList.remove("row");
     const monasteryFigures = this.monastery_figures;
     const h2 = document.createElement("h2");
-    h2.textContent = `Edit figure's relationships with monasteries`;
+    h2.textContent = `Edit ${this.name}'s relationships with monasteries:`;
     contentContainer.appendChild(h2);
     monasteryFigures.forEach((monasteryFigure, index) => {
       const form = document.createElement("form");
